@@ -1,0 +1,2 @@
+Mobile 버전 	Main Camera Size 1.15
+PC 버전		Main Camera Size 1.42

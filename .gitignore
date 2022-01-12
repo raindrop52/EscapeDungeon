@@ -1,0 +1,9 @@
+Library
+Logs
+obj
+Temp
+vs
+
+*.sln
+*.csproj
+.vs/My project/v16/.suo
