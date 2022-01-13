@@ -28,6 +28,7 @@ namespace EscapeGame
         Animator _anim;
 
         [SerializeField] Joystick _joystick;
+        [SerializeField] float _x, _y;
 
         protected override void Start()
         {
@@ -50,9 +51,31 @@ namespace EscapeGame
         {
             float x = _joystick.Horizontal;
             float y = _joystick.Vertical;
+            float absX, absY;
 
-            // 상하 이동
-            if (y != 0)
+            _x = x;
+            _y = y;
+
+            absX = Mathf.Abs(x);
+            absY = Mathf.Abs(y);
+
+            // 가로 이동
+            if(absX > absY)
+            {
+                // 이전에 좌우 이동을 안 했을 경우
+                if (_characterDir[(int)CHAR_DIR.SIDE] == false)
+                {
+                    // 애니메이션 상태 변경
+                    ChangeAvatarDir(CHAR_DIR.SIDE);
+                }
+
+                if (x > 0)
+                    _sprite.flipX = false;
+                else
+                    _sprite.flipX = true;
+            }
+            // 세로 이동
+            else if(absX < absY)
             {
                 if (y > 0)
                 {
@@ -65,25 +88,10 @@ namespace EscapeGame
                     ChangeAvatarDir(CHAR_DIR.FRONT);
                 }
             }
-            // 좌우 이동
-            else if (x != 0)
-            {
-                // 이전에 좌우 이동을 안 했을 경우
-                if(_characterDir[(int)CHAR_DIR.SIDE] == false)
-                {
-                    // 애니메이션 상태 변경
-                    ChangeAvatarDir(CHAR_DIR.SIDE);
-                }
-
-                if (x > 0)
-                    _sprite.flipX = false;
-                else
-                    _sprite.flipX = true;
-            }
 
             Vector2 dir = new Vector2(x, y);
 
-            float val = Mathf.Abs(x) + Mathf.Abs(y);
+            float val = absX + absY;
 
             ChangeAnim(CHAR_STATE.WALK, val);
 
