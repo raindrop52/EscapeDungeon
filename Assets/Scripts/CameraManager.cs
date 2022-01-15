@@ -25,5 +25,12 @@ namespace EscapeGame
         {
 
         }
+
+        public void MoveCam(float x, float y)
+        {
+            Vector3 pos = new Vector3(transform.position.x + x, transform.position.y + y, transform.position.z);
+            
+            transform.position = pos;
+        }
     }
 }
