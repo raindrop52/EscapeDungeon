@@ -4,6 +4,15 @@ using UnityEngine;
 
 namespace EscapeGame
 {
+    public enum EVENT_NAME
+    {
+        NOEVENT,
+        TREASURE,
+        TRAP,
+        ENEMY_MEET,
+        COUNT
+    }
+
     public class GameManager : MonoBehaviour
     {
         public static GameManager _inst;
@@ -47,7 +56,10 @@ namespace EscapeGame
             int dir = portal.GoPortal(out x, out y);
             // 이동 위치 오브젝트 배치
             BatchObject(x, y, dir);
+            // 상황 조성
+
             // 화면 공개
+
 
             yield return null;
         }
@@ -58,15 +70,23 @@ namespace EscapeGame
             Vector3 movePos = _moveObject.transform.position;
             _moveObject.transform.position = new Vector3(movePos.x + x, movePos.y + y, movePos.z);
 
-            // Player 오브젝트 좌표 이동
+            // 플레이어 오브젝트 좌표 이동
             Vector3 playerPos = _playerObject.transform.position;
             _playerObject.transform.position = new Vector3(playerPos.x + x, playerPos.y + y, playerPos.z);
 
             Player player = _playerObject.transform.GetChild(0).GetComponent<Player>();
             if(player != null)
             {
+                // 플레이어 위치를 화살표 방향으로 이동
                 player.ChangePlayerPos(_arrowList[dir].transform.position);
             }
+        }
+
+        void OccurEvent()
+        {
+            int randEvent = Random.Range(0, (int)EVENT_NAME.COUNT);
+
+
         }
     }
 }
