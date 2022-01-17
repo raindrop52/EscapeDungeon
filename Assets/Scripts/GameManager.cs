@@ -13,7 +13,7 @@ namespace EscapeGame
         COUNT
     }
 
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviour, IRandom
     {
         public static GameManager _inst;
 
@@ -110,7 +110,7 @@ namespace EscapeGame
         }
 
         // per는 백분율 단위로
-        bool CheckRandomEvent(int num, int per)
+        public bool CheckRandomEvent(int num, int per)
         {
             int maxNum = (int)EVENT_NAME.COUNT * 10;
             int rangeNum = (int)(maxNum * per / 100.0f);
@@ -124,7 +124,7 @@ namespace EscapeGame
         }
 
         // 지정한 범위의 Per 내에 값이 존재할 경우 true
-        bool CheckRandomEvent(int num, int minPer, int maxPer)
+        public bool CheckRandomEvent(int num, int minPer, int maxPer)
         {
             int maxNum = (int)EVENT_NAME.COUNT * 10;
             int rangeMin = (int)(maxNum * minPer / 100.0f);
