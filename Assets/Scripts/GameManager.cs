@@ -84,9 +84,58 @@ namespace EscapeGame
 
         void OccurEvent()
         {
-            int randEvent = Random.Range(0, (int)EVENT_NAME.COUNT);
+            int randNum = Random.Range(0, (int)EVENT_NAME.COUNT*10);
 
+            // No Event 30% - 회복, 아이템 정비
+            if(CheckRandomEvent(randNum, 0, 30))
+            {
+                
+            }
+            // 보물 발견 25%
+            else if (CheckRandomEvent(randNum, 30, 55))
+            {
 
+            }
+            // 함정 출현 25%
+            else if (CheckRandomEvent(randNum, 55, 80))
+            {
+
+            }
+            // 적 조우 20%
+            else if (CheckRandomEvent(randNum, 80, 100))
+            {
+
+            }
+
+        }
+
+        // per는 백분율 단위로
+        bool CheckRandomEvent(int num, int per)
+        {
+            int maxNum = (int)EVENT_NAME.COUNT * 10;
+            int rangeNum = (int)(maxNum * per / 100.0f);
+
+            if(num < rangeNum)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        // 지정한 범위의 Per 내에 값이 존재할 경우 true
+        bool CheckRandomEvent(int num, int minPer, int maxPer)
+        {
+            int maxNum = (int)EVENT_NAME.COUNT * 10;
+            int rangeMin = (int)(maxNum * minPer / 100.0f);
+            int rangeMax = (int)(maxNum * maxPer / 100.0f);
+
+            if(rangeMin <= num && num < rangeMax)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
