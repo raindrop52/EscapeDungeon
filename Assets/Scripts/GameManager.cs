@@ -21,9 +21,12 @@ namespace EscapeGame
         [SerializeField] GameObject _moveObject;
         [SerializeField] GameObject _playerObject;
 
-        [Header("맵 배치 시 숨길 리스트")]
+        [Header("맵 배치 시 변경 오브젝트")]
         public List<GameObject> _doorList;
         public List<GameObject> _arrowList;
+
+        [Header("맵 전환 템플릿")]
+        [SerializeField] SpriteRenderer _loadingPanel;
 
         void Awake()
         {
@@ -51,17 +54,55 @@ namespace EscapeGame
             // 이동 수치
             float x, y;
             // 화면을 가림
-
+            ShowLoading(true);
+            yield return new WaitForSeconds(1.0f);
             // 카메라 이동 및 포탈의 방향성 체크
             int dir = portal.GoPortal(out x, out y);
             // 이동 위치 오브젝트 배치
             BatchObject(x, y, dir);
             // 상황 조성
-
+            OccurEvent();
             // 화면 공개
-
+            yield return new WaitForSeconds(1.0f);
+            ShowLoading(false);
 
             yield return null;
+        }
+
+        void ShowLoading(bool show)
+        {
+            if(show)
+            {
+                StartCoroutine(_FadeOut(0.5f));
+            }
+            else
+            {
+                StartCoroutine(_FadeIn(1.0f));
+            }
+        }
+
+        IEnumerator _FadeIn(float time)
+        {
+            Color color = _loadingPanel.color;
+
+            while(color.a > 0f)
+            {
+                color.a -= Time.deltaTime / time;
+                _loadingPanel.color = color;
+                yield return null;
+            }
+        }
+
+        IEnumerator _FadeOut(float time)
+        {
+            Color color = _loadingPanel.color;
+
+            while (color.a <= 1.0f)
+            {
+                color.a += Time.deltaTime / time;
+                _loadingPanel.color = color;
+                yield return null;
+            }
         }
 
         void BatchObject(float x, float y, int dir)
@@ -86,7 +127,7 @@ namespace EscapeGame
         {
             int randNum = Random.Range(0, (int)EVENT_NAME.COUNT*10);
 
-            // No Event 30% - 회복, 아이템 정비
+            // No Event 30% - (회복, 아이템 정비) / (탈출구)
             if(CheckRandomEvent(randNum, 0, 30))
             {
                 
@@ -106,7 +147,6 @@ namespace EscapeGame
             {
 
             }
-
         }
 
         // per는 백분율 단위로
