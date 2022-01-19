@@ -42,31 +42,28 @@ namespace EscapeGame
                 case PORTAL_DIR.LEFT:
                     {
                         moveX = CameraMoveX * -1;
-                        direction = (int)PORTAL_DIR.RIGHT;
                         break;
                     }
                 case PORTAL_DIR.RIGHT:
                     {
                         moveX = CameraMoveX;
-                        direction = (int)PORTAL_DIR.LEFT;
                         break;
                     }
                 case PORTAL_DIR.UP:
                     {
                         moveY = CameraMoveY;
-                        direction = (int)PORTAL_DIR.DOWN;
                         break;
                     }
                 case PORTAL_DIR.DOWN:
                     {
                         moveY = CameraMoveY * -1;
-                        direction = (int)PORTAL_DIR.UP;
                         break;
                     }
                 default: break;
             }
 
             x = moveX; y = moveY;
+            direction = (int)_portalDir;
 
             CameraManager._inst.MoveCam(moveX, moveY);
 

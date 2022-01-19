@@ -25,6 +25,7 @@ namespace EscapeGame
         SpriteRenderer _sprite;
         Animator _anim;
 
+        public PlayerLight _light;
         public float _speed;
         public Transform _playerPosition;        // 플레이어 시작 위치
 
@@ -41,6 +42,7 @@ namespace EscapeGame
 
             _sprite = GetComponent<SpriteRenderer>();
             _anim = GetComponent<Animator>();
+            _light = GetComponentInChildren<PlayerLight>();
 
             _characterDir[(int)CHAR_DIR.FRONT] = true;
         }
@@ -176,7 +178,10 @@ namespace EscapeGame
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.tag == "Portal")
+            bool onMoving = GameManager._inst.Moving;
+
+            // 포탈 충돌체에 부딛히고, 이동상태가 아닌 경우
+            if (collision.tag == "Portal" && onMoving == false)
             {
                 Debug.Log(collision.name + " 포탈 부딪힘");
 

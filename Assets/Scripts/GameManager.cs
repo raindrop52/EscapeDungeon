@@ -23,10 +23,19 @@ namespace EscapeGame
 
         [Header("맵 배치 시 변경 오브젝트")]
         public List<GameObject> _doorList;
-        public List<GameObject> _arrowList;
+        public List<GameObject> _portalMovePosList;
 
         [Header("맵 전환 템플릿")]
         [SerializeField] SpriteRenderer _loadingPanel;
+
+        bool move = false;
+        public bool Moving
+        {
+            get { return move; }
+            set { move = value; }
+        }
+
+        Vector2 _camToObj = Vector2.zero;
 
         void Awake()
         {
@@ -35,7 +44,8 @@ namespace EscapeGame
 
         void Start()
         {
-            
+            Vector2 camPos = Camera.main.transform.position;
+            _camToObj = new Vector2(camPos.x, camPos.y);
         }
 
 
@@ -46,24 +56,53 @@ namespace EscapeGame
 
         public void StartMoveObject(Portal portal)
         {
-            StartCoroutine(MoveMapObject(portal));
+            StartCoroutine(MoveStart(portal));
+        }
+
+        IEnumerator MoveStart(Portal portal)
+        {
+            if (move == false)
+            {
+                move = true;
+
+                // 화면을 가림
+                ShowLoading(true);
+
+                StartCoroutine(MoveMapObject(portal));
+
+                yield return null;
+            }
+            else
+            {
+                Debug.Log("이동 불가");
+                yield return null;
+            }
         }
 
         IEnumerator MoveMapObject(Portal portal)
         {
             // 이동 수치
             float x, y;
-            // 화면을 가림
-            ShowLoading(true);
             yield return new WaitForSeconds(1.0f);
+            
             // 카메라 이동 및 포탈의 방향성 체크
             int dir = portal.GoPortal(out x, out y);
+            
             // 이동 위치 오브젝트 배치
             BatchObject(x, y, dir);
+            
             // 상황 조성
             OccurEvent();
-            // 화면 공개
             yield return new WaitForSeconds(1.0f);
+
+            // 화면 공개
+            StartCoroutine(MoveEnd());
+        }
+
+        IEnumerator MoveEnd()
+        {
+            move = false;
+
             ShowLoading(false);
 
             yield return null;
@@ -108,18 +147,26 @@ namespace EscapeGame
         void BatchObject(float x, float y, int dir)
         {
             // Move 오브젝트 좌표 이동
-            Vector3 movePos = _moveObject.transform.position;
-            _moveObject.transform.position = new Vector3(movePos.x + x, movePos.y + y, movePos.z);
+            Vector3 movePos = _moveObject.transform.localPosition;
+            _moveObject.transform.localPosition = new Vector3(movePos.x + x, movePos.y + y, movePos.z);
 
             // 플레이어 오브젝트 좌표 이동
-            Vector3 playerPos = _playerObject.transform.position;
-            _playerObject.transform.position = new Vector3(playerPos.x + x, playerPos.y + y, playerPos.z);
+            Vector3 playerPos = _playerObject.transform.localPosition;
+            _playerObject.transform.localPosition = new Vector3(playerPos.x + x, playerPos.y + y, playerPos.z);
+
+            //// Move 오브젝트 좌표 이동
+            //Vector3 movePos = _moveObject.transform.position;
+            //_moveObject.transform.position = new Vector3(movePos.x + x, movePos.y + y, movePos.z);
+
+            //// 플레이어 오브젝트 좌표 이동
+            //Vector3 playerPos = _playerObject.transform.position;
+            //_playerObject.transform.position = new Vector3(playerPos.x + x, playerPos.y + y, playerPos.z);
 
             Player player = _playerObject.transform.GetChild(0).GetComponent<Player>();
             if(player != null)
             {
                 // 플레이어 위치를 화살표 방향으로 이동
-                player.ChangePlayerPos(_arrowList[dir].transform.position);
+                player.ChangePlayerPos(_portalMovePosList[dir].transform.position);
             }
         }
 
