@@ -6,7 +6,9 @@ namespace EscapeGame
 {
     public class Player_Control : Unit
     {
-        SpriteRenderer _sprite;
+        // 충돌 검사
+        BoxCollider2D _boxCol;
+        public LayerMask _layerMask;    // 통과 불가 오브젝트 설정
         Animator _anim;
 
         Vector3 vector;
@@ -18,7 +20,6 @@ namespace EscapeGame
         [Header("캐릭터 대쉬 관련")]
         public int _dashCount;
         [SerializeField] int _currentDashCount;
-        public float _dashSpeed;
         public bool _canDash = true;
         [Header("캐릭터 공격 관련")]
         public bool _canAttack = true;
@@ -27,11 +28,11 @@ namespace EscapeGame
         public PlayerLight _light;
         public Transform _playerPosition;        // 플레이어 시작 위치
 
-        [SerializeField] CHAR_DIR _nowDir;      // 플레이어 방향 체크 용
-
+        [Header("조이스틱")]
         [SerializeField] float _x, _y;          // 조이스틱 값 체크
         [SerializeField] Joystick _joystick;
-        [SerializeField] LayerMask _layerMask;
+        bool _joystickDashOn = false;           // 조이스틱 대쉬 체크
+        bool _joystickAttackOn = false;           // 조이스틱 어택 체크
 
         IEnumerator _OnMove()
         {
@@ -44,6 +45,20 @@ namespace EscapeGame
 
                 _anim.SetFloat("DirX", vector.x);
                 _anim.SetFloat("DirY", vector.y);
+
+                RaycastHit2D hit;
+                Vector2 start = transform.position;  // 캐릭터의 위치
+                Vector2 end = start + new Vector2(vector.x * _speed * _walkCount, vector.y * _speed * _walkCount);    // 캐릭터가 이동하고자 하는 위치
+
+                _boxCol.enabled = false;
+                hit = Physics2D.Linecast(start, end, _layerMask);
+                _boxCol.enabled = true;
+
+                if(hit.transform != null)
+                {
+                    break;
+                }
+
                 _anim.SetBool("Walking", true);
 
                 while (_currentWalkCount < _walkCount)
@@ -69,10 +84,9 @@ namespace EscapeGame
             _canMove = true;
         }
 
+        // 애니메이션 스크립트
         IEnumerator _OnDash()
         {
-            _anim.SetTrigger("Dash");
-
             while (_currentDashCount < _dashCount)
             {
                 if (vector.x != 0)
@@ -85,7 +99,6 @@ namespace EscapeGame
                 }
 
                 _currentDashCount++;
-                Debug.Log("대쉬 중 " + _currentDashCount);
                 yield return new WaitForSeconds(0.01f);
             }
 
@@ -93,12 +106,20 @@ namespace EscapeGame
 
             yield return new WaitForSeconds(1.0f);
 
+            if(_joystick != null)
+            {
+                if (_joystickDashOn == true)
+                    _joystickDashOn = false;
+            }    
             _canDash = true;
         }    
 
         IEnumerator _OnAttack()
         {
             _anim.SetTrigger("Attacking");
+
+            if (_joystickAttackOn)
+                _joystickAttackOn = false;
 
             _canAttack = true;
 
@@ -109,7 +130,7 @@ namespace EscapeGame
         {
             base.Start();
 
-            _sprite = GetComponent<SpriteRenderer>();
+            _boxCol = GetComponent<BoxCollider2D>();
             _anim = GetComponent<Animator>();
             _light = GetComponentInChildren<PlayerLight>();
         }
@@ -123,7 +144,7 @@ namespace EscapeGame
                 if(GetDashButton())
                 {
                     _canDash = false;
-                    StartCoroutine(_OnDash());
+                    _anim.SetTrigger("Dash");
                 }
             }
             
@@ -175,12 +196,15 @@ namespace EscapeGame
             if (_joystick != null)
             {
                 // 버튼 클릭 시 대쉬
+                result = _joystickDashOn;
             }
             else
             {
                 // 스페이스바 눌릴 시 대쉬
                 if (Input.GetKeyDown(KeyCode.Space) == true)
+                {
                     result = true;
+                }
             }
 
             return result;
@@ -196,6 +220,7 @@ namespace EscapeGame
             if (_joystick != null)
             {
                 // 버튼 클릭 시 공격
+                result = _joystickAttackOn;
             }
             else
             {
@@ -208,6 +233,19 @@ namespace EscapeGame
             return result;
         }
 
+        public void OnDashButton()
+        {
+            if (!_joystickDashOn)
+                _joystickDashOn = true;
+        }
+
+        public void OnAttackButton()
+        {
+            if (!_joystickAttackOn)
+                _joystickAttackOn = true;
+        }
+
+        // 캐릭터 이동 시 위치 변경
         public void ChangePlayerPos(Vector2 pos)
         {
             transform.position = pos;
@@ -215,19 +253,9 @@ namespace EscapeGame
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            bool onMoving = GameManager._inst.Moving;
-
-            // 포탈 충돌체에 부딛히고, 이동상태가 아닌 경우
-            if (collision.tag == "Portal" && onMoving == false)
+            if(collision.tag == "Attack")
             {
-                Debug.Log(collision.name + " 포탈 부딪힘");
 
-                // 포탈 스크립트 가져옴
-                Portal portalCol = collision.GetComponent<Portal>();
-                if (portalCol != null)
-                {
-                    GameManager._inst.StartMoveObject(portalCol);
-                }
             }
         }
     }
