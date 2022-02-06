@@ -9,6 +9,7 @@ namespace EscapeGame
         // 충돌 검사
         BoxCollider2D _boxCol;
         public LayerMask _layerMask;    // 통과 불가 오브젝트 설정
+        SpriteRenderer _sprite;
         Animator _anim;
 
         Vector3 vector;
@@ -23,6 +24,9 @@ namespace EscapeGame
         public bool _canDash = true;
         [Header("캐릭터 공격 관련")]
         public bool _canAttack = true;
+        [Header("캐릭터 피격 관련")]
+        bool _hit = false;
+        float _hitCoolTime = 1.0f;
 
         [Header("기타")]
         public PlayerLight _light;
@@ -45,6 +49,11 @@ namespace EscapeGame
 
                 _anim.SetFloat("DirX", vector.x);
                 _anim.SetFloat("DirY", vector.y);
+
+                if (vector.x < 0)
+                    _sprite.flipX = true;
+                else
+                    _sprite.flipX = false;
 
                 RaycastHit2D hit;
                 Vector2 start = transform.position;  // 캐릭터의 위치
@@ -130,6 +139,7 @@ namespace EscapeGame
         {
             base.Start();
 
+            _sprite = GetComponent<SpriteRenderer>();
             _boxCol = GetComponent<BoxCollider2D>();
             _anim = GetComponent<Animator>();
             _light = GetComponentInChildren<PlayerLight>();
@@ -255,8 +265,21 @@ namespace EscapeGame
         {
             if(collision.tag == "Attack")
             {
-
+                if(!_hit)
+                {
+                    _hit = true;
+                    StartCoroutine(_HitEffect());
+                }
             }
+        }
+
+        IEnumerator _HitEffect()
+        {
+            _anim.SetTrigger("Hit");
+
+            yield return new WaitForSeconds(_hitCoolTime);
+
+            _hit = false;
         }
     }
 }
