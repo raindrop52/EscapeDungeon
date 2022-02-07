@@ -26,7 +26,7 @@ namespace EscapeGame
 
         [Header("스테이지")]
         public STAGE_LV _stageLevel;        // 현재 스테이지 레벨
-        [SerializeField] ROOM _room;                         // 현재 진입한 방
+        [SerializeField] ROOM _room;        // 현재 진입한 방
         public ROOM Room
         {
             get { return _room; }

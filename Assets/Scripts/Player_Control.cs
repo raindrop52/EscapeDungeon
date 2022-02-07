@@ -22,6 +22,7 @@ namespace EscapeGame
         public int _dashCount;
         [SerializeField] int _currentDashCount;
         public bool _canDash = true;
+        public bool _dashDodge = false;
         [Header("캐릭터 공격 관련")]
         public bool _canAttack = true;
         [Header("캐릭터 피격 관련")]
@@ -96,6 +97,9 @@ namespace EscapeGame
         // 애니메이션 스크립트
         IEnumerator _OnDash()
         {
+            // 대쉬 시작 전 무적 설정
+            _dashDodge = true;
+
             while (_currentDashCount < _dashCount)
             {
                 if (vector.x != 0)
@@ -111,6 +115,8 @@ namespace EscapeGame
                 yield return new WaitForSeconds(0.01f);
             }
 
+            // 이동이 완료된 후 무적 회피 해제
+            _dashDodge = false;
             _currentDashCount = 0;
 
             yield return new WaitForSeconds(1.0f);
@@ -265,7 +271,12 @@ namespace EscapeGame
         {
             if(collision.tag == "Attack")
             {
-                if(!_hit)
+                if (_dashDodge)
+                {
+                    return;
+                }
+
+                if (!_hit)
                 {
                     _hit = true;
                     StartCoroutine(_HitEffect());
@@ -275,6 +286,7 @@ namespace EscapeGame
 
         IEnumerator _HitEffect()
         {
+
             _anim.SetTrigger("Hit");
 
             yield return new WaitForSeconds(_hitCoolTime);
