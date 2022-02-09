@@ -12,8 +12,6 @@ namespace EscapeGame
         void Start()
         {
             _light = GetComponent<Light2D>();
-
-            _light.pointLightOuterRadius = 0.6f;
         }
 
         public float GetLightOuterRadius()
