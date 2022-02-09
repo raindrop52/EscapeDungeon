@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-namespace EscapeGame
+namespace Tutorial
 {
     public class Player_User_Control : MonoBehaviour
     {
         Rigidbody2D _rigid;
         Animator _anim;
         SpriteRenderer _render;
+        Player _player;
         [SerializeField] float _speedMultiplier = 1.0f;
 
         void Start()
@@ -17,6 +18,7 @@ namespace EscapeGame
             _rigid = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
             _render = GetComponent<SpriteRenderer>();
+            _player = GetComponent<Player>();
         }
 
         void Update()
@@ -29,16 +31,41 @@ namespace EscapeGame
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             float v = CrossPlatformInputManager.GetAxis("Vertical");
 
+            Flip(h);
+
             Move(h, v);
+        }
+
+        void Flip(float h)
+        {
+            if (h < 0f && _render.flipX == false)
+            {
+                // 캐릭터 플립 처리
+                _render.flipX = true;
+                // 이펙트 플립 처리
+                if(_player._ps_normal != null)
+                {
+                    Vector3 scale = _player._ps_normal.transform.localScale;
+                    scale.x *= -1;
+                    _player._ps_normal.transform.localScale = scale;
+                }
+            }
+            else if (h > 0f && _render.flipX == true)
+            {
+                // 캐릭터 플립 처리
+                _render.flipX = false;
+                // 이펙트 플립 처리
+                if (_player._ps_normal != null)
+                {
+                    Vector3 scale = _player._ps_normal.transform.localScale;
+                    scale.x *= -1;
+                    _player._ps_normal.transform.localScale = scale;
+                }
+            }
         }
 
         void Move(float h, float v)
         {
-            if (h < 0)
-                _render.flipX = true;
-            else if (h > 0)
-                _render.flipX = false;
-
             if (h != 0f || v != 0f)
                 _anim.SetFloat("Speed", 1.0f);
             else
