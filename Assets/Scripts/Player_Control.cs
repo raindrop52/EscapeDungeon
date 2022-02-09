@@ -22,12 +22,8 @@ namespace EscapeGame
         public int _dashCount;
         [SerializeField] int _currentDashCount;
         public bool _canDash = true;
-        public bool _dashDodge = false;
         [Header("캐릭터 공격 관련")]
         public bool _canAttack = true;
-        [Header("캐릭터 피격 관련")]
-        bool _hit = false;
-        float _hitCoolTime = 1.0f;
 
         [Header("기타")]
         public PlayerLight _light;
@@ -39,10 +35,17 @@ namespace EscapeGame
         bool _joystickDashOn = false;           // 조이스틱 대쉬 체크
         bool _joystickAttackOn = false;           // 조이스틱 어택 체크
 
+        Player _player;
+
         IEnumerator _OnMove()
         {
             while (GetAxis())
             {
+                if (GameManager._inst.MapMoving == true)
+                {
+                    break;
+                }
+
                 vector.Set(_x, _y, transform.position.z);
 
                 if (vector.x != 0)
@@ -98,7 +101,7 @@ namespace EscapeGame
         IEnumerator _OnDash()
         {
             // 대쉬 시작 전 무적 설정
-            _dashDodge = true;
+            _player._dashDodge = true;
 
             while (_currentDashCount < _dashCount)
             {
@@ -116,7 +119,7 @@ namespace EscapeGame
             }
 
             // 이동이 완료된 후 무적 회피 해제
-            _dashDodge = false;
+            _player._dashDodge = false;
             _currentDashCount = 0;
 
             yield return new WaitForSeconds(1.0f);
@@ -125,7 +128,8 @@ namespace EscapeGame
             {
                 if (_joystickDashOn == true)
                     _joystickDashOn = false;
-            }    
+            }
+
             _canDash = true;
         }    
 
@@ -149,37 +153,41 @@ namespace EscapeGame
             _boxCol = GetComponent<BoxCollider2D>();
             _anim = GetComponent<Animator>();
             _light = GetComponentInChildren<PlayerLight>();
+            _player = GetComponent<Player>();
         }
 
         protected override void Update()
         {
             base.Update();
 
-            if(_canDash)
+            if (GameManager._inst.MapMoving == false)
             {
-                if(GetDashButton())
+                if (_canDash)
                 {
-                    _canDash = false;
-                    _anim.SetTrigger("Dash");
+                    if (GetDashButton())
+                    {
+                        _canDash = false;
+                        _anim.SetTrigger("Dash");
+                    }
                 }
-            }
-            
-            // 이동 가능 상태
-            if (_canMove)
-            {
-                if (GetAxis())
-                {
-                    _canMove = false;
-                    StartCoroutine(_OnMove());
-                }
-            }
 
-            if(_canAttack)
-            {
-                if(GetAttackButton())
+                // 이동 가능 상태
+                if (_canMove)
                 {
-                    _canAttack = false;
-                    StartCoroutine(_OnAttack());
+                    if (GetAxis())
+                    {
+                        _canMove = false;
+                        StartCoroutine(_OnMove());
+                    }
+                }
+
+                if (_canAttack)
+                {
+                    if (GetAttackButton())
+                    {
+                        _canAttack = false;
+                        StartCoroutine(_OnAttack());
+                    }
                 }
             }
         }
@@ -226,9 +234,6 @@ namespace EscapeGame
             return result;
         }
 
-        float time;
-        float eltime = 0.3f;
-
         bool GetAttackButton()
         {
             bool result = false;
@@ -259,39 +264,6 @@ namespace EscapeGame
         {
             if (!_joystickAttackOn)
                 _joystickAttackOn = true;
-        }
-
-        // 캐릭터 이동 시 위치 변경
-        public void ChangePlayerPos(Vector2 pos)
-        {
-            transform.position = pos;
-        }
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if(collision.tag == "Attack")
-            {
-                if (_dashDodge)
-                {
-                    return;
-                }
-
-                if (!_hit)
-                {
-                    _hit = true;
-                    StartCoroutine(_HitEffect());
-                }
-            }
-        }
-
-        IEnumerator _HitEffect()
-        {
-
-            _anim.SetTrigger("Hit");
-
-            yield return new WaitForSeconds(_hitCoolTime);
-
-            _hit = false;
         }
     }
 }

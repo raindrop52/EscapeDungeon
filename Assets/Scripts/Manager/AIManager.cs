@@ -21,8 +21,8 @@ namespace EscapeGame
         
         [Header("스테이지1 함정")]
         [SerializeField] int _secArrowShot = 3;
-        [SerializeField] bool _shooting = false;
-        [SerializeField] bool _allShooting = false;
+        [SerializeField] bool _randomArrowShot = false;
+        [SerializeField] bool _allArrowShot = false;
 
         private void Awake()
         {
@@ -73,10 +73,9 @@ namespace EscapeGame
             // 게임 매니저에서 플레이어의 준비 상태 체크
             while (GoStart() == false)
             {
-                yield return null;
+                yield return new WaitForSeconds(0.1f);
             }
 
-            yield return new WaitForSeconds(0.2f);
             StartCoroutine(_StartAI(level));
         }
 
@@ -86,29 +85,23 @@ namespace EscapeGame
             float time = 0.0f;
             int maxCnt = _listTrapTrans.Length;
 
-            while (time <= 120.0f)
+            while (level == (int)GameManager._inst._stageLevel)
             {
-                // stop이 true가 되면 멈추도록 설정
-                bool stop = GameManager._inst._clearRoom;
+                time += Time.deltaTime;
 
-                if (stop)
-                    break;
-                else
+                if (level == (int)STAGE_LV.TRAP)
                 {
-                    time += Time.deltaTime;
-
-                    if (level == (int)STAGE_LV.TRAP)
-                    {
-                        int randNum = Random.Range(0, maxCnt);
-                        // 일정 시간마다 랜덤한 위치에서 화살 발사
-                        Cooltime_Shooting(randNum, time);
-                        // 특정 시간마다 전체 위치에서 화살 발사
-                        All_Shooting(time);
-                        // 일정 시간이 지난 후 추가 함정 동작
-                    }
+                    int randNum = Random.Range(0, maxCnt);
+                    // 일정 시간마다 랜덤한 위치에서 화살 발사
+                    if(_randomArrowShot == false)
+                        StartCoroutine(_RandomShoot(randNum, _secArrowShot));
+                    // 특정 시간마다 전체 위치에서 화살 발사
+                    if(_allArrowShot == false)
+                        StartCoroutine(_AllShoot(_secArrowShot * 5.0f));
+                    // 일정 시간이 지난 후 추가 함정 동작
                 }
 
-                yield return null;
+                yield return new WaitForSeconds(0.01f);
             }
 
             StartCoroutine(_WaitAI());
@@ -116,54 +109,36 @@ namespace EscapeGame
             yield return null;
         }
 
-        void Cooltime_Shooting(int num, float time)
-        {
-            if (_shooting == true)
-                return;
-
-            int timeCheck = (int)(time % _secArrowShot);
-
-            if (timeCheck == 0 && time > 1)
-            {
-                _shooting = true;
-                StartCoroutine(_RandomShoot(num));
-            }
-        }
-
-        IEnumerator _RandomShoot(int num)
+        IEnumerator _RandomShoot(int num, float time)
         {
             // 배열 오버플로 체크
             if (num < _listTrapTrans.Length)
             {
+                _randomArrowShot = true;
+
                 // Arrow 프리팹 생성
                 GameObject prefab = Resources.Load("Arrow") as GameObject;
                 GameObject arrow = Instantiate(prefab);
                 arrow.transform.position = _listTrapTrans[num].transform.position;
 
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForSeconds(time);
 
-                _shooting = false;
+                _randomArrowShot = false;
             }
-
-            yield return null;
+            else
+                yield return null;
         }
 
-        void All_Shooting(float time)
+        IEnumerator _AllShoot(float time)
         {
-            if (_allShooting == true)
-                return;
+            _allArrowShot = true;
 
-            int timeCheck = (int)(time % (_secArrowShot * 3.5));
-
-            if (timeCheck == 0 && time > 1)
+            while(_randomArrowShot == true)
             {
-                _allShooting = true;
-                StartCoroutine(_AllShoot());
+                // 동시 발사를 방지하기 위한 대기
+                yield return new WaitForSeconds(0.01f);
             }
-        }
 
-        IEnumerator _AllShoot()
-        {
             // Arrow 프리팹 생성
             GameObject prefab = Resources.Load("Arrow") as GameObject;
 
@@ -174,9 +149,9 @@ namespace EscapeGame
                 yield return null;
             }
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(time);
 
-            _allShooting = false;
+            _allArrowShot = false;
         }
     }
 }

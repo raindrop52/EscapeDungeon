@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace EscapeGame
 {
@@ -8,8 +9,6 @@ namespace EscapeGame
     {
         NONE,
         TRAP,
-        DEFENSE,
-        BOSS,
 
     }
 
@@ -31,16 +30,17 @@ namespace EscapeGame
         {
             get { return _room; }
         }
-        public bool _clearRoom = false;     // 방 클리어 상태
-                
-        [Header("맵 전환 템플릿")]
-        [SerializeField] SpriteRenderer _loadingPanel;
+        public List<Transform> _stagePosList;   // 스테이지별 플레이어 스폰 위치
+        public Player _player;                  // 플레이어
 
-        bool mapMove = false;
+        [Header("맵 전환 템플릿")]
+        [SerializeField] Image _loadingPanel;
+
+        bool _mapMove = false;
         public bool MapMoving
         {
-            get { return mapMove; }
-            set { mapMove = value; }
+            get { return _mapMove; }
+            set { _mapMove = value; }
         }
 
         void Awake()
@@ -66,16 +66,16 @@ namespace EscapeGame
 
         IEnumerator MoveStart()
         {
-            if (mapMove == false)
+            if (_mapMove == false)
             {
-                mapMove = true;
+                _mapMove = true;
 
                 // 화면을 가림
                 ShowLoading(true);
 
-                StartCoroutine(MoveStage());
+                yield return new WaitForSeconds(0.5f);
 
-                yield return null;
+                StartCoroutine(MoveStage());
             }
             else
             {
@@ -86,10 +86,20 @@ namespace EscapeGame
 
         IEnumerator MoveStage()
         {
-            // 맵 전환
+            if (_room == ROOM.RESTROOM)
+            {
+                _room = ROOM.DUNGEON;
+                _stageLevel = STAGE_LV.TRAP;
+            }
 
             // 캐릭터 배치
-            
+            Vector3 pos = _stagePosList[(int)_room].transform.position;
+
+            if (_player != null)
+                _player.ChangePlayerPos(pos);
+
+            CameraManager._inst.ChangeCam();
+
             yield return new WaitForSeconds(1.0f);
 
             // 화면 공개
@@ -98,11 +108,11 @@ namespace EscapeGame
 
         IEnumerator MoveEnd()
         {
-            mapMove = false;
-
             ShowLoading(false);
 
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
+
+            _mapMove = false;
         }
 
         void ShowLoading(bool show)

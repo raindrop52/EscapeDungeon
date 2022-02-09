@@ -38,6 +38,16 @@ namespace EscapeGame
             StartCoroutine(_MoveCam(GameManager._inst._stageLevel));
         }
 
+        public void ChangeCam()
+        {
+            // 코루틴 종료
+            StopAllCoroutines();
+            // 현재 캐릭터 위치로 카메라 이동
+            transform.position = new Vector3(_target.transform.position.x, _target.transform.position.y, transform.position.z);
+
+            MoveCam();
+        }
+
         IEnumerator _MoveCam(STAGE_LV level)
         {
             while(true)
