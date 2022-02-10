@@ -8,11 +8,15 @@ namespace Tutorial
     {
         Rigidbody2D _rigid;
         SpriteRenderer _render;
+        float _hp;
+        float _maxHp;
 
         void Start()
         {
             _rigid = GetComponent<Rigidbody2D>();
             _render = GetComponent<SpriteRenderer>();
+
+            _hp = _maxHp;
         }
 
         
@@ -25,8 +29,6 @@ namespace Tutorial
         {
             if(collision.tag == "Attack")
             {
-                Debug.Log(collision.name + "한테 맞았다");
-
                 if(_rigid != null && _render != null)
                 {
                     float direction = 1.0f;
@@ -48,8 +50,35 @@ namespace Tutorial
                     _rigid.AddForce(new Vector2(power * direction, 0.0f));
 
                     Invoke("StopForce", 0.2f);
+
+                    // 데미지 처리
+                    int damage = 10;
+                    _hp -= damage;
+
+                    // 데미지 텍스트 연출
+                    GameObject damageTextObj = Instantiate(UIManager_Tutorial._inst._damageTextPrefab);
+                    damageTextObj.transform.parent = UIManager_Tutorial._inst.transform;
+
+                    Vector3 startPos = Camera.main.WorldToScreenPoint(transform.position);
+
+                    damageTextObj.transform.position = startPos;
+
+                    DamageText damageTxt = damageTextObj.GetComponent<DamageText>();
+                    damageTxt.Owner = this;
+                    damageTxt._damage = damage;
+
+                    if(_hp <= 0.0f)
+                    {
+                        Die();
+                    }
+                    
                 }
             }
+        }
+
+        void Die()
+        {
+            
         }
 
         void StopForce()
