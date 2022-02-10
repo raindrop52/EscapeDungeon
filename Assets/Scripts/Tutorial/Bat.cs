@@ -6,6 +6,6 @@ namespace Tutorial
 {
     public class Bat : MapObject
     {
-        
+
     }
 }

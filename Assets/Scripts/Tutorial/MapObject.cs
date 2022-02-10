@@ -8,13 +8,15 @@ namespace Tutorial
     {
         Rigidbody2D _rigid;
         SpriteRenderer _render;
-        float _hp;
-        float _maxHp;
+        Animator _anim;
+        float _hp = 0.0f;
+        float _maxHp = 10.0f;
 
         void Start()
         {
             _rigid = GetComponent<Rigidbody2D>();
             _render = GetComponent<SpriteRenderer>();
+            _anim = GetComponent<Animator>();
 
             _hp = _maxHp;
         }
@@ -69,16 +71,36 @@ namespace Tutorial
 
                     if(_hp <= 0.0f)
                     {
-                        Die();
+                        StartCoroutine(_Die());
                     }
                     
                 }
             }
         }
 
-        void Die()
+        IEnumerator _Die()
         {
-            
+            float duration = 0.5f;
+            float elapsed = 0.0f;
+
+            _anim.SetBool("Die", true);
+
+            while(elapsed <= duration)
+            {
+                elapsed += Time.deltaTime;
+
+                Color c = _render.color;
+
+                c.r = Mathf.PingPong(Time.time * 15f, 1.0f);
+                c.g = 0f;
+                c.b = 0f;
+
+                _render.color = c;
+
+                yield return null;
+            }
+
+            Destroy(gameObject);
         }
 
         void StopForce()

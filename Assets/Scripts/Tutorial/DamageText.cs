@@ -65,6 +65,7 @@ namespace Tutorial
                 yield return null;
             }
 
+            StartCoroutine(_ColorFx(duration2));
             yield return new WaitForSeconds(duration2);
 
             elapsed = 0.0f;
@@ -82,6 +83,27 @@ namespace Tutorial
             }
 
             Destroy(gameObject);
+        }
+
+        IEnumerator _ColorFx(float time)
+        {
+            float elapsed = 0.0f;
+            float duration1 = _duration * 0.3f;
+
+            while (elapsed <= time)
+            {
+                elapsed += Time.deltaTime;
+
+                Color c = _text.color;
+
+                c.r = Mathf.Lerp(0.5f, 1.0f, elapsed / time);
+                c.g = 0.0f;
+                c.b = 0.0f;
+
+                _text.color = c;
+
+                yield return null;
+            }
         }
 
         IEnumerator _ScaleFx()
