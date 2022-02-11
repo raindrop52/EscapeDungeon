@@ -21,9 +21,12 @@ namespace Tutorial
 
         void TutorialCam()
         {
-            Vector3 pos = _target.position;
+            if (_target != null)
+            {
+                Vector3 pos = _target.position;
 
-            transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+                transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+            }
         }
     }
 }

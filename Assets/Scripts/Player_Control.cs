@@ -18,13 +18,14 @@ namespace EscapeGame
         public int _walkCount;
         [SerializeField] int _currentWalkCount;
         public bool _canMove = true;
+        /*
         [Header("캐릭터 대쉬 관련")]
         public int _dashCount;
         [SerializeField] int _currentDashCount;
         public bool _canDash = true;
         [Header("캐릭터 공격 관련")]
         public bool _canAttack = true;
-
+        */
         [Header("기타")]
         public PlayerLight _light;
         public Transform _playerPosition;        // 플레이어 시작 위치
@@ -32,9 +33,10 @@ namespace EscapeGame
         [Header("조이스틱")]
         [SerializeField] float _x, _y;          // 조이스틱 값 체크
         [SerializeField] Joystick _joystick;
+        /*
         bool _joystickDashOn = false;           // 조이스틱 대쉬 체크
         bool _joystickAttackOn = false;           // 조이스틱 어택 체크
-
+        */
         Player _player;
 
         IEnumerator _OnMove()
@@ -58,20 +60,7 @@ namespace EscapeGame
                     _sprite.flipX = true;
                 else
                     _sprite.flipX = false;
-
-                RaycastHit2D hit;
-                Vector2 start = transform.position;  // 캐릭터의 위치
-                Vector2 end = start + new Vector2(vector.x * _speed * _walkCount, vector.y * _speed * _walkCount);    // 캐릭터가 이동하고자 하는 위치
-
-                _boxCol.enabled = false;
-                hit = Physics2D.Linecast(start, end, _layerMask);
-                _boxCol.enabled = true;
-
-                if(hit.transform != null)
-                {
-                    break;
-                }
-
+                                
                 _anim.SetBool("Walking", true);
 
                 while (_currentWalkCount < _walkCount)
@@ -97,6 +86,7 @@ namespace EscapeGame
             _canMove = true;
         }
 
+        /*
         // 애니메이션 스크립트
         IEnumerator _OnDash()
         {
@@ -144,6 +134,7 @@ namespace EscapeGame
 
             yield return new WaitForSeconds(0.5f);
         }
+        */
 
         protected override void Start()
         {
@@ -162,15 +153,6 @@ namespace EscapeGame
 
             if (GameManager._inst.MapMoving == false)
             {
-                if (_canDash)
-                {
-                    if (GetDashButton())
-                    {
-                        _canDash = false;
-                        _anim.SetTrigger("Dash");
-                    }
-                }
-
                 // 이동 가능 상태
                 if (_canMove)
                 {
@@ -181,14 +163,25 @@ namespace EscapeGame
                     }
                 }
 
-                if (_canAttack)
-                {
-                    if (GetAttackButton())
-                    {
-                        _canAttack = false;
-                        StartCoroutine(_OnAttack());
-                    }
-                }
+                // 대쉬 상태
+                //if (_canDash)
+                //{
+                //    if (GetDashButton())
+                //    {
+                //        _canDash = false;
+                //        _anim.SetTrigger("Dash");
+                //    }
+                //}
+
+                // 공격상태
+                //if (_canAttack)
+                //{
+                //    if (GetAttackButton())
+                //    {
+                //        _canAttack = false;
+                //        StartCoroutine(_OnAttack());
+                //    }
+                //}
             }
         }
 
@@ -219,8 +212,7 @@ namespace EscapeGame
 
             if (_joystick != null)
             {
-                // 버튼 클릭 시 대쉬
-                result = _joystickDashOn;
+                
             }
             else
             {
@@ -240,8 +232,6 @@ namespace EscapeGame
 
             if (_joystick != null)
             {
-                // 버튼 클릭 시 공격
-                result = _joystickAttackOn;
             }
             else
             {
@@ -254,6 +244,7 @@ namespace EscapeGame
             return result;
         }
 
+        /*
         public void OnDashButton()
         {
             if (!_joystickDashOn)
@@ -265,5 +256,6 @@ namespace EscapeGame
             if (!_joystickAttackOn)
                 _joystickAttackOn = true;
         }
+        */
     }
 }

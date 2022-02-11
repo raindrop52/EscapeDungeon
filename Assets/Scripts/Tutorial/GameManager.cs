@@ -25,7 +25,7 @@ namespace Tutorial
         {
 
 
-            while(gameObject.activeSelf)
+            while(gameObject.activeSelf && _player.gameObject != null)
             {
                 // 적 랜덤 개체 수
                 int randomInt = Random.Range(15, 30);
