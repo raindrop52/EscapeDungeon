@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace EscapeGame
 {
@@ -17,9 +18,11 @@ namespace EscapeGame
     {
         static AIManager _inst;
         [SerializeField] STATUS _status;
-        [SerializeField] Trap_Pos[] _listTrapTrans;
-        
+        [SerializeField] Arrow_Trap[] _listTrapTrans;
+
         [Header("스테이지1 함정")]
+        [SerializeField] GameObject _tileHidden;
+
         [SerializeField] int _secArrowShot = 3;
         [SerializeField] bool _randomArrowShot = false;
         [SerializeField] bool _allArrowShot = false;
@@ -31,9 +34,9 @@ namespace EscapeGame
 
         void Start()
         {
-            _listTrapTrans = GetComponentsInChildren<Trap_Pos>();
-
-            StartCoroutine(_WaitAI());
+            _listTrapTrans = transform.Find("Arrow_Trap_List").GetComponentsInChildren<Arrow_Trap>();
+            ShowHiddenTile(false);
+            //StartCoroutine(_WaitAI());
         }
 
         IEnumerator _WaitAI()
@@ -142,7 +145,7 @@ namespace EscapeGame
             // Arrow 프리팹 생성
             GameObject prefab = Resources.Load("Arrow") as GameObject;
 
-            foreach (Trap_Pos tp in _listTrapTrans)
+            foreach (Arrow_Trap tp in _listTrapTrans)
             {
                 GameObject arrow = Instantiate(prefab);
                 arrow.transform.position = tp.gameObject.transform.position;
@@ -152,6 +155,26 @@ namespace EscapeGame
             yield return new WaitForSeconds(time);
 
             _allArrowShot = false;
+        }
+
+        // 히든 타일 설정
+        void ShowHiddenTile(bool show)
+        {
+            Tilemap[] tileHidden = _tileHidden.GetComponentsInChildren<Tilemap>();
+            foreach (Tilemap tile in tileHidden)
+            {
+                TilemapCollider2D collider = tile.GetComponent<TilemapCollider2D>();
+
+                // 콜라이더가 있는 벽 
+                if (collider != null)
+                {
+                    tile.gameObject.SetActive(!show);
+                }
+                else
+                {
+                    tile.gameObject.SetActive(show);
+                }
+            }
         }
     }
 }

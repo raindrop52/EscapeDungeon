@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Portal
   - Attack
+  - Trap
+  - Talk
   layers:
   - Default
   - TransparentFX
