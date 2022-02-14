@@ -16,7 +16,7 @@ namespace EscapeGame
 
     public class AIManager : MonoBehaviour
     {
-        static AIManager _inst;
+        public static AIManager _inst;
         [SerializeField] STATUS _status;
         [SerializeField] Arrow_Trap[] _listTrapTrans;
 
@@ -88,11 +88,11 @@ namespace EscapeGame
             float time = 0.0f;
             int maxCnt = _listTrapTrans.Length;
 
-            while (level == (int)GameManager._inst._stageLevel)
+            while (level == GameManager._inst._stageLevel)
             {
                 time += Time.deltaTime;
 
-                if (level == (int)STAGE_LV.TRAP)
+                if (level == 1)
                 {
                     int randNum = Random.Range(0, maxCnt);
                     // 일정 시간마다 랜덤한 위치에서 화살 발사
@@ -158,7 +158,7 @@ namespace EscapeGame
         }
 
         // 히든 타일 설정
-        void ShowHiddenTile(bool show)
+        public void ShowHiddenTile(bool show)
         {
             Tilemap[] tileHidden = _tileHidden.GetComponentsInChildren<Tilemap>();
             foreach (Tilemap tile in tileHidden)

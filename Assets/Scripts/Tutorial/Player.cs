@@ -25,9 +25,9 @@ namespace Tutorial
             StartCoroutine(_NormalAttack());
         }
 
-        protected override void Update()
+        protected override void FixedUpdate()
         {
-            base.Update();
+            base.FixedUpdate();
 
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
             _hpBarObj.transform.position = pos + _hpBarOffset;
@@ -51,6 +51,16 @@ namespace Tutorial
             }
 
             yield return null;
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if(collision.gameObject.layer != LayerMask.NameToLayer("Enemy"))
+            {
+                return;
+            }
+
+            OnHit(collision.collider);
         }
     }
 }

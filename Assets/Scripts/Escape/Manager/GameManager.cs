@@ -5,13 +5,6 @@ using UnityEngine.UI;
 
 namespace EscapeGame
 {
-    public enum STAGE_LV
-    {
-        NONE,
-        TRAP,
-
-    }
-
     public enum ROOM
     {
         RESTROOM,
@@ -26,7 +19,7 @@ namespace EscapeGame
         public GameObject _directLight;
 
         [Header("스테이지")]
-        public STAGE_LV _stageLevel;        // 현재 스테이지 레벨
+        public int _stageLevel = 0;         // 현재 스테이지 레벨
         [SerializeField] ROOM _room;        // 현재 진입한 방
         public ROOM Room
         {
@@ -97,7 +90,7 @@ namespace EscapeGame
             if (_room == ROOM.RESTROOM)
             {
                 _room = ROOM.DUNGEON;
-                _stageLevel = STAGE_LV.TRAP;
+                _stageLevel++;
             }
 
             // 캐릭터 배치

@@ -244,6 +244,11 @@ namespace EscapeGame
             return result;
         }
 
+        public void OnTalkButton()
+        {
+            _player.OnTalk = true;
+        }
+
         /*
         public void OnDashButton()
         {

@@ -13,6 +13,7 @@ namespace Tutorial
         public float _hp = 0.0f;
         public float _maxHp = 10.0f;
         public Image _hpBarImg;
+        bool _die = false;
 
         protected virtual void Start()
         {
@@ -26,22 +27,24 @@ namespace Tutorial
                 _hpBarImg.fillAmount = _hp / _maxHp;
         }
 
-        
-        protected virtual void Update()
-        {
 
+        protected virtual void FixedUpdate()
+        {
+            
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        protected void OnHit(Collider2D collision)
         {
-            if (collision.tag != "Attack")
-                return;
-
-            MapObject attacker = null;            
+            MapObject attacker = null;
             Transform parent = collision.transform.parent;
             if (parent != null)
             {
                 attacker = parent.GetComponent<MapObject>();
+            }
+            else
+            {
+                //attacker = GetComponent<MapObject>();
+                attacker = collision.GetComponent<MapObject>();
             }
 
             if (_rigid != null && attacker != null)
@@ -91,14 +94,17 @@ namespace Tutorial
 
                 if (_hp <= 0.0f)
                 {
-                    StartCoroutine(_Die());
+                    if(_die == false)
+                        StartCoroutine(_Die());
                 }
             }
         }
 
         IEnumerator _Die()
         {
-            float duration = 0.5f;
+            _die = true;
+
+            float duration = 0.3f;
             float elapsed = 0.0f;
 
             _anim.SetBool("Die", true);
@@ -118,13 +124,30 @@ namespace Tutorial
                 yield return null;
             }
 
-            Destroy(gameObject);
+            if(this is Player)
+            {
+                // 게임 오버 창 표시
+            }
+            else
+            {
+                // 경험치 아이템 드랍
+                DropItem();
+
+                Destroy(gameObject);
+            }
         }
 
         void StopForce()
         {
             if(_rigid != null)
                 _rigid.velocity = Vector2.zero;
+        }
+
+        void DropItem()
+        {
+            GameObject gem = Instantiate(GameManager._inst._expGemPrefab);
+            gem.transform.position = transform.position;
+            gem.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
     }
 }

@@ -7,9 +7,14 @@ namespace Tutorial
     public class GameManager : MonoBehaviour
     {
         public static GameManager _inst;
-
+        
+        #region Prefab
         public GameObject _batPrefab;
+        public GameObject _expGemPrefab;
+
+        #endregion
         public Transform _player;
+        
 
         private void Awake()
         {

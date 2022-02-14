@@ -48,25 +48,12 @@ namespace EscapeGame
             MoveCam();
         }
 
-        IEnumerator _MoveCam(STAGE_LV level)
+        IEnumerator _MoveCam(int level)
         {
             while(true)
             {
                 if (_target == null)
                     break;
-
-                //ROOM room = GameManager._inst.Room;
-                //if (room == ROOM.RESTROOM)
-                //{
-                //    _targetPos.Set(_target.transform.position.x, _target.transform.position.y, transform.position.z);
-                //}
-                //else if (room == ROOM.DUNGEON)
-                //{
-                //    if (level == STAGE_LV.TRAP)
-                //    {
-                //        _targetPos.Set(transform.position.x, _target.transform.position.y, transform.position.z);
-                //    }
-                //}
 
                 _targetPos.Set(_target.transform.position.x, _target.transform.position.y, transform.position.z);
 

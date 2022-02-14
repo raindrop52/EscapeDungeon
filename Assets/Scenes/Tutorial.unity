@@ -404,6 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _batPrefab: {fileID: 3440490426255374203, guid: fde5d7c977e81314b99c8a5bd8b1c35b, type: 3}
+  _expGemPrefab: {fileID: 8499440995660894721, guid: 745cc7077bb00074ebef1f997a03cab3, type: 3}
   _player: {fileID: 8207734537178845038}
 --- !u!1 &290682652418565150
 GameObject:
@@ -580,8 +581,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 88, y: 18}
+  m_AnchoredPosition: {x: -0.00012995, y: -0.000066578}
+  m_SizeDelta: {x: 87.765, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2732573344812847133
 MonoBehaviour:
@@ -784,8 +785,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 102.119, y: -73.449}
-  m_SizeDelta: {x: 90, y: 20}
+  m_AnchoredPosition: {x: 103.236, y: -73.449}
+  m_SizeDelta: {x: 87.765, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8207734536728037552
 GameObject:
@@ -5771,7 +5772,7 @@ MonoBehaviour:
   _hpBarImg: {fileID: 2732573344812847133}
   _ps_normal: {fileID: 0}
   _hpBarObj: {fileID: 2732573345696607970}
-  _hpBarOffset: {x: 0, y: -55, z: 0}
+  _hpBarOffset: {x: 0, y: -40, z: 0}
 --- !u!58 &8207734537178845027
 CircleCollider2D:
   m_ObjectHideFlags: 0

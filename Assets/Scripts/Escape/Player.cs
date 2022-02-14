@@ -17,7 +17,14 @@ namespace EscapeGame
         }
         float _hitCoolTime = 1.0f;
 
-        public bool _dashDodge = false;     // 무적 회피 처리
+        [Header("캐릭터 대화 관련")]
+        bool _talk = false;
+        public bool OnTalk
+        {
+            get { return _talk; }
+            set { _talk = value; }
+        }
+
 
         void Start()
         {
@@ -33,15 +40,18 @@ namespace EscapeGame
         {
             if (collision.tag == "Attack")
             {
-                if (_dashDodge)
-                {
-                    return;
-                }
-
                 if (!_hit)
                 {
                     _hit = true;
                     StartCoroutine(_HitEffect());
+                }
+            }
+
+            if (collision.tag == "Talk")
+            {
+                if(!_talk)
+                {
+                    StartCoroutine(_TalkCheck(collision.gameObject));
                 }
             }
 
@@ -69,6 +79,36 @@ namespace EscapeGame
             _hit = false;
         }
 
+        IEnumerator _TalkCheck(GameObject col)
+        {
+            while(true)
+            {
+                _talk = TalkCheck();
+                // 대화하기가 눌린 경우
+                if (_talk)
+                {
+                    TalkTrigger trigger = col.GetComponent<TalkTrigger>();
+                    if (trigger != null)
+                    {
+                        trigger.ExcuteTriggerEvent();
+                        break;
+                    }
+                }
+
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+
+        bool TalkCheck()
+        {
+            // Space 키 눌리면 _talk = true;
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         // 캐릭터 이동 시 위치 변경
         public void ChangePlayerPos(Vector3 pos)
