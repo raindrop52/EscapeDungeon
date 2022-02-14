@@ -7,6 +7,10 @@ namespace Tutorial
 {
     public class Player : MapObject
     {
+        public int _maxLevel = 200;
+        public long _maxExp = 10000000;
+        public AnimationCurve _expCurve;
+
         public ParticleSystem _ps_normal;
         BoxCollider2D _attackCol;
 
@@ -18,6 +22,11 @@ namespace Tutorial
         protected override void Start()
         {
             base.Start();
+
+            for (int i = 1; i < 10; i++)
+            {
+                Debug.Log("Level "+ i + " exp : " + (_expCurve.Evaluate((float)i / (float)_maxLevel) * (float)_maxExp));
+            }
 
             // 저장된 경험치 불러오기
             LoadExp();
