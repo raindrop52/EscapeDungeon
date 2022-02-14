@@ -32,10 +32,12 @@ namespace EscapeGame
             _inst = this;
         }
 
-        void Start()
+        public void Init()
         {
-            _listTrapTrans = transform.Find("Arrow_Trap_List").GetComponentsInChildren<Arrow_Trap>();
             ShowHiddenTile(false);
+
+            //_listTrapTrans = transform.Find("Arrow_Trap_List").GetComponentsInChildren<Arrow_Trap>();
+
             //StartCoroutine(_WaitAI());
         }
 
@@ -160,7 +162,7 @@ namespace EscapeGame
         // 히든 타일 설정
         public void ShowHiddenTile(bool show)
         {
-            Tilemap[] tileHidden = _tileHidden.GetComponentsInChildren<Tilemap>();
+            Tilemap[] tileHidden = _tileHidden.GetComponentsInChildren<Tilemap>(true);
             foreach (Tilemap tile in tileHidden)
             {
                 TilemapCollider2D collider = tile.GetComponent<TilemapCollider2D>();

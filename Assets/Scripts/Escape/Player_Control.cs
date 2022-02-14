@@ -6,26 +6,19 @@ namespace EscapeGame
 {
     public class Player_Control : Unit
     {
-        // 충돌 검사
-        BoxCollider2D _boxCol;
+        BoxCollider2D _boxCol;          // 충돌 검사
         public LayerMask _layerMask;    // 통과 불가 오브젝트 설정
         SpriteRenderer _sprite;
         Animator _anim;
 
         Vector3 vector;
+
         [Header("캐릭터 이동 관련")]
         public float _speed;
         public int _walkCount;
         [SerializeField] int _currentWalkCount;
         public bool _canMove = true;
-        /*
-        [Header("캐릭터 대쉬 관련")]
-        public int _dashCount;
-        [SerializeField] int _currentDashCount;
-        public bool _canDash = true;
-        [Header("캐릭터 공격 관련")]
-        public bool _canAttack = true;
-        */
+
         [Header("기타")]
         public PlayerLight _light;
         public Transform _playerPosition;        // 플레이어 시작 위치
@@ -33,10 +26,6 @@ namespace EscapeGame
         [Header("조이스틱")]
         [SerializeField] float _x, _y;          // 조이스틱 값 체크
         [SerializeField] Joystick _joystick;
-        /*
-        bool _joystickDashOn = false;           // 조이스틱 대쉬 체크
-        bool _joystickAttackOn = false;           // 조이스틱 어택 체크
-        */
         Player _player;
 
         IEnumerator _OnMove()
@@ -86,56 +75,6 @@ namespace EscapeGame
             _canMove = true;
         }
 
-        /*
-        // 애니메이션 스크립트
-        IEnumerator _OnDash()
-        {
-            // 대쉬 시작 전 무적 설정
-            _player._dashDodge = true;
-
-            while (_currentDashCount < _dashCount)
-            {
-                if (vector.x != 0)
-                {
-                    transform.Translate(vector.x * _speed, 0, 0);
-                }
-                else if (vector.y != 0)
-                {
-                    transform.Translate(0, vector.y * _speed, 0);
-                }
-
-                _currentDashCount++;
-                yield return new WaitForSeconds(0.01f);
-            }
-
-            // 이동이 완료된 후 무적 회피 해제
-            _player._dashDodge = false;
-            _currentDashCount = 0;
-
-            yield return new WaitForSeconds(1.0f);
-
-            if(_joystick != null)
-            {
-                if (_joystickDashOn == true)
-                    _joystickDashOn = false;
-            }
-
-            _canDash = true;
-        }    
-
-        IEnumerator _OnAttack()
-        {
-            _anim.SetTrigger("Attacking");
-
-            if (_joystickAttackOn)
-                _joystickAttackOn = false;
-
-            _canAttack = true;
-
-            yield return new WaitForSeconds(0.5f);
-        }
-        */
-
         protected override void Start()
         {
             base.Start();
@@ -162,26 +101,6 @@ namespace EscapeGame
                         StartCoroutine(_OnMove());
                     }
                 }
-
-                // 대쉬 상태
-                //if (_canDash)
-                //{
-                //    if (GetDashButton())
-                //    {
-                //        _canDash = false;
-                //        _anim.SetTrigger("Dash");
-                //    }
-                //}
-
-                // 공격상태
-                //if (_canAttack)
-                //{
-                //    if (GetAttackButton())
-                //    {
-                //        _canAttack = false;
-                //        StartCoroutine(_OnAttack());
-                //    }
-                //}
             }
         }
 
@@ -248,19 +167,5 @@ namespace EscapeGame
         {
             _player.OnTalk = true;
         }
-
-        /*
-        public void OnDashButton()
-        {
-            if (!_joystickDashOn)
-                _joystickDashOn = true;
-        }
-
-        public void OnAttackButton()
-        {
-            if (!_joystickAttackOn)
-                _joystickAttackOn = true;
-        }
-        */
     }
 }

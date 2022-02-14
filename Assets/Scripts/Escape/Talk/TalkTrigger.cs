@@ -17,29 +17,33 @@ namespace EscapeGame
     [Serializable]
     public class TalkInfo
     {
-        public Talk_ID _id;     // 상황 ID
-        public int _level;      // 스테이지 레벨
-        public int _order;      // 동작 순서
+        public Talk_ID _id;             // 상황 ID
+        public int _level;              // 스테이지 레벨
+        public int _order;              // 동작 순서
+        public string _text = "";       // 읽을 메시지
     }
 
     public class TalkTrigger : MonoBehaviour
     {
         [SerializeField] protected TalkInfo _talkInfo;
+        protected ParticleSystem _effect;
 
         void Start()
         {
-
-        }
-
-        
-        void Update()
-        {
-
+            _effect = GetComponentInChildren<ParticleSystem>();
+            if (_effect != null)
+                ShowEffect(false);
         }
 
         protected virtual void DoTrigerEvent()
         {
+            // 트리거 동작 시 이펙트 숨김 (영구히)
+            ShowEffect(false);
+        }
 
+        public void ShowEffect(bool show)
+        {
+            _effect.gameObject.SetActive(show);
         }
 
         public void ExcuteTriggerEvent()
@@ -48,11 +52,14 @@ namespace EscapeGame
             {
                 switch(_talkInfo._id)
                 {
+                    // 대화 상황
                     case Talk_ID.READ:
                         {
+                            DoTrigerEvent();
+
                             break;
                         }
-                        // 파괴 상황
+                    // 파괴 상황
                     case Talk_ID.BREAK:
                         {
                             // 스테이지 레벨 체크

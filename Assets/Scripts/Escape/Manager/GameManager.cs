@@ -52,6 +52,11 @@ namespace EscapeGame
             {
                 _directLight.SetActive(false);
             }
+
+            // UI매니저 초기화
+            UIManager._inst.Init();
+            // AI매니저 초기화
+            AIManager._inst.Init();
         }
 
 

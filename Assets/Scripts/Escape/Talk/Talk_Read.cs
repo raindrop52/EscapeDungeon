@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace EscapeGame
 {
-    public class Talk_Break : TalkTrigger
+    public class Talk_Read : TalkTrigger
     {
         protected override void DoTrigerEvent()
         {
-            switch(_talkInfo._order)
+            switch (_talkInfo._order)
             {
-                case 0 :
+                case 0:
                     {
-                        AIManager._inst.ShowHiddenTile(true);
+                        UIManager._inst.ShowTextMessage(_talkInfo._text);
                         break;
                     }
-                default :
+                default:
                     break;
             }
 
