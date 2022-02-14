@@ -9,12 +9,18 @@ namespace Tutorial
     {
         public ParticleSystem _ps_normal;
         BoxCollider2D _attackCol;
+
         public GameObject _hpBarObj;
         public Vector3 _hpBarOffset;
+
+        [SerializeField] int _exp;
 
         protected override void Start()
         {
             base.Start();
+
+            // 저장된 경험치 불러오기
+            LoadExp();
 
             _ps_normal = transform.Find("Sword_Effect").GetComponent<ParticleSystem>();
             _attackCol = transform.Find("Sword_Effect").GetComponent<BoxCollider2D>();
@@ -61,6 +67,22 @@ namespace Tutorial
             }
 
             OnHit(collision.collider);
+        }
+
+        void LoadExp()
+        {
+            if (PlayerPrefs.HasKey("survivor_exp"))
+            {
+                int exp = PlayerPrefs.GetInt("survivor_exp");
+                _exp = exp;
+            }
+        }
+
+        public void AddExp(int deltaExp)
+        {
+            _exp += deltaExp;
+
+            PlayerPrefs.SetInt("survivor_exp", _exp);
         }
     }
 }
