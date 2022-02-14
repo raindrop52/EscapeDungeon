@@ -16,9 +16,10 @@ namespace Tutorial
             _inst = this;
         }
 
-        void Start()
+        public void Init()
         {
-            
+            ExpBar expBar = GetComponentInChildren<ExpBar>();
+            expBar.Init();
         }
 
         void Update()
@@ -26,5 +27,10 @@ namespace Tutorial
 
         }
 
+        public void RefreshExpUI()
+        {
+            ExpBar expBar = GetComponentInChildren<ExpBar>();
+            expBar.RefreshUI();
+        }
     }
 }

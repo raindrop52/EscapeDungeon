@@ -18,18 +18,16 @@ namespace Tutorial
         public Vector3 _hpBarOffset;
 
         [SerializeField] int _exp;
+        public int Exp { get { return _exp; } }
+        [SerializeField] int _level = 1;
+        public int Level { get { return _level; } }
+        int _needExp;
 
         protected override void Start()
         {
             base.Start();
 
-            for (int i = 1; i < 10; i++)
-            {
-                Debug.Log("Level "+ i + " exp : " + (_expCurve.Evaluate((float)i / (float)_maxLevel) * (float)_maxExp));
-            }
-
-            // 저장된 경험치 불러오기
-            LoadExp();
+            Init();
 
             _ps_normal = transform.Find("Sword_Effect").GetComponent<ParticleSystem>();
             _attackCol = transform.Find("Sword_Effect").GetComponent<BoxCollider2D>();
@@ -40,10 +38,17 @@ namespace Tutorial
             StartCoroutine(_NormalAttack());
         }
 
-        protected override void FixedUpdate()
+        public void Init()
         {
-            base.FixedUpdate();
+            // 저장된 레벨 불러오기
+            //LoadLevel();
+            // 저장된 경험치 불러오기
+            PlayerPrefs.SetInt("survivor_exp", 0);
+            LoadExp();
+        }
 
+        void FixedUpdate()
+        {
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
             _hpBarObj.transform.position = pos + _hpBarOffset;
         }
@@ -87,11 +92,30 @@ namespace Tutorial
             }
         }
 
+        void LoadLevel()
+        {
+            if (PlayerPrefs.HasKey("survivor_level"))
+            {
+                int level = PlayerPrefs.GetInt("survivor_level");
+                _level = level;
+            }
+        }
+
         public void AddExp(int deltaExp)
         {
             _exp += deltaExp;
 
             PlayerPrefs.SetInt("survivor_exp", _exp);
+
+            // 경험치 바 업데이트
+            UIManager_Tutorial._inst.RefreshExpUI();
+        }
+
+        void LevelUp()
+        {
+            _level++;
+
+            _exp = 0;
         }
     }
 }

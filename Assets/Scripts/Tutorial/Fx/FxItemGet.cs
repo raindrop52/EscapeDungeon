@@ -14,7 +14,7 @@ namespace Tutorial
         public void Play()
         {
             // 플레이어를 목표지점으로
-            Transform playerTrans = GameManager._inst._player;
+            Transform playerTrans = GameManager._inst._playerTrans;
 
             Hashtable paramHashtable = new Hashtable()
             {
@@ -32,7 +32,7 @@ namespace Tutorial
             Destroy(gameObject);
 
             // 플레이어의 경험치 증가
-            Player player = GameManager._inst._player.GetComponent<Player>();
+            Player player = GameManager._inst._playerTrans.GetComponent<Player>();
             if (player != null)
             {
                 player.AddExp(10);

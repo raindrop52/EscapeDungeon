@@ -13,7 +13,7 @@ namespace Tutorial
         public GameObject _expGemPrefab;
 
         #endregion
-        public Transform _player;
+        public Transform _playerTrans;
         
 
         private void Awake()
@@ -23,26 +23,29 @@ namespace Tutorial
 
         void Start()
         {
+            // 플레이어 초기화
+            Player player = _playerTrans.GetComponent<Player>();
+            player.Init();
+
+            // UI매니저 초기화
+            UIManager_Tutorial._inst.Init();
+
             StartCoroutine(_SpawnEnemies());
         }
 
         IEnumerator _SpawnEnemies()
         {
-
-
-            while(gameObject.activeSelf && _player.gameObject != null)
+            while(gameObject.activeSelf && _playerTrans.gameObject != null)
             {
                 // 적 랜덤 개체 수
                 int randomInt = Random.Range(15, 40);
 
                 for (int i = 0; i < randomInt; i++)
                 {
-                    Vector2 playerPos = _player.position;
+                    Vector2 playerPos = _playerTrans.position;
 
                     GameObject batObj = Instantiate(_batPrefab);
                     batObj.transform.position = playerPos + Random.insideUnitCircle * 15;
-
-
                 }
 
                 yield return new WaitForSeconds(10.0f);

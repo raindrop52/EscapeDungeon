@@ -28,7 +28,7 @@ namespace Tutorial
         }
 
 
-        protected virtual void FixedUpdate()
+        void FixedUpdate()
         {
             
         }
