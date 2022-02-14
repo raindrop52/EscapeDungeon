@@ -16,9 +16,23 @@ namespace Tutorial
             // 플레이어를 목표지점으로
             Transform playerTrans = GameManager._inst._player;
 
-            iTween.MoveTo(gameObject, playerTrans.position, 1.0f);
+            Hashtable paramHashtable = new Hashtable()
+            {
+                { "position", playerTrans.position},
+                { "time", 1.0f },
+                { "easetype", iTween.EaseType.easeInOutCubic},
+                { "oncomplete", "OnComplete"},
+            };
 
-            //Hashtable paramHashtable = new Hashtable();            
+            iTween.MoveTo(gameObject, paramHashtable);
+        }
+
+        void OnComplete()
+        {
+            Destroy(gameObject);
+
+            // 플레이어의 경험치 증가
+
         }
     }
 }

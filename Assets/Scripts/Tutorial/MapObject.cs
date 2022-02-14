@@ -147,7 +147,7 @@ namespace Tutorial
         {
             GameObject gem = Instantiate(GameManager._inst._expGemPrefab);
             gem.transform.position = transform.position;
-            gem.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            gem.transform.localScale = new Vector3(2f, 2f, 2f);
         }
     }
 }
