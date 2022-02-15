@@ -12,6 +12,8 @@ namespace EscapeGame
 
     }
 
+    public delegate void Callback();
+
     public class GameManager : MonoBehaviour
     {
         public static GameManager _inst;
@@ -45,7 +47,7 @@ namespace EscapeGame
 
         void Start()
         {
-            // 초기 플레이어 위치 설정
+            // 초기 플레이어 위치 설정 (RestRoom)
             _player.gameObject.transform.position = _stagePosList[0].position;
 
             if(_directLight != null)
@@ -57,6 +59,9 @@ namespace EscapeGame
             UIManager._inst.Init();
             // AI매니저 초기화
             AIManager._inst.Init();
+
+            // 가이드 텍스트 표시
+            UIManager._inst.ShowTextMessage("");
         }
 
 

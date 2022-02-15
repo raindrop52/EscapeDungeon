@@ -31,8 +31,6 @@ namespace EscapeGame
         void Start()
         {
             _effect = GetComponentInChildren<ParticleSystem>();
-            if (_effect != null)
-                ShowEffect(false);
         }
 
         protected virtual void DoTrigerEvent()
