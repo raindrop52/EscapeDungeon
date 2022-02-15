@@ -7,6 +7,9 @@ namespace Tutorial
 {
     public class Player : MapObject
     {
+        const string SAVEDATA_KEY_LEVEL = "survivor_level";
+        const string SAVEDATA_KEY_EXP = "survivor_exp";
+
         public int _maxLevel = 200;
         public long _maxExp = 10000000;
         public AnimationCurve _expCurve;
@@ -21,7 +24,6 @@ namespace Tutorial
         public int Exp { get { return _exp; } }
         [SerializeField] int _level = 1;
         public int Level { get { return _level; } }
-        int _needExp;
 
         protected override void Start()
         {
@@ -40,10 +42,12 @@ namespace Tutorial
 
         public void Init()
         {
+            //PlayerPrefs.SetInt(SAVEDATA_KEY_LEVEL, 1);
+            //PlayerPrefs.SetInt(SAVEDATA_KEY_EXP, 0);
+
             // 저장된 레벨 불러오기
-            //LoadLevel();
+            LoadLevel();
             // 저장된 경험치 불러오기
-            PlayerPrefs.SetInt("survivor_exp", 0);
             LoadExp();
         }
 
@@ -85,18 +89,18 @@ namespace Tutorial
 
         void LoadExp()
         {
-            if (PlayerPrefs.HasKey("survivor_exp"))
+            if (PlayerPrefs.HasKey(SAVEDATA_KEY_EXP))
             {
-                int exp = PlayerPrefs.GetInt("survivor_exp");
+                int exp = PlayerPrefs.GetInt(SAVEDATA_KEY_EXP);
                 _exp = exp;
             }
         }
 
         void LoadLevel()
         {
-            if (PlayerPrefs.HasKey("survivor_level"))
+            if (PlayerPrefs.HasKey(SAVEDATA_KEY_LEVEL))
             {
-                int level = PlayerPrefs.GetInt("survivor_level");
+                int level = PlayerPrefs.GetInt(SAVEDATA_KEY_LEVEL);
                 _level = level;
             }
         }
@@ -105,17 +109,60 @@ namespace Tutorial
         {
             _exp += deltaExp;
 
-            PlayerPrefs.SetInt("survivor_exp", _exp);
+            PlayerPrefs.SetInt(SAVEDATA_KEY_EXP, _exp);
+
+            // 레벨업 체크
+            CheckLevelUp();
 
             // 경험치 바 업데이트
             UIManager_Tutorial._inst.RefreshExpUI();
         }
 
-        void LevelUp()
+        public void CalcLevelExp(out int curLvExp, out int nextLvExp)
         {
-            _level++;
+            float curLevel = _level;
+            float nextLevel = curLevel + 1;
 
-            _exp = 0;
+            curLvExp = (int)((float)_maxExp * _expCurve.Evaluate(curLevel / (float)_maxLevel));
+            nextLvExp = (int)((float)_maxExp * _expCurve.Evaluate(nextLevel / (float)_maxLevel));
+
+            float exp = _exp;     // 구간 exp
+            float needExp = nextLvExp - curLvExp;
+        }
+
+        void CheckLevelUp()
+        {
+            int curLvExp = 0;       // 현재 레벨의 경험치
+            int nextLvExp = 0;      // 다음 레벨의 경험치
+            CalcLevelExp(out curLvExp, out nextLvExp);
+
+            int exp = _exp;     // 구간에서 누적된 경험치
+            int needExp = nextLvExp - curLvExp;     // 레벨업에 필요한 경험치
+
+            CheckLevelUp(exp, needExp);
+        }
+
+        void CheckLevelUp(int exp, int needExp)
+        {
+            if (needExp <= exp)
+            {
+                int exceed = exp - needExp;     // 경험치 초과분
+
+                // 레벨업
+                _level++;
+                PlayerPrefs.SetInt(SAVEDATA_KEY_LEVEL, _level);
+
+                // 경험치 초과분을 다음 레벨 구간에 이어서 시작
+                _exp = exceed;
+                PlayerPrefs.SetInt(SAVEDATA_KEY_EXP, _exp);
+
+                int curLvExp = 0;       // 현재 레벨의 경험치
+                int nextLvExp = 0;      // 다음 레벨의 경험치
+                CalcLevelExp(out curLvExp, out nextLvExp);
+
+                int needExp2 = nextLvExp - curLvExp;
+                CheckLevelUp(exceed, needExp2);
+            }
         }
     }
 }
