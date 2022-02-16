@@ -35,7 +35,7 @@ namespace Tutorial
             Player player = GameManager._inst._playerTrans.GetComponent<Player>();
             if (player != null)
             {
-                player.AddExp(100);
+                player.AddExp(500);
             }
         }
     }

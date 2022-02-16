@@ -1,0 +1,189 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ba3bdcd5a02b924097e9d1156d09f56, type: 3}
+  m_Name: GameData_TutorialItem
+  m_EditorClassIdentifier: 
+  _dataList:
+  - index: 0
+    name: "\uCC44\uCC0D"
+    type: 0
+    name_en: Whip
+    desc: "\uC218\uD3C9\uC73C\uB85C \uACF5\uACA9\uD569\uB2C8\uB2E4. \uC801\uC744
+      \uAD00\uD1B5\uD569\uB2C8\uB2E4."
+  - index: 1
+    name: "\uB9E4\uC9C1 \uC644\uB4DC"
+    type: 0
+    name_en: Magic Wand
+    desc: "\uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801\uC5D0\uAC8C \uBC1C\uC0AC\uB429\uB2C8\uB2E4."
+  - index: 2
+    name: "\uAC80"
+    type: 0
+    name_en: Sword
+    desc: "\uBC18\uC6D0\uC73C\uB85C \uACF5\uACA9\uD569\uB2C8\uB2E4. \uC801\uC744
+      \uAD00\uD1B5\uD569\uB2C8\uB2E4."
+  - index: 3
+    name: "\uC131\uC11C"
+    type: 0
+    name_en: Bible
+    desc: "\uCE90\uB9AD\uD130 \uC8FC\uBCC0\uC744 \uB5A0\uB3CC\uBA70 \uACF5\uACA9\uD569\uB2C8\uB2E4.
+      \uC77C\uC815 \uC2DC\uAC04\uC774 \uC9C0\uB098\uBA74 \uC0AC\uB77C\uC9D1\uB2C8\uB2E4"
+  - index: 4
+    name: "\uB9C8\uB298"
+    type: 0
+    name_en: Garlic
+    desc: "\uCE90\uB9AD\uD130\uB97C \uC911\uC2EC\uC73C\uB85C \uC791\uC740 \uC6D0\uC744
+      \uC0DD\uC131\uD569\uB2C8\uB2E4. \uBC94\uC704 \uC548\uC758 \uC801\uC740 \uC9C0\uC18D
+      \uD53C\uD574\uB97C \uC785\uC2B5\uB2C8\uB2E4."
+  - index: 5
+    name: "\uB3C4\uB07C"
+    type: 0
+    name_en: Axe
+    desc: "\uCE90\uB9AD\uD130\uC758 \uBA38\uB9AC \uC704\uB85C \uB3C4\uB07C\uB97C
+      \uB358\uC9D1\uB2C8\uB2E4."
+  - index: 6
+    name: "\uC2ED\uC790\uAC00"
+    type: 0
+    name_en: Cross
+    desc: "\uAC00\uAE4C\uC6B4 \uC801\uC5D0\uAC8C \uC2ED\uC790\uAC00\uB97C \uB358\uC9D1\uB2C8\uB2E4.
+      \uC801\uC744 \uAD00\uD1B5\uD569\uB2C8\uB2E4."
+  - index: 7
+    name: "\uD30C\uC774\uC5B4 \uC644\uB4DC"
+    type: 0
+    name_en: Fire Wand
+    desc: "\uD654\uC5FC\uAD6C\uB97C \uB79C\uB364\uD55C \uD0C0\uAC9F\uC744 \uD5A5\uD574
+      \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+  - index: 8
+    name: "\uB8EC\uD2B8\uB808\uC774\uC11C"
+    type: 0
+    name_en: Runetracer
+    desc: "\uB79C\uB364\uD55C \uD0C0\uAC9F\uC744 \uD5A5\uD574 \uB9C8\uB984\uBAA8
+      \uBAA8\uC591\uC758 \uB9C8\uBC95 \uD654\uC0B4\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+  - index: 9
+    name: "\uBF08\uB2E4\uADC0"
+    type: 0
+    name_en: Bone
+    desc: "\uB79C\uB364\uD55C \uD0C0\uAC9F\uC744 \uD5A5\uD574 \uBF08\uB2E4\uADC0\uB97C
+      \uB358\uC9D1\uB2C8\uB2E4."
+  - index: 10
+    name: "\uBE44\uB458\uAE30"
+    type: 0
+    name_en: Peachone
+    desc: "\uBE44\uB458\uAE30\uAC00 \uC18C\uD658\uB418\uC5B4 \uD50C\uB808\uC774\uC5B4\uB97C
+      \uB530\uB77C\uB2E4\uB2C8\uBA70 \uACF5\uACA9\uD569\uB2C8\uB2E4."
+  - index: 11
+    name: "\uD751\uB458\uAE30"
+    type: 0
+    name_en: Dark Peachone
+    desc: "\uD751\uB458\uAE30\uAC00 \uC18C\uD658\uB418\uC5B4 \uD50C\uB808\uC774\uC5B4\uB97C
+      \uB530\uB77C\uB2E4\uB2C8\uBA70 \uACF5\uACA9\uD569\uB2C8\uB2E4."
+  - index: 12
+    name: "\uC131\uC218"
+    type: 0
+    name_en: Santa Water
+    desc: "\uD558\uB298\uC5D0\uC11C \uC131\uC218\uAC00 \uB5A8\uC5B4\uC9D1\uB2C8\uB2E4."
+  - index: 13
+    name: "\uBCBC\uB77D\uBC18\uC9C0"
+    type: 0
+    name_en: Lightning Ring
+    desc: "\uD558\uB298\uC5D0\uC11C \uBCBC\uB77D\uC774 \uB5A8\uC5B4\uC9D1\uB2C8\uB2E4."
+  - index: 14
+    name: "\uC624\uB9DD\uC131"
+    type: 0
+    name_en: Pentagram
+    desc: "\uC2DC\uC57C \uB0B4\uC758 \uBAA8\uB4E0 \uC801\uC744 \uC0AD\uC81C\uD569\uB2C8\uB2E4."
+  - index: 15
+    name: "\uC6D4\uACC4\uAD00"
+    type: 0
+    name_en: Laurel
+    desc: "\uC801\uC758 \uACF5\uACA9\uC744 1\uD68C \uB9C9\uC544\uC8FC\uB294 \uBCF4\uD638\uB9C9\uC744
+      \uC0DD\uC131\uD569\uB2C8\uB2E4."
+  - index: 16
+    name: "\uC2DC\uACC4"
+    type: 0
+    name_en: Clock
+    desc: "\uCE90\uB9AD\uD130 \uC8FC\uBCC0 \uBAAC\uC2A4\uD130\uB97C \uC77C\uC815\uC2DC\uAC04
+      \uC815\uC9C0\uC2DC\uD0B5\uB2C8\uB2E4."
+  - index: 17
+    name: "\uC2DC\uAE08\uCE58"
+    type: 1
+    name_en: Spinach
+    desc: "\uACF5\uACA9\uB825\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - index: 18
+    name: "\uAC11\uC637"
+    type: 1
+    name_en: Armor
+    desc: "\uBC1B\uB294 \uB370\uBBF8\uC9C0\uAC00 1 \uAC10\uC18C\uD569\uB2C8\uB2E4."
+  - index: 19
+    name: "\uC2EC\uC7A5"
+    type: 1
+    name_en: Heart
+    desc: "\uCD5C\uB300 \uCCB4\uB825\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - index: 20
+    name: "\uD608\uC561"
+    type: 1
+    name_en: Blood
+    desc: "\uCD08\uB2F9 \uCCB4\uB825 \uD68C\uBCF5\uC774 0.1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - index: 21
+    name: "\uBE48 \uC131\uC11C"
+    type: 1
+    name_en: Empty Tome
+    desc: "\uACF5\uACA9\uC758 \uCFE8\uD0C0\uC784\uC774 8% \uAC10\uC18C\uD569\uB2C8\uB2E4."
+  - index: 22
+    name: "\uCD1B\uB300"
+    type: 1
+    name_en: Candelabrador
+    desc: "\uACF5\uACA9 \uBC94\uC704\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - index: 23
+    name: "\uBE0C\uB808\uC774\uC11C"
+    type: 1
+    name_en: Bracer
+    desc: "\uD22C\uC0AC\uCCB4\uC758 \uC18D\uB3C4\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - index: 24
+    name: "\uC8FC\uBB38\uC18D\uBC15\uAE30"
+    type: 1
+    name_en: Spellbinder
+    desc: "\uBB34\uAE30 \uC9C0\uC18D\uC2DC\uAC04\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - index: 25
+    name: "\uBCF5\uC81C\uAE30"
+    type: 1
+    name_en: Duplicator
+    desc: "\uBAA8\uB4E0 \uD22C\uC0AC\uCCB4\uC758 \uC218\uAC00 1\uAC1C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - index: 26
+    name: "\uB0A0\uAC1C"
+    type: 1
+    name_en: Wing
+    desc: "\uCE90\uB9AD\uD130\uC758 \uC774\uB3D9\uC18D\uB3C4\uAC00 10% \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
+  - index: 27
+    name: "\uC624\uBE0C"
+    type: 1
+    name_en: orb
+    desc: "\uC544\uC774\uD15C \uD68D\uB4DD \uBC94\uC704\uAC00 \uC99D\uAC00\uD55C\uB2E4"
+  - index: 28
+    name: "\uD074\uB85C\uBC84"
+    type: 1
+    name_en: Clover
+    desc: "\uD589\uC6B4 \uC218\uCE58\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - index: 29
+    name: "\uC655\uAD00"
+    type: 1
+    name_en: Corwn
+    desc: "\uACBD\uD5D8\uCE58 \uD68D\uB4DD\uB960\uC774 8% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - index: 30
+    name: "\uB3CC\uAC00\uBA74"
+    type: 1
+    name_en: Stone Mask
+    desc: "\uACE8\uB4DC \uD68D\uB4DD\uB960\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - index: 31
+    name: "\uBB34\uB364"
+    type: 1
+    name_en: Graves
+    desc: "\uC0AC\uB9DD \uC2DC 1\uD68C \uBD80\uD65C\uD569\uB2C8\uB2E4."

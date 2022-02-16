@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace Tutorial
 {
+    public delegate void CallBack();
+
     public class GameManager : MonoBehaviour
     {
         public static GameManager _inst;
@@ -13,8 +15,12 @@ namespace Tutorial
         public GameObject _expGemPrefab;
 
         #endregion
-        public Transform _playerTrans;
         
+        public Transform _playerTrans;
+
+        #region GameData
+        public GameData_TutorialItem _itemTable;
+        #endregion
 
         private void Awake()
         {
@@ -23,10 +29,12 @@ namespace Tutorial
 
         void Start()
         {
+            _itemTable = Resources.Load("GameData/GameData_TutorialItem") as GameData_TutorialItem;
+
             // 플레이어 초기화
             Player player = _playerTrans.GetComponent<Player>();
             player.Init();
-
+            
             // UI매니저 초기화
             UIManager_Tutorial._inst.Init();
 

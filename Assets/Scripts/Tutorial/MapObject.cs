@@ -12,7 +12,6 @@ namespace Tutorial
         Animator _anim;
         public float _hp = 0.0f;
         public float _maxHp = 10.0f;
-        public Image _hpBarImg;
         bool _die = false;
 
         protected virtual void Start()
@@ -22,9 +21,6 @@ namespace Tutorial
             _anim = GetComponent<Animator>();
             
             _hp = _maxHp;
-
-            if (_hpBarImg != null)
-                _hpBarImg.fillAmount = _hp / _maxHp;
         }
 
 
@@ -76,13 +72,14 @@ namespace Tutorial
                 }
                 else
                 {
-                    if (_hpBarImg != null)
-                        _hpBarImg.fillAmount = _hp / _maxHp;
+                    Player player = GetComponent<Player>();
+
+                    player.UpdateHpBar();
                 }
 
                 // 데미지 텍스트 연출
                 GameObject damageTextObj = Instantiate(UIManager_Tutorial._inst._damageTextPrefab);
-                damageTextObj.transform.parent = UIManager_Tutorial._inst.transform;
+                damageTextObj.transform.parent = UIManager_Tutorial._inst.transform.Find("DamageUI").transform;
 
                 Vector3 startPos = Camera.main.WorldToScreenPoint(transform.position);
 

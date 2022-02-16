@@ -19,6 +19,7 @@ namespace Tutorial
 
         public GameObject _hpBarObj;
         public Vector3 _hpBarOffset;
+        Image _hpBarImg;
 
         [SerializeField] int _exp;
         public int Exp { get { return _exp; } }
@@ -36,19 +37,27 @@ namespace Tutorial
             _attackCol.enabled = false;
             _hpBarImg = _hpBarObj.transform.GetChild(0).GetComponent<Image>();
 
+            UpdateHpBar();
+
             // 공격 담당 코루틴
             StartCoroutine(_NormalAttack());
         }
 
         public void Init()
         {
-            //PlayerPrefs.SetInt(SAVEDATA_KEY_LEVEL, 1);
-            //PlayerPrefs.SetInt(SAVEDATA_KEY_EXP, 0);
+            PlayerPrefs.SetInt(SAVEDATA_KEY_LEVEL, 1);
+            PlayerPrefs.SetInt(SAVEDATA_KEY_EXP, 0);
 
             // 저장된 레벨 불러오기
             LoadLevel();
             // 저장된 경험치 불러오기
             LoadExp();
+        }
+
+        public void UpdateHpBar()
+        {
+            if (_hpBarImg != null)
+                _hpBarImg.fillAmount = _hp / _maxHp;
         }
 
         void FixedUpdate()
@@ -139,10 +148,10 @@ namespace Tutorial
             int exp = _exp;     // 구간에서 누적된 경험치
             int needExp = nextLvExp - curLvExp;     // 레벨업에 필요한 경험치
 
-            CheckLevelUp(exp, needExp);
+            LevelUp(exp, needExp);
         }
 
-        void CheckLevelUp(int exp, int needExp)
+        void LevelUp(int exp, int needExp)
         {
             if (needExp <= exp)
             {
@@ -156,12 +165,22 @@ namespace Tutorial
                 _exp = exceed;
                 PlayerPrefs.SetInt(SAVEDATA_KEY_EXP, _exp);
 
-                int curLvExp = 0;       // 현재 레벨의 경험치
-                int nextLvExp = 0;      // 다음 레벨의 경험치
-                CalcLevelExp(out curLvExp, out nextLvExp);
+                // 일시정지 처리
+                Time.timeScale = 0.0f;
 
-                int needExp2 = nextLvExp - curLvExp;
-                CheckLevelUp(exceed, needExp2);
+                // 레벨업 UI 표시
+                UIManager_Tutorial._inst._levelUpUI.Show(true, delegate ()
+                {
+                    // 일시정지 해제
+                    Time.timeScale = 1.0f;
+                });
+
+                //int curLvExp = 0;       // 현재 레벨의 경험치
+                //int nextLvExp = 0;      // 다음 레벨의 경험치
+                //CalcLevelExp(out curLvExp, out nextLvExp);
+
+                //int needExp2 = nextLvExp - curLvExp;
+                //LevelUp(exceed, needExp2);
             }
         }
     }

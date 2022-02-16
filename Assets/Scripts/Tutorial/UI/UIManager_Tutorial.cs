@@ -11,6 +11,9 @@ namespace Tutorial
 
         public GameObject _damageTextPrefab;
 
+        public LevelUpUI _levelUpUI;
+        public CollectionUI _collectionUI;
+
         private void Awake()
         {
             _inst = this;
@@ -18,8 +21,17 @@ namespace Tutorial
 
         public void Init()
         {
-            ExpBar expBar = GetComponentInChildren<ExpBar>();
+            Transform playUI = transform.Find("PlayUI");
+
+            ExpBar expBar = playUI.GetComponentInChildren<ExpBar>();
             expBar.Init();
+
+            _levelUpUI = playUI.GetComponentInChildren<LevelUpUI>();
+            _levelUpUI.Init();
+            _levelUpUI.Show(false);
+
+            //_collectionUI = GetComponentInChildren<CollectionUI>();
+            //_collectionUI.Init();
         }
 
         void Update()
