@@ -15,12 +15,15 @@ namespace Tutorial
             int i = 0;
             // 버튼 이벤트 연결
             _btnList = transform.Find("ListView").GetComponentsInChildren<Button>(true);
-            foreach(Button b in _btnList)
+            foreach (Button b in _btnList)
             {
                 TutorialItemButton itemBtn = b.GetComponent<TutorialItemButton>();
                 itemBtn.Init();
 
-                b.onClick.AddListener(OnClickItem);
+                b.onClick.AddListener(delegate ()
+                {
+                    OnClickItem(itemBtn);
+                    });
 
                 i++;
             }
@@ -81,12 +84,14 @@ namespace Tutorial
             itemBtn3.SetData(itemInfo);
         }
 
-        void OnClickItem()
+        void OnClickItem(TutorialItemButton selectButton)
         {
             if (_cb != null)
                 _cb();
 
             gameObject.SetActive(false);
+
+            selectButton.SetItemUI();
         }
     }
 }

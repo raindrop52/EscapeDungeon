@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace EscapeGame
 {
-    public enum Trap_Series
-    {
-        NONE,
-        HOLE,
-        ARROW,
-    }
+    //public enum Trap_Series
+    //{
+    //    NONE,
+    //    HOLE,
+    //    ARROW,
+    //}
 
     public class Trap : MonoBehaviour
     {
-        public Trap_Series _trapSeries;
+        //public Trap_Series _trapSeries;
 
         void OnDrawGizmos()
         {
@@ -21,37 +21,64 @@ namespace EscapeGame
             Gizmos.DrawCube(transform.position, new Vector3(1, 1, 1));
         }
 
-        void Start()
-        {
-
-        }
-
-        
-        void Update()
-        {
-
-        }
-
-        private void OnTriggerEnter2D(Collider2D collision)
+        void OnTriggerEnter2D(Collider2D collision)
         {
             if(collision.tag == "Player")
             {
-                switch(_trapSeries)
+                if (this is Hole_Trap)
                 {
-                    case Trap_Series.HOLE:
-                        {
-                            Foot_Trap trap = this as Foot_Trap;
+                    Hole_Trap trap = this as Hole_Trap;
 
-                            trap.OnFootTrap();
+                    trap.OnHoleTrap();
+                }
+                else if (this is Arrow_Trap)
+                {
+                    Arrow_Trap trap = this as Arrow_Trap;
 
-                            break;
-                        }
+                    trap.Init();
+                }
+            }
+        }
 
-                    case Trap_Series.ARROW:
-                        {
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if (collision.tag == "Player")
+            {
+                if (this is Hole_Trap)
+                {
+                    Hole_Trap trap = this as Hole_Trap;
 
-                            break;
-                        }
+                }
+                else if (this is Arrow_Trap)
+                {
+                    Arrow_Trap trap = this as Arrow_Trap;
+
+                    if(trap.IsShot == false)
+                    {
+                        trap.IsShot = true;
+                        trap.OnShot();
+                    }
+                }
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.tag == "Player")
+            {
+                if (this is Hole_Trap)
+                {
+                    Hole_Trap trap = this as Hole_Trap;
+
+                }
+                else if (this is Arrow_Trap)
+                {
+                    Arrow_Trap trap = this as Arrow_Trap;
+
+                    if (trap.IsShot == true)
+                    {
+                        trap.IsShot = false;
+                    }
                 }
             }
         }

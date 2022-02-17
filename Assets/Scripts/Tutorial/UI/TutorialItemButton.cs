@@ -22,7 +22,12 @@ namespace Tutorial
         {
             _nameTxt.text = info.name;
             _descTxt.text = info.desc;
-            //_itemImg.sprite = ;
+            _itemImg.sprite = info.sprite;
+        }
+
+        public void SetItemUI()
+        {
+            Debug.Log(_nameTxt.text);
         }
     }
 }

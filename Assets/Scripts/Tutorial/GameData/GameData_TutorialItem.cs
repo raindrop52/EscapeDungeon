@@ -10,13 +10,16 @@ public class TutorialItemInfo
     public string name;
     public int type;
     public string name_en;
+    public string sprite_path;
     public string desc;
+    public Sprite sprite;
 }
 
 [CreateAssetMenu(fileName = "GameData_TutorialItem", menuName = "GameData/TutorialItem", order = 1)]
 public class GameData_TutorialItem : GameData
 {
     public List<TutorialItemInfo> _dataList;
+    public SpriteAssetManager _spriteAssetMgr;
 
     public TutorialItemInfo GetData(int index)
     {
@@ -63,6 +66,11 @@ public class GameData_TutorialItem : GameData
             TutorialItemInfo info = new TutorialItemInfo();
 
             ParseObject(info, csvObj);
+
+            if(info.sprite == null && _spriteAssetMgr != null)
+            {
+                info.sprite = _spriteAssetMgr.GetSprite(info.sprite_path);
+            }
 
             _dataList.Add(info);
         }

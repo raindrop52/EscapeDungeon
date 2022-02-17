@@ -50908,6 +50908,83 @@ Transform:
   m_Father: {fileID: 1286041739}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &469402599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 469402600}
+  - component: {fileID: 469402601}
+  - component: {fileID: 469402602}
+  m_Layer: 0
+  m_Name: ArrowTrap_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &469402600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469402599}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.03, y: 3.45, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 616305503}
+  - {fileID: 669237358}
+  - {fileID: 1316625883}
+  - {fileID: 1649058620}
+  - {fileID: 1567486142}
+  - {fileID: 1027396643}
+  m_Father: {fileID: 1681200708}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &469402601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469402599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c034582603e7e4ca66be66a320f3e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _secOnFireShooter: 1
+--- !u!61 &469402602
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469402599}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.010624886, y: -0.26562262}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 6.0787, y: 5.611205}
+  m_EdgeRadius: 0
 --- !u!1 &501487790
 GameObject:
   m_ObjectHideFlags: 0
@@ -50937,12 +51014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0efb60932f7fc404fbaf0cbf077282a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _status: 0
-  _listTrapTrans: []
   _tileHidden: {fileID: 270204158}
-  _secArrowShot: 1
-  _randomArrowShot: 0
-  _allArrowShot: 0
 --- !u!4 &501487792
 Transform:
   m_ObjectHideFlags: 0
@@ -50954,7 +51026,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 983402570}
   - {fileID: 1681200708}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -51073,7 +51144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 616305503}
-  - component: {fileID: 616305504}
+  - component: {fileID: 616305505}
   m_Layer: 0
   m_Name: Arrow_Trap_1
   m_TagString: Untagged
@@ -51089,13 +51160,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616305502}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.52, y: 0.5999985, z: -1.1333122}
+  m_LocalPosition: {x: -3.8500001, y: -2.96, z: -1.1333122}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 983402570}
+  m_Father: {fileID: 469402600}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &616305504
+--- !u!114 &616305505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51104,10 +51175,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 616305502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8c034582603e7e4ca66be66a320f3e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c628164e0ae3fb4a90690e1594e5138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trapSeries: 0
+  _dir: 3
 --- !u!1 &669237356
 GameObject:
   m_ObjectHideFlags: 0
@@ -51117,7 +51188,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 669237358}
-  - component: {fileID: 669237357}
+  - component: {fileID: 669237359}
   m_Layer: 0
   m_Name: Arrow_Trap_2
   m_TagString: Untagged
@@ -51125,19 +51196,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &669237357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 669237356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8c034582603e7e4ca66be66a320f3e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _trapSeries: 0
 --- !u!4 &669237358
 Transform:
   m_ObjectHideFlags: 0
@@ -51146,12 +51204,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669237356}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.48, y: 0.5999985, z: -1.1333122}
+  m_LocalPosition: {x: -3.8500001, y: -1.96, z: -1.1333122}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 983402570}
+  m_Father: {fileID: 469402600}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &669237359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669237356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c628164e0ae3fb4a90690e1594e5138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dir: 3
 --- !u!1 &704934131
 GameObject:
   m_ObjectHideFlags: 0
@@ -51657,42 +51728,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9831526f7a4079e4c805eca17d674bf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &983402569
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 983402570}
-  m_Layer: 0
-  m_Name: Arrow_Trap_List
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &983402570
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983402569}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 100, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 616305503}
-  - {fileID: 669237358}
-  - {fileID: 1316625883}
-  - {fileID: 1649058620}
-  - {fileID: 1567486142}
-  - {fileID: 1027396643}
-  m_Father: {fileID: 501487792}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1009116693
 GameObject:
   m_ObjectHideFlags: 0
@@ -51732,7 +51767,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1027396643}
-  - component: {fileID: 1027396642}
+  - component: {fileID: 1027396644}
   m_Layer: 0
   m_Name: Arrow_Trap_6
   m_TagString: Untagged
@@ -51740,19 +51775,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1027396642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1027396641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8c034582603e7e4ca66be66a320f3e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _trapSeries: 0
 --- !u!4 &1027396643
 Transform:
   m_ObjectHideFlags: 0
@@ -51761,12 +51783,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1027396641}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.51, y: 0.5999985, z: -1.1333122}
+  m_LocalPosition: {x: -3.8500001, y: 2.039999, z: -1.1333122}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 983402570}
+  m_Father: {fileID: 469402600}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1027396644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027396641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c628164e0ae3fb4a90690e1594e5138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dir: 3
 --- !u!1 &1039837645
 GameObject:
   m_ObjectHideFlags: 0
@@ -52508,7 +52543,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1316625883}
-  - component: {fileID: 1316625882}
+  - component: {fileID: 1316625884}
   m_Layer: 0
   m_Name: Arrow_Trap_3
   m_TagString: Untagged
@@ -52516,19 +52551,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1316625882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316625881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8c034582603e7e4ca66be66a320f3e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _trapSeries: 0
 --- !u!4 &1316625883
 Transform:
   m_ObjectHideFlags: 0
@@ -52537,12 +52559,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316625881}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.47, y: 0.5999985, z: -1.1333122}
+  m_LocalPosition: {x: -3.8500001, y: -0.9600005, z: -1.1333122}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 983402570}
+  m_Father: {fileID: 469402600}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1316625884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316625881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c628164e0ae3fb4a90690e1594e5138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dir: 3
 --- !u!1 &1329497987
 GameObject:
   m_ObjectHideFlags: 0
@@ -52609,7 +52644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1567486142}
-  - component: {fileID: 1567486141}
+  - component: {fileID: 1567486143}
   m_Layer: 0
   m_Name: Arrow_Trap_5
   m_TagString: Untagged
@@ -52617,19 +52652,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1567486141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1567486140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8c034582603e7e4ca66be66a320f3e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _trapSeries: 0
 --- !u!4 &1567486142
 Transform:
   m_ObjectHideFlags: 0
@@ -52638,12 +52660,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567486140}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0.5999985, z: -1.1333122}
+  m_LocalPosition: {x: -3.8500001, y: 1.039999, z: -1.1333122}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 983402570}
+  m_Father: {fileID: 469402600}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1567486143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567486140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c628164e0ae3fb4a90690e1594e5138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dir: 3
 --- !u!1 &1649058618
 GameObject:
   m_ObjectHideFlags: 0
@@ -52653,7 +52688,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1649058620}
-  - component: {fileID: 1649058619}
+  - component: {fileID: 1649058621}
   m_Layer: 0
   m_Name: Arrow_Trap_4
   m_TagString: Untagged
@@ -52661,19 +52696,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1649058619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1649058618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8c034582603e7e4ca66be66a320f3e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _trapSeries: 0
 --- !u!4 &1649058620
 Transform:
   m_ObjectHideFlags: 0
@@ -52682,12 +52704,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1649058618}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.5999985, z: -1.1333122}
+  m_LocalPosition: {x: -3.8500001, y: 0.03999901, z: -1.1333122}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 983402570}
+  m_Father: {fileID: 469402600}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1649058621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649058618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c628164e0ae3fb4a90690e1594e5138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dir: 3
 --- !u!1 &1681200707
 GameObject:
   m_ObjectHideFlags: 0
@@ -52716,8 +52751,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2041805331}
+  - {fileID: 469402600}
   m_Father: {fileID: 501487792}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1729975416
 GameObject:
@@ -53200,7 +53236,7 @@ GameObject:
   - component: {fileID: 2041805333}
   - component: {fileID: 2041805332}
   m_Layer: 0
-  m_Name: FootTrap_1(6block)
+  m_Name: HoleTrap_1(6block)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53232,7 +53268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93756b5db270ad7448bc198ab653b607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trapSeries: 1
   _hiddenTile: {fileID: 15403135}
 --- !u!61 &2041805333
 BoxCollider2D:
