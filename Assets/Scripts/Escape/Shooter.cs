@@ -24,11 +24,6 @@ namespace EscapeGame
 
         public void OnShot()
         {
-            StartCoroutine(_Shot());
-        }
-
-        IEnumerator _Shot()
-        {
             // Arrow ÇÁ¸®ÆÕ »ý¼º
             GameObject arrow = Instantiate(_arrow);
             arrow.transform.position = transform.position;
@@ -46,8 +41,6 @@ namespace EscapeGame
             {
                 arrow.transform.localEulerAngles = new Vector3(0, 0, 180);
             }
-
-            yield return null;
         }
     }
 }

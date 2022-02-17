@@ -37,9 +37,9 @@ namespace EscapeGame
                 foreach(Shooter shooter in _shooters)
                 {
                     shooter.OnShot();
-                }
 
-                yield return new WaitForSeconds(_secOnFireShooter);
+                    yield return new WaitForSeconds(_secOnFireShooter);
+                }
             }
         }
     }
