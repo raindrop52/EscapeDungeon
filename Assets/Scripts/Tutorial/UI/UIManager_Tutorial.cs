@@ -11,6 +11,10 @@ namespace Tutorial
 
         public GameObject _damageTextPrefab;
 
+        public GameObject _introUI;
+        public GameObject _playUI;
+        public GameObject _gameOverUI;
+
         public LevelUpUI _levelUpUI;
         public CollectionUI _collectionUI;
 
@@ -21,12 +25,14 @@ namespace Tutorial
 
         public void Init()
         {
-            Transform playUI = transform.Find("PlayUI");
+            _introUI = transform.Find("IntroUI").gameObject;
+            _playUI = transform.Find("PlayUI").gameObject;
+            _gameOverUI = transform.Find("GameOverUI").gameObject;
 
-            ExpBar expBar = playUI.GetComponentInChildren<ExpBar>();
+            ExpBar expBar = _playUI.GetComponentInChildren<ExpBar>();
             expBar.Init();
-
-            _levelUpUI = playUI.GetComponentInChildren<LevelUpUI>();
+                        
+            _levelUpUI = _playUI.GetComponentInChildren<LevelUpUI>();
             _levelUpUI.Init();
             _levelUpUI.Show(false);
 
@@ -34,9 +40,11 @@ namespace Tutorial
             //_collectionUI.Init();
         }
 
-        void Update()
+        public void CloseAllUI()
         {
-
+            _introUI.SetActive(false);
+            _playUI.SetActive(false);
+            _gameOverUI.SetActive(false);
         }
 
         public void RefreshExpUI()

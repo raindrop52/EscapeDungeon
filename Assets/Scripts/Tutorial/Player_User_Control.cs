@@ -34,6 +34,9 @@ namespace Tutorial
             Flip(h);
 
             Move(h, v);
+
+            //float test = Mathf.PerlinNoise(h, v);
+            //Debug.Log(string.Format("∆ﬁ∏∞ ≥Î¿Ã¡Ó Value : ({0}, {1}) ({2})", h, v, test));
         }
 
         void Flip(float h)
