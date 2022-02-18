@@ -50,18 +50,15 @@ namespace EscapeGame
             // 초기 플레이어 위치 설정 (RestRoom)
             _player.gameObject.transform.position = _stagePosList[0].position;
 
-            if(_directLight != null)
+            /*if(_directLight != null)
             {
                 _directLight.SetActive(false);
-            }
+            }*/
 
             // UI매니저 초기화
             UIManager._inst.Init();
             // AI매니저 초기화
             AIManager._inst.Init();
-
-            // 가이드 텍스트 표시
-            UIManager._inst.ShowTextMessage("");
         }
 
 

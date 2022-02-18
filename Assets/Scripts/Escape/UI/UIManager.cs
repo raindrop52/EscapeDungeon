@@ -26,6 +26,9 @@ namespace EscapeGame
                 // 초기화 시 활성화 상태인 경우 비활성화 처리
                 _textReadPanel.SetActive(false);
             }
+
+            // 알림 UI 초기 비활성화
+            ShowTextMessage("", true);
         }
 
         public void OnPointerDown()

@@ -7,9 +7,9 @@ namespace Tutorial
 {
     public class MapObject : MonoBehaviour
     {
-        Rigidbody2D _rigid;
-        SpriteRenderer _render;
-        Animator _anim;
+        protected Rigidbody2D _rigid;
+        protected SpriteRenderer _render;
+        protected Animator _anim;
         public float _hp = 0.0f;
         public float _maxHp = 10.0f;
         bool _die = false;

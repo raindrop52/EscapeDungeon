@@ -16,6 +16,7 @@ namespace EscapeGame
     {
         GameObject _arrow;
         [SerializeField] SHOOTER_DIR _dir;
+        public float _shotSpeed = 5.0f;
 
         public void Init()
         {
@@ -25,22 +26,25 @@ namespace EscapeGame
         public void OnShot()
         {
             // Arrow 橇府普 积己
-            GameObject arrow = Instantiate(_arrow);
-            arrow.transform.position = transform.position;
+            GameObject arrowObj = Instantiate(_arrow);
+            arrowObj.transform.position = transform.position;
 
             // Default 规氢篮 Bottom
             if (_dir == SHOOTER_DIR.RIGHT)
             {
-                arrow.transform.localEulerAngles = new Vector3(0, 0, 90);
+                arrowObj.transform.localEulerAngles = new Vector3(0, 0, 90);
             }
             else if (_dir == SHOOTER_DIR.LEFT)
             {
-                arrow.transform.localEulerAngles = new Vector3(0, 0, -90);
+                arrowObj.transform.localEulerAngles = new Vector3(0, 0, -90);
             }
             else if (_dir == SHOOTER_DIR.TOP)
             {
-                arrow.transform.localEulerAngles = new Vector3(0, 0, 180);
+                arrowObj.transform.localEulerAngles = new Vector3(0, 0, 180);
             }
+
+            Arrow arrow = arrowObj.GetComponent<Arrow>();
+            arrow._speed = _shotSpeed;
         }
     }
 }

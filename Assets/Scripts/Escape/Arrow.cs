@@ -7,7 +7,7 @@ namespace EscapeGame
     public class Arrow : MonoBehaviour
     {
         public float _speed = 1.0f;
-        float _time = 20.0f;
+        float _time = 3.0f;
 
         void Start()
         {

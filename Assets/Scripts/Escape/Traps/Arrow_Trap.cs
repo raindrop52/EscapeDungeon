@@ -9,6 +9,9 @@ namespace EscapeGame
         bool _shot = false;
         public bool IsShot
         { get { return _shot; } set { _shot = value; } }
+        bool _shooting = false;
+        public bool IsShooting
+        { get { return _shooting; } set { _shooting = value; } }
         Shooter[] _shooters;
         [SerializeField] float _secOnFireShooter = 1.0f;
 
@@ -34,11 +37,18 @@ namespace EscapeGame
         {
             while(_shot)
             {
-                foreach(Shooter shooter in _shooters)
+                if(_shooting)
                 {
-                    shooter.OnShot();
+                    foreach (Shooter shooter in _shooters)
+                    {
+                        shooter.OnShot();
 
-                    yield return new WaitForSeconds(_secOnFireShooter);
+                        yield return new WaitForSeconds(_secOnFireShooter);
+                    }
+                }
+                else
+                {
+                    yield return null;
                 }
             }
         }

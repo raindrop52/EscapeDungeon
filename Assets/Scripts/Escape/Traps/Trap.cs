@@ -36,6 +36,12 @@ namespace EscapeGame
                     Arrow_Trap trap = this as Arrow_Trap;
 
                     trap.Init();
+
+                    if (trap.IsShot == false)
+                    {
+                        trap.IsShot = true;
+                    }
+                    trap.OnShot();
                 }
             }
         }
@@ -53,10 +59,9 @@ namespace EscapeGame
                 {
                     Arrow_Trap trap = this as Arrow_Trap;
 
-                    if(trap.IsShot == false)
+                    if(trap.IsShooting == false)
                     {
-                        trap.IsShot = true;
-                        trap.OnShot();
+                        trap.IsShooting = true;
                     }
                 }
             }
@@ -74,6 +79,11 @@ namespace EscapeGame
                 else if (this is Arrow_Trap)
                 {
                     Arrow_Trap trap = this as Arrow_Trap;
+
+                    if (trap.IsShooting == true)
+                    {
+                        trap.IsShooting = false;
+                    }
 
                     if (trap.IsShot == true)
                     {
