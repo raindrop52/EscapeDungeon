@@ -36,8 +36,9 @@ namespace Tutorial
             _levelUpUI.Init();
             _levelUpUI.Show(false);
 
-            //_collectionUI = GetComponentInChildren<CollectionUI>();
+            _collectionUI = GetComponentInChildren<CollectionUI>();
             //_collectionUI.Init();
+
         }
 
         public void CloseAllUI()
