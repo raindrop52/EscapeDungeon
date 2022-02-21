@@ -17,7 +17,7 @@ namespace EscapeGame
     public class GameManager : MonoBehaviour
     {
         public static GameManager _inst;
-
+        public Transform _arrowParent;
         public GameObject _directLight;
 
         [Header("스테이지")]
@@ -50,10 +50,10 @@ namespace EscapeGame
             // 초기 플레이어 위치 설정 (RestRoom)
             _player.gameObject.transform.position = _stagePosList[0].position;
 
-            /*if(_directLight != null)
-            {
-                _directLight.SetActive(false);
-            }*/
+            //if(_directLight != null)
+            //{
+            //    _directLight.SetActive(false);
+            //}
 
             // UI매니저 초기화
             UIManager._inst.Init();

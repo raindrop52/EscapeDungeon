@@ -28,6 +28,7 @@ namespace EscapeGame
             // Arrow 橇府普 积己
             GameObject arrowObj = Instantiate(_arrow);
             arrowObj.transform.position = transform.position;
+            arrowObj.transform.parent = GameManager._inst._arrowParent;
 
             // Default 规氢篮 Bottom
             if (_dir == SHOOTER_DIR.RIGHT)

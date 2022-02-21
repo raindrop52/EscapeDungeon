@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EscapeGame
 {
-    public class Talk_Read : TalkTrigger
+    public class Talk_Trap : TalkTrigger
     {
         protected override void DoTrigerEvent()
         {
@@ -12,7 +12,7 @@ namespace EscapeGame
             {
                 case 0:
                     {
-                        UIManager._inst.ShowTextMessage(_talkInfo._text);
+                        AIManager._inst.ShowHiddenTile(true);
                         break;
                     }
                 default:

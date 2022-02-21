@@ -28,6 +28,14 @@ namespace Tutorial
         public bool GameStart
         { get { return _gameStart; } set { _gameStart = value; } }
 
+        public float _enemySpawnRange = 15f;
+        public int _maxEnemyCount = 50;
+        List<Enemy> _enemyList = new List<Enemy>();
+        public List<Enemy> EnemyList
+        {
+            get { return _enemyList; }
+        }
+
         private void Awake()
         {
             _inst = this;
@@ -89,24 +97,43 @@ namespace Tutorial
 
             while (gameObject.activeSelf && _playerTrans.gameObject != null)
             {
+                // 현재 필드에 있는 총 에너미 갯수를 체크, 최대 갯수를 넘으면 생성하지 않고 대기
+                if (_enemyList.Count > _maxEnemyCount)
+                {
+                    yield return null;
+                    continue;
+                }
+
                 // 적 랜덤 개체 수
-                int randomInt = Random.Range(15, 40);
+                int randomInt = Random.Range(20, 40);
 
                 for (int i = 0; i < randomInt; i++)
                 {
                     Vector2 playerPos = _playerTrans.position;
 
                     GameObject batObj = Instantiate(_batPrefab);
-                    batObj.transform.position = playerPos + Random.insideUnitCircle * 15;
+
+                    Vector2 randomVector = Random.insideUnitCircle * 15;
+
+                    float halfRange = _enemySpawnRange * 0.5f;
+
+                    if(randomVector.x >= 0.0f)
+                        randomVector.x = Mathf.Max(randomVector.x, halfRange);
+                    if (randomVector.y >= 0.0f)
+                        randomVector.y = Mathf.Max(randomVector.y, halfRange);
+                    if (randomVector.x < 0.0f)
+                        randomVector.x = Mathf.Min(randomVector.x, -1 * halfRange);
+                    if (randomVector.y < 0.0f)
+                        randomVector.y = Mathf.Min(randomVector.y, -1 * halfRange);
+
+                    batObj.transform.position = playerPos + randomVector;
+
+                    Enemy enemy = batObj.GetComponent<Enemy>();
+                    _enemyList.Add(enemy);
                 }
 
                 yield return new WaitForSeconds(10.0f);
             }
-        }
-        
-        void Update()
-        {
-            
         }
     }
 }

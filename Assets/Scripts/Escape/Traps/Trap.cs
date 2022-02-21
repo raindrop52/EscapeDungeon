@@ -4,16 +4,9 @@ using UnityEngine;
 
 namespace EscapeGame
 {
-    //public enum Trap_Series
-    //{
-    //    NONE,
-    //    HOLE,
-    //    ARROW,
-    //}
-
     public class Trap : MonoBehaviour
     {
-        //public Trap_Series _trapSeries;
+        Callback _cb;
 
         void OnDrawGizmos()
         {

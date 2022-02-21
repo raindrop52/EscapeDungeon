@@ -130,6 +130,10 @@ namespace Tutorial
                 // 경험치 아이템 드랍
                 DropItem();
 
+                Enemy enemy = this as Enemy;
+
+                GameManager._inst.EnemyList.Remove(enemy);
+
                 Destroy(gameObject);
             }
         }

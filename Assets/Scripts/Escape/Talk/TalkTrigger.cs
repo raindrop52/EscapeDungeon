@@ -8,10 +8,9 @@ namespace EscapeGame
     public enum Talk_ID
     {
         NONE = 0,           // 상황 발생 X
-        READ,               // 읽는 상황
         BREAK,              // 파괴 상황
         MOVE,               // 이동 상황
-
+        TRAP,               // 함정 발동 상황
     }
 
     [Serializable]
@@ -41,40 +40,36 @@ namespace EscapeGame
 
         public void ShowEffect(bool show)
         {
-            _effect.gameObject.SetActive(show);
+            if(_effect != null)
+                _effect.gameObject.SetActive(show);
+        }
+
+        void OnShowText()
+        {
+            UIManager._inst.ShowTextMessage(_talkInfo._text);
+        }
+
+        IEnumerator _OnTrigger()
+        {
+            if (_talkInfo != null)
+            {
+                OnShowText();
+
+                yield return new WaitForSeconds(0.5f);
+
+                // Panel이 없어질때까지 대기
+                yield return new WaitUntil(() => UIManager._inst.IsTextPanel() == false);
+
+                DoTrigerEvent();
+            }
+            yield return null;
         }
 
         public void ExcuteTriggerEvent()
         {
             if(_talkInfo != null)
             {
-                switch(_talkInfo._id)
-                {
-                    // 대화 상황
-                    case Talk_ID.READ:
-                        {
-                            DoTrigerEvent();
-
-                            break;
-                        }
-                    // 파괴 상황
-                    case Talk_ID.BREAK:
-                        {
-                            // 스테이지 레벨 체크
-                            if(_talkInfo._level == GameManager._inst._stageLevel)
-                            {
-                                DoTrigerEvent();
-                            }
-
-                            break;
-                        }
-                    case Talk_ID.MOVE:
-                        {
-                            break;
-                        }
-                    default:
-                        break;
-                }
+                StartCoroutine(_OnTrigger());
             }
         }
     }
