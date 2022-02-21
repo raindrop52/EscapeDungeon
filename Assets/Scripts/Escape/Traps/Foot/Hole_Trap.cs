@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace EscapeGame
 {
-    public class Hole_Trap : Trap
+    public class Hole_Trap : Trap_Foot
     {
-        public GameObject _hiddenTile;
+        [SerializeField] GameObject _hiddenTile;
 
+        protected override void ExcuteTrap()
+        {
+            OnHoleTrap();
+        }
 
-
-        public void OnHoleTrap()
+        void OnHoleTrap()
         {
             if (_hiddenTile != null && _hiddenTile.activeSelf == false)
             {

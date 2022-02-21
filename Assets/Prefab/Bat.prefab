@@ -147,7 +147,7 @@ MonoBehaviour:
   _hp: 0
   _maxHp: 10
   _player: {fileID: 0}
-  _speed: 0.1
+  _speed: 0.3
 --- !u!50 &3440490426255374085
 Rigidbody2D:
   serializedVersion: 4

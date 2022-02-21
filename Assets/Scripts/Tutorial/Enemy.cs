@@ -22,7 +22,7 @@ namespace Tutorial
         {
             while (_player != null)
             {
-                transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, _speed * Time.fixedDeltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, Time.timeScale * _speed * Time.fixedDeltaTime);
                 
                 yield return null;
             }

@@ -14,12 +14,13 @@ namespace EscapeGame
         END,
     }
 
-    public class AIManager : MonoBehaviour
+    public class StageManager : MonoBehaviour
     {
-        public static AIManager _inst;
+        public static StageManager _inst;
 
         [Header("스테이지1 함정")]
         [SerializeField] GameObject _tileHidden;
+        Arrow_Trap[] _arrowTrapArray;
 
         private void Awake()
         {
@@ -29,6 +30,13 @@ namespace EscapeGame
         public void Init()
         {
             ShowHiddenTile(false);
+
+            // 화살 함정 Init
+            _arrowTrapArray = GetComponentsInChildren<Arrow_Trap>();
+            foreach(Arrow_Trap arTrap in _arrowTrapArray)
+            {
+                arTrap.Init();
+            }
         }
 
         // 히든 타일 설정

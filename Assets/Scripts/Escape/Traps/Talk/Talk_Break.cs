@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EscapeGame
 {
-    public class Talk_Break : TalkTrigger
+    public class Talk_Break : Trap_Talk
     {
         protected override void DoTrigerEvent()
         {
@@ -12,7 +12,7 @@ namespace EscapeGame
             {
                 case 0 :
                     {
-                        AIManager._inst.ShowHiddenTile(true);
+                        StageManager._inst.ShowHiddenTile(true);
                         break;
                     }
                 default :

@@ -95,7 +95,7 @@ namespace EscapeGame
 
         IEnumerator _TalkCheck(GameObject col)
         {
-            TalkTrigger trigger = col.GetComponent<TalkTrigger>();
+            Trap_Talk trigger = col.GetComponent<Trap_Talk>();
             if (trigger != null)
             {
                 while (_inTalkArea)

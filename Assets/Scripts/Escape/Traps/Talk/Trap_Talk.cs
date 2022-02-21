@@ -1,29 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 namespace EscapeGame
 {
-    public enum Talk_ID
+    public class Trap_Talk : Trap
     {
-        NONE = 0,           // 상황 발생 X
-        BREAK,              // 파괴 상황
-        MOVE,               // 이동 상황
-        TRAP,               // 함정 발동 상황
-    }
+        public enum Talk_ID
+        {
+            NONE = 0,           // 상황 발생 X
+            BREAK,              // 파괴 상황
+            MOVE,               // 이동 상황
+            TRAP,               // 함정 발동 상황
+        }
 
-    [Serializable]
-    public class TalkInfo
-    {
-        public Talk_ID _id;             // 상황 ID
-        public int _level;              // 스테이지 레벨
-        public int _order;              // 동작 순서
-        public string _text = "";       // 읽을 메시지
-    }
+        [Serializable]
+        public class TalkInfo
+        {
+            public Talk_ID _id;             // 상황 ID
+            public int _level;              // 스테이지 레벨
+            public int _order;              // 동작 순서
+            public string _text = "";       // 읽을 메시지
+        }
 
-    public class TalkTrigger : MonoBehaviour
-    {
         [SerializeField] protected TalkInfo _talkInfo;
         protected ParticleSystem _effect;
 
@@ -40,7 +40,7 @@ namespace EscapeGame
 
         public void ShowEffect(bool show)
         {
-            if(_effect != null)
+            if (_effect != null)
                 _effect.gameObject.SetActive(show);
         }
 
@@ -67,7 +67,7 @@ namespace EscapeGame
 
         public void ExcuteTriggerEvent()
         {
-            if(_talkInfo != null)
+            if (_talkInfo != null)
             {
                 StartCoroutine(_OnTrigger());
             }
