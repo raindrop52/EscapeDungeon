@@ -47,6 +47,8 @@ namespace EscapeGame
 
         void Start()
         {
+            // 플레이어 초기화
+            _player.Init();
             // 초기 플레이어 위치 설정 (RestRoom)
             _player.gameObject.transform.position = _stagePosList[0].position;
 

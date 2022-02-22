@@ -10,11 +10,14 @@ namespace EscapeGame
         public LayerMask _layerMask;    // 통과 불가 오브젝트 설정
         SpriteRenderer _sprite;
         Animator _anim;
+        Player _player;
 
         Vector3 vector;
 
         [Header("캐릭터 이동 관련")]
-        public float _speed;
+        [SerializeField] float _speed;
+        public float Speed
+        { get { return _speed; } }
         public int _walkCount;
         [SerializeField] int _currentWalkCount;
         public bool _canMove = true;
@@ -26,7 +29,11 @@ namespace EscapeGame
         [Header("조이스틱")]
         [SerializeField] float _x, _y;          // 조이스틱 값 체크
         [SerializeField] Joystick _joystick;
-        Player _player;
+
+        [Header("중독 상태")]
+        float _slowSpeed;                     // Slow 이동속도
+        public float SlowSpeed
+        { get { return _slowSpeed; } set { _slowSpeed = value; } }
 
         IEnumerator _OnMove()
         {
@@ -52,15 +59,22 @@ namespace EscapeGame
                                 
                 _anim.SetBool("Walking", true);
 
+                float speed = _speed;
+                // 중독:슬로우에 걸린 경우
+                if(_slowSpeed > 0.0f)
+                {
+                    speed = _slowSpeed;
+                }
+
                 while (_currentWalkCount < _walkCount)
                 {
                     if (vector.x != 0)
                     {
-                        transform.Translate(vector.x * _speed, 0, 0);
+                        transform.Translate(vector.x * speed, 0, 0);
                     }
                     else if (vector.y != 0)
                     {
-                        transform.Translate(0, vector.y * _speed, 0);
+                        transform.Translate(0, vector.y * speed, 0);
                     }
 
                     _currentWalkCount++;

@@ -7,14 +7,6 @@ namespace EscapeGame
 {
     public class Trap_Talk : Trap
     {
-        public enum Talk_ID
-        {
-            NONE = 0,           // 상황 발생 X
-            BREAK,              // 파괴 상황
-            MOVE,               // 이동 상황
-            TRAP,               // 함정 발동 상황
-        }
-
         [Serializable]
         public class TalkInfo
         {
@@ -30,6 +22,13 @@ namespace EscapeGame
         void Start()
         {
             _effect = GetComponentInChildren<ParticleSystem>();
+        }
+
+        protected override void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+
+            base.OnDrawGizmos();
         }
 
         protected virtual void DoTrigerEvent()
@@ -65,7 +64,7 @@ namespace EscapeGame
             yield return null;
         }
 
-        public void ExcuteTriggerEvent()
+        public void ExecuteTriggerEvent()
         {
             if (_talkInfo != null)
             {

@@ -8,7 +8,7 @@ namespace EscapeGame
     {
         [SerializeField] GameObject _hiddenTile;
 
-        protected override void ExcuteTrap()
+        protected override void ExecuteTrap(GameObject playerObj)
         {
             OnHoleTrap();
         }

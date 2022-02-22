@@ -15,7 +15,7 @@ namespace EscapeGame
         Shooter[] _shooters;
         [SerializeField] float _secOnFireShooter = 1.0f;
 
-        protected override void ExcuteTrap()
+        protected override void ExecuteTrap(GameObject playerObj)
         {
             if (_shot == false)
             {

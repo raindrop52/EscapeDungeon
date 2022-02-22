@@ -6,7 +6,14 @@ namespace EscapeGame
 {
     public class Trap_Foot : Trap
     {
-        protected virtual void ExcuteTrap()
+        protected override void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+
+            base.OnDrawGizmos();
+        }
+
+        protected virtual void ExecuteTrap(GameObject playerObj)
         {
 
         }
@@ -15,7 +22,7 @@ namespace EscapeGame
         {
             if (collision.tag == "Player")
             {
-                ExcuteTrap();
+                ExecuteTrap(collision.gameObject);
             }
         }
 

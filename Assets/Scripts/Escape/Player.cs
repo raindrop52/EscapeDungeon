@@ -27,15 +27,33 @@ namespace EscapeGame
             set { _talk = value; }
         }
 
-
-        void Start()
+        [Header("중독 관련")]
+        //중독 상태 여부
+        Dictionary<Poison_Type, bool> _isPoison;
+        
+        public void Init()
         {
+            _isPoison = new Dictionary<Poison_Type, bool>();
+
+            // 중독 상태 저장 (초기값 false)
+            for (int i = 0; i < (int)Poison_Type.Count; i++)
+            {
+                _isPoison.Add((Poison_Type)i, false);
+            }
         }
 
-        
-        void Update()
+        public bool GetPoisonStatus(Poison_Type key)
         {
+            bool value;
 
+            value = _isPoison[key];
+
+            return value;
+        }
+
+        public void SetPoisonStatus(Poison_Type key, bool status)
+        {
+            _isPoison[key] = status;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -106,7 +124,7 @@ namespace EscapeGame
                     {
                         _talking = true;
 
-                        trigger.ExcuteTriggerEvent();
+                        trigger.ExecuteTriggerEvent();
 
                         _talking = false;
                     }
