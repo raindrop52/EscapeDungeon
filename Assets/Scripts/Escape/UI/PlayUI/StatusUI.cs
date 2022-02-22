@@ -9,12 +9,15 @@ namespace EscapeGame
         // 생명력 아이콘 UI
         LifeUI _lifeUI;
         // 중독 아이콘 UI
+        PoisonUI _poisonUI;
 
         public void Init()
         {
             _lifeUI = GetComponentInChildren<LifeUI>();
-
             _lifeUI.Init();
+
+            _poisonUI = GetComponentInChildren<PoisonUI>();
+            _poisonUI.Init();
         }
 
         public void OnHitUI()
