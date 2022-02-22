@@ -24,10 +24,7 @@ namespace Tutorial
 
         void SetButtonImage()
         {
-            int count = 0;
-            int maxCount = 0;
 
-            
         }
     }
 }

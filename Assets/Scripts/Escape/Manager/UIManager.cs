@@ -13,6 +13,10 @@ namespace EscapeGame
         public Joystick _joystick;
         GameObject _textReadPanel;
 
+        #region UI
+        public StatusUI _statusUI;
+        #endregion
+
         private void Awake()
         {
             _inst = this;
@@ -27,8 +31,15 @@ namespace EscapeGame
                 ShowTextPanel(false);
             }
 
-            // 알림 UI 초기 비활성화
-            //ShowTextMessage("", true);
+            // UI 초기화
+            // 로비 UI 초기화
+
+            // 플레이 UI 초기화
+            _statusUI = transform.Find("StatusUI").GetComponentInChildren<StatusUI>();
+            _statusUI.Init();
+
+            // 로비 UI 표시 및 로비를 제외한 나머지 UI는 비활성화
+
         }
 
         public void OnPointerDown()

@@ -2,25 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseUI : MonoBehaviour
+namespace EscapeGame
 {
-    
-    void Start()
+    public class BaseUI : MonoBehaviour
     {
-        
-    }
-
-    
-    void Update()
-    {
-        
-    }
-
-    public void OnShow(bool show)
-    {
-        if(gameObject.activeSelf != show)
+        void Start()
         {
-            gameObject.SetActive(show);
+
+        }
+
+
+        void Update()
+        {
+
+        }
+
+        public void OnShow(bool show)
+        {
+            if (gameObject.activeSelf != show)
+            {
+                gameObject.SetActive(show);
+            }
         }
     }
 }

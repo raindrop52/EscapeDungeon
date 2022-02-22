@@ -97,16 +97,9 @@ namespace EscapeGame
         {
             Animator anim = GetComponent<Animator>();
 
-            if( anim.GetCurrentAnimatorStateInfo(0).IsName("Dash Tree") )
-            {
-                yield return null;
-            }
-            else
-            {
-                anim.SetTrigger("Hit");
-
-                yield return new WaitForSeconds(_hitCoolTime);
-            }
+            anim.SetTrigger("Hit");
+            UIManager._inst._statusUI.OnHitUI();
+            yield return new WaitForSeconds(_hitCoolTime);
 
             _hit = false;
         }
