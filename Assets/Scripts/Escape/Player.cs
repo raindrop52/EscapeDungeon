@@ -35,8 +35,7 @@ namespace EscapeGame
         {
             _isPoison = new Dictionary<Poison_Type, bool>();
 
-            // 중독 상태 저장 (초기값 false)
-            for (int i = 0; i < (int)Poison_Type.Count; i++)
+            for (int i = 1; i < (int)Poison_Type.Count; i++)
             {
                 _isPoison.Add((Poison_Type)i, false);
             }

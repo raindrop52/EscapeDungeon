@@ -29,6 +29,8 @@ namespace EscapeGame
 
         protected override void ClosePoison()
         {
+            base.ClosePoison();
+
             if(_pc != null)
             {
                 if (_pc.SlowSpeed != 0.0f)

@@ -10,10 +10,12 @@ namespace EscapeGame
         float _time = 0.0f;
         float _maxTime = 0.0f;
         Image _img;
+        Text _text;
 
         public void Init()
         {
             _img = GetComponent<Image>();
+            _text = GetComponentInChildren<Text>();
         }
 
         public void SetImage(Sprite sprite)
@@ -27,9 +29,9 @@ namespace EscapeGame
             StartCoroutine(_OnTimer());
         }
 
-        public void OnShow(bool show)
+        void Disappear()
         {
-            gameObject.SetActive(show);
+            Destroy(gameObject);
         }
 
         IEnumerator _OnTimer()
@@ -45,14 +47,19 @@ namespace EscapeGame
                     _img.fillAmount = (float)((_maxTime - _time) / _maxTime);
                 }
 
+                if(_text != null)
+                {
+                    _text.text = string.Format("{0}", (int)(_maxTime - _time));
+                }
+
                 yield return null;
             }
 
             // 이미지가 안 보이게 된 경우 (쿨타임이 다 찬 경우)
             if(_img.fillAmount <= 0.0f)
             {
-                // 오브젝트 비활성화
-                OnShow(false);
+                // 오브젝트 제거
+                Disappear();
             }
         }
     }

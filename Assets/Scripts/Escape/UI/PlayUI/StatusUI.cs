@@ -17,17 +17,24 @@ namespace EscapeGame
             _lifeUI.Init();
 
             _poisonUI = GetComponentInChildren<PoisonUI>();
-            _poisonUI.Init();
         }
 
         public void OnHitUI()
         {
-            _lifeUI.OnDamage();
+            if(_lifeUI != null)
+                _lifeUI.OnDamage();
         }
 
         public void OnHealUI()
         {
-            _lifeUI.OnHeal();
+            if (_lifeUI != null)
+                _lifeUI.OnHeal();
+        }
+
+        public void OnPoisoningUI(Poison_Type type, float holdingTime)
+        {
+            if (_poisonUI != null)
+                _poisonUI.Poisoning(type, holdingTime);
         }
     }
 }

@@ -16,20 +16,49 @@ namespace EscapeGame
 
     public class Poison_Trap : Trap_Foot
     {
-        [SerializeField] Poison_Type _poisonType;
-        [SerializeField] Poison _poison;
+        Poison _poison;
+        Poison_Type _poisonType;
 
         void Start()
         {
             _poison = GetComponent<Poison>();
+
+            _poisonType = FindPoisonType();
+        }
+
+        Poison_Type FindPoisonType()
+        {
+            Poison_Type type = Poison_Type.None;
+
+            if (_poison != null)
+            {
+                // 출혈
+                if (_poison is Bleeding)
+                {
+                    type = Poison_Type.Bleeding;
+                }
+                else if (_poison is Paralysis)
+                {
+                    type = Poison_Type.Paralysis;
+                }
+                else if (_poison is Slow)
+                {
+                    type = Poison_Type.Slow;
+                }
+                else if (_poison is Faint)
+                {
+                    type = Poison_Type.Faint;
+                }
+            }
+
+            return type;
         }
 
         protected override void ExecuteTrap(GameObject playerObj)
         {
-            Player_Control pc = playerObj.GetComponent<Player_Control>();
             Player player = playerObj.GetComponent<Player>();
 
-            if(pc != null && player != null)
+            if(player != null)
             {
                 SetPoisonStatus(player);
             }
@@ -43,12 +72,17 @@ namespace EscapeGame
                 // 해당 중독 상태 true 전환
                 player.SetPoisonStatus(_poisonType, true);
 
-                // 플레이어 중독
-                _poison.OnPoison(player, delegate ()
+                if(_poison != null)
                 {
-                    // 중독 해제 시 콜백 함수 호출
-                    player.SetPoisonStatus(_poisonType, false);
-                });
+                    UIManager._inst._statusUI.OnPoisoningUI(_poisonType, _poison._poisonTime);
+
+                    // 플레이어 중독
+                    _poison.OnPoison(player, delegate ()
+                    {
+                        // 중독 해제 시 콜백 함수 호출
+                        player.SetPoisonStatus(_poisonType, false);
+                    });
+                }
             }
         }
     }

@@ -6,5 +6,14 @@ namespace EscapeGame
 {
     public class Bleeding : Poison
     {
+        protected override void ExecutePoison(Player player)
+        {
+            base.ExecutePoison(player);
+        }
+
+        protected override void ClosePoison()
+        {
+            base.ClosePoison();
+        }
     }
 }
