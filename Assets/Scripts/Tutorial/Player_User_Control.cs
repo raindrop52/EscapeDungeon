@@ -46,11 +46,12 @@ namespace Tutorial
                 // 캐릭터 플립 처리
                 _render.flipX = true;
                 // 이펙트 플립 처리
-                if(_player._ps_normal != null)
+                Vector3 scale = _player._ps_normal.transform.localScale;
+                scale.x *= -1;
+                ParticleSystem[] psList = GetComponentsInChildren<ParticleSystem>();
+                foreach (ParticleSystem ps in psList)
                 {
-                    Vector3 scale = _player._ps_normal.transform.localScale;
-                    scale.x *= -1;
-                    _player._ps_normal.transform.localScale = scale;
+                    ps.transform.localScale = scale;
                 }
             }
             else if (h > 0f && _render.flipX == true)
@@ -58,11 +59,13 @@ namespace Tutorial
                 // 캐릭터 플립 처리
                 _render.flipX = false;
                 // 이펙트 플립 처리
-                if (_player._ps_normal != null)
+                Vector3 scale = _player._ps_normal.transform.localScale;
+                scale.x *= -1;
+
+                ParticleSystem[] psList = GetComponentsInChildren<ParticleSystem>();
+                foreach (ParticleSystem ps in psList)
                 {
-                    Vector3 scale = _player._ps_normal.transform.localScale;
-                    scale.x *= -1;
-                    _player._ps_normal.transform.localScale = scale;
+                    ps.transform.localScale = scale;
                 }
             }
         }

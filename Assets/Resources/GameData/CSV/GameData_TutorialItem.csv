@@ -10,7 +10,7 @@ index,name,type,name_en,sprite_path,desc
 8,룬트레이서,0,Runetracer,runetracer,랜덤한 타겟을 향해 마름모 모양의 마법 화살을 발사합니다.
 9,뼈다귀,0,Bone,bone,랜덤한 타겟을 향해 뼈다귀를 던집니다.
 10,물고기,0,Fish,fish,물고기가 소환되어 플레이어를 따라다니며 공격합니다.
-11,말,0,Horse,horse,말이 소환되어 플레이어를 따라다니며 공격합니다.
+11,말,0,Horse,horse,말이 소환되어 플레이어가 보는 방향으로 공격합니다.
 12,운석,0,Meteor,meteor,하늘에서 운석이 떨어집니다.
 13,벼락,0,Lightning,lightning,하늘에서 벼락이 떨어집니다.
 14,폭탄,0,Bomb,bomb,시야 내의 모든 적을 삭제합니다.

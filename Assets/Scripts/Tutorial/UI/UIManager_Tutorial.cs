@@ -31,12 +31,12 @@ namespace Tutorial
 
             ExpBar expBar = _playUI.GetComponentInChildren<ExpBar>();
             expBar.Init();
-                        
-            _levelUpUI = _playUI.GetComponentInChildren<LevelUpUI>();
+
+            _levelUpUI = _playUI.GetComponentInChildren<LevelUpUI>(true);
             _levelUpUI.Init();
             _levelUpUI.Show(false);
 
-            _collectionUI = GetComponentInChildren<CollectionUI>();
+            _collectionUI = GetComponentInChildren<CollectionUI>(true);
             //_collectionUI.Init();
 
         }

@@ -106,8 +106,8 @@ MonoBehaviour:
     type: 0
     name_en: Horse
     sprite_path: horse
-    desc: "\uB9D0\uC774 \uC18C\uD658\uB418\uC5B4 \uD50C\uB808\uC774\uC5B4\uB97C \uB530\uB77C\uB2E4\uB2C8\uBA70
-      \uACF5\uACA9\uD569\uB2C8\uB2E4."
+    desc: "\uB9D0\uC774 \uC18C\uD658\uB418\uC5B4 \uD50C\uB808\uC774\uC5B4\uAC00 \uBCF4\uB294
+      \uBC29\uD5A5\uC73C\uB85C \uACF5\uACA9\uD569\uB2C8\uB2E4."
     sprite: {fileID: 3843447133471380455, guid: 74d42cc614b710448b1ee3ec00d9dbca, type: 3}
   - index: 12
     name: "\uC6B4\uC11D"

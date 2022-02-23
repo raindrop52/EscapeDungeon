@@ -31,51 +31,64 @@ namespace Tutorial
 
         protected void OnHit(Collider2D collision)
         {
+            bool isMeteor = false;
+
             MapObject attacker = null;
             Transform parent = collision.transform.parent;
             if (parent != null)
             {
                 attacker = parent.GetComponent<MapObject>();
+
+                if (attacker == null)
+                {
+                    attacker = parent.parent.GetComponent<MapObject>();
+                }
             }
             else
             {
                 //attacker = GetComponent<MapObject>();
                 attacker = collision.GetComponent<MapObject>();
+
+                if(attacker == null)
+                {
+                    isMeteor = true;
+                }
             }
 
-            if (_rigid != null && attacker != null)
+            if (_rigid != null && (attacker != null || isMeteor))
             {
-                float direction = 1.0f;
-                float power = 200.0f;
+                if(isMeteor == false)
+                {
+                    float direction = 1.0f;
+                    float power = 200.0f;
 
-                // 공격자의 위치
-                Vector3 attackerPos = attacker.transform.position;
-                Vector3 myPos = transform.position;
+                    // 공격자의 위치
+                    Vector3 attackerPos = attacker.transform.position;
+                    Vector3 myPos = transform.position;
 
-                // 내 위치가 공격자보다 왼쪽에 있을 때
-                if (myPos.x < attackerPos.x)
-                    direction = -1.0f;
-                // 내 위치가 공격자보다 오른쪽에 있을 때
-                else if (myPos.x >= attackerPos.x)
-                    direction = 1.0f;
+                    // 내 위치가 공격자보다 왼쪽에 있을 때
+                    if (myPos.x < attackerPos.x)
+                        direction = -1.0f;
+                    // 내 위치가 공격자보다 오른쪽에 있을 때
+                    else if (myPos.x >= attackerPos.x)
+                        direction = 1.0f;
+
+                    if (attacker is Player)
+                    {
+                        // 방향에 맞게 밀리도록
+                        _rigid.AddForce(new Vector2(power * direction, 0.0f));
+
+                        Invoke("StopForce", 0.2f);
+                    }
+                }
 
                 // 데미지 처리
                 int damage = 10;
                 _hp -= damage;
 
-                if (attacker is Player)
-                {
-                    // 방향에 맞게 밀리도록
-                    _rigid.AddForce(new Vector2(power * direction, 0.0f));
-
-                    Invoke("StopForce", 0.2f);
-                }
-                else
-                {
-                    Player player = GetComponent<Player>();
-
+                Player player = GetComponent<Player>();
+                if(player != null)
                     player.UpdateHpBar();
-                }
 
                 // 데미지 텍스트 연출
                 GameObject damageTextObj = Instantiate(UIManager_Tutorial._inst._damageTextPrefab);
