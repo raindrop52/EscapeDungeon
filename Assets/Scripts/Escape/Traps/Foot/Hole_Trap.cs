@@ -7,9 +7,18 @@ namespace EscapeGame
     public class Hole_Trap : Trap_Foot
     {
         [SerializeField] GameObject _hiddenTile;
+        [SerializeField] float _showTime = 0.0f;       // 등장 시간
 
         protected override void ExecuteTrap(GameObject playerObj)
         {
+            StartCoroutine(_OnHoleTrap());
+        }
+
+        IEnumerator _OnHoleTrap()
+        {
+            // 일정 시간 대기 후 트랩 동작
+            yield return new WaitForSeconds(_showTime);
+
             OnHoleTrap();
         }
 

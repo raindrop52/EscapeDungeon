@@ -40,6 +40,8 @@ namespace EscapeGame
             set { _mapMove = value; }
         }
 
+        public bool _editorMode = true;
+
         void Awake()
         {
             _inst = this;
@@ -52,10 +54,13 @@ namespace EscapeGame
             // 초기 플레이어 위치 설정 (RestRoom)
             _player.gameObject.transform.position = _stagePosList[0].position;
 
-            //if(_directLight != null)
-            //{
-            //    _directLight.SetActive(false);
-            //}
+            if (_editorMode == false)
+            {
+                if (_directLight != null)
+                {
+                    _directLight.SetActive(false);
+                }
+            }
 
             // UI매니저 초기화
             UIManager._inst.Init();
@@ -66,7 +71,10 @@ namespace EscapeGame
 
         void Update()
         {
-
+            if (_directLight != null)
+            {
+                _directLight.SetActive(_editorMode);
+            }
         }
 
         public void StartMoveStage()

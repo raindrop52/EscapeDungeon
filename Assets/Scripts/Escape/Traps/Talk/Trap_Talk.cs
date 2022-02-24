@@ -17,11 +17,13 @@ namespace EscapeGame
         }
 
         [SerializeField] protected TalkInfo _talkInfo;
-        protected ParticleSystem _effect;
+        protected ParticleSystem _effectNotice;
 
-        void Start()
+        protected virtual void Start()
         {
-            _effect = GetComponentInChildren<ParticleSystem>();
+            Transform noticeTrans = transform.Find("Notice");
+            if(noticeTrans != null)
+                _effectNotice = noticeTrans.GetComponent<ParticleSystem>();
         }
 
         protected override void OnDrawGizmos()
@@ -39,8 +41,8 @@ namespace EscapeGame
 
         public void ShowEffect(bool show)
         {
-            if (_effect != null)
-                _effect.gameObject.SetActive(show);
+            if (_effectNotice != null)
+                _effectNotice.gameObject.SetActive(show);
         }
 
         void OnShowText()

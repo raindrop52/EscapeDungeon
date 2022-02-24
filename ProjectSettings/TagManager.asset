@@ -8,6 +8,7 @@ TagManager:
   - Attack
   - Trap
   - Talk
+  - Hole
   layers:
   - Default
   - TransparentFX
