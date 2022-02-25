@@ -20,7 +20,17 @@ namespace EscapeGame
         void Start()
         {
             _tilemap = GetComponent<Tilemap>();
-            
+            Vector3Int vectorTest;
+            bool testB;
+
+            for (int i = _tilemap.cellBounds.x; i < _tilemap.cellBounds.size.x; i++)
+            {
+                vectorTest = new Vector3Int(i, 0, 0);
+                testB = _tilemap.HasTile(vectorTest);
+                Debug.Log(i + ",0의 위치 타일 존재 유무 : " + testB);
+            }
+
+
             //Sprite sprite = _tilemap.GetSprite(Vector3Int.zero);
             //_renderer.sprite = sprite;
             //_renderer = GetComponent<SpriteRenderer>();
@@ -54,10 +64,10 @@ namespace EscapeGame
                     Debug.Log(v3Int);
 
                     //타일 색 바꿀 때 이게 있어야 하더군요
-                    _tilemap.SetTileFlags(v3Int, TileFlags.None);
+                    //_tilemap.SetTileFlags(v3Int, TileFlags.None);
 
                     //타일 색 바꾸기
-                    _tilemap.SetColor(v3Int, (Color.white));
+                    //_tilemap.SetColor(v3Int, (Color.white));
 
                 }
             }
