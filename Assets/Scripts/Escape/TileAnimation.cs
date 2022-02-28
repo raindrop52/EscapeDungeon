@@ -12,7 +12,8 @@ namespace EscapeGame
         public Sprite _sp1;
         public Sprite _sp2;
         Tilemap _tilemap;
-        
+
+        float _size;
 
         float _delta;
         public float _span = 0.5f;
@@ -20,20 +21,44 @@ namespace EscapeGame
         void Start()
         {
             _tilemap = GetComponent<Tilemap>();
+
+            /*
             Vector3Int vectorTest;
             bool testB;
-
+            _renderer = _tilemap.GetComponent<SpriteRenderer>();
+            
+            //_size = _renderer.sprite.bounds.size.x;
             for (int i = _tilemap.cellBounds.x; i < _tilemap.cellBounds.size.x; i++)
             {
                 vectorTest = new Vector3Int(i, 0, 0);
                 testB = _tilemap.HasTile(vectorTest);
                 Debug.Log(i + ",0의 위치 타일 존재 유무 : " + testB);
-            }
-
+            }*/
 
             //Sprite sprite = _tilemap.GetSprite(Vector3Int.zero);
             //_renderer.sprite = sprite;
             //_renderer = GetComponent<SpriteRenderer>();
+        }
+
+        IEnumerator _Test()
+        {
+            int startX = -3;
+            int endX = 2;
+            int startY = -1;
+            int endY = 1;
+
+            while (true)
+            {
+                for (int x = startX; x < endX; x++)
+                {
+                    for (int y = startY; y < endY; y++)
+                    {
+                        
+                    }
+                
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
         }
 
         // 타일맵 위치 체크용
@@ -86,6 +111,15 @@ namespace EscapeGame
 
         void Update()
         {
+            _delta += Time.deltaTime;
+
+            if(_delta >= _span)
+            {
+                _delta = 0.0f;
+                Vector3 pos = new Vector3(Mathf.PingPong(Time.time * 2f, 5), transform.position.y, transform.position.z);
+                transform.position = pos;
+            }
+
             /*
             _delta += Time.deltaTime;
             if (_delta > _span)

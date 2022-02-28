@@ -33,6 +33,8 @@ namespace EscapeGame
 
                         // 숨겨진 타일 표시
                         StageManager._inst.ShowHiddenTile(true);
+
+                        gameObject.SetActive(false);
                         break;
                     }
                 default :
