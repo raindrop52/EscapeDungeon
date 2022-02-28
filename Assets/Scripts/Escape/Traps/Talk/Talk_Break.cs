@@ -34,7 +34,9 @@ namespace EscapeGame
                         // 숨겨진 타일 표시
                         StageManager._inst.ShowHiddenTile(true);
 
-                        gameObject.SetActive(false);
+                        // 2초 후 숨기기
+                        Invoke("OnHide", 2.0f);
+
                         break;
                     }
                 default :
@@ -42,6 +44,11 @@ namespace EscapeGame
             }
 
             base.DoTrigerEvent();
+        }
+
+        public void OnHide()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

@@ -11,6 +11,7 @@ namespace EscapeGame
         public float _playTime = 0.0f;
         public float _speed = 1.0f;
         public float _moveMeter = 4.5f;
+        public float _dir = 1.0f;
 
         private void OnEnable()
         {
@@ -27,6 +28,7 @@ namespace EscapeGame
         void Init()
         {
             _playTime = 0.0f;
+
             StartCoroutine(_WallMoveStart());
         }
 
@@ -36,14 +38,22 @@ namespace EscapeGame
             {
                 _playTime += Time.fixedDeltaTime;
 
-                Vector3 pos = new Vector3(Mathf.PingPong(_playTime * _speed, _moveMeter), transform.position.y, transform.position.z);
+                Vector3 pos = new Vector3(Mathf.PingPong(_playTime * _speed, _moveMeter) * _dir, transform.position.y, transform.position.z);
                 
                 transform.position = pos;
 
                 yield return new WaitForSeconds(_cooltime);
 
-                if (transform.position.x <= 0.01f)
-                    yield return new WaitForSeconds(_waitTime);
+                if(_dir > 0)
+                {
+                    if (transform.position.x <= 0.01f)
+                        yield return new WaitForSeconds(_waitTime);
+                }
+                else if (_dir < 0)
+                {
+                    if (transform.position.x >= -0.01f)
+                        yield return new WaitForSeconds(_waitTime);
+                }
             }
         }
     }

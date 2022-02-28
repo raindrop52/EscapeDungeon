@@ -6,7 +6,7 @@ namespace EscapeGame
 {
     public class Wall_Trap : Trap_Foot
     {
-        [SerializeField] GameObject _hiddenTile;
+        [SerializeField] List<GameObject> _hiddenTiles;
 
         protected override void ExecuteTrap(GameObject playerObj)
         {
@@ -15,10 +15,13 @@ namespace EscapeGame
 
         void OnWallTrap()
         {
-            if (_hiddenTile != null && _hiddenTile.activeSelf == false)
+            if (_hiddenTiles.Count > 0)
             {
-                // 타일 숨기기 해제
-                _hiddenTile.SetActive(true);
+                foreach(GameObject go in _hiddenTiles)
+                {
+                    // 타일 숨기기 해제
+                    go.SetActive(true);
+                }
             }
         }
     }
