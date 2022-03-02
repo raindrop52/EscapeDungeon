@@ -45,6 +45,14 @@ namespace EscapeGame
                 _effectNotice.gameObject.SetActive(show);
         }
 
+        bool IsShowText()
+        {
+            // 텍스트 메시지의 활성화 여부 체크
+            bool result = false;
+            result = UIManager._inst.IsTextPanel();
+            return result;
+        }
+
         void OnShowText()
         {
             UIManager._inst.ShowTextMessage(_talkInfo._text);
@@ -54,21 +62,25 @@ namespace EscapeGame
         {
             if (_talkInfo != null)
             {
-                OnShowText();
+                // Text 메시지 창이 꺼져있으면
+                if(IsShowText() == false)
+                {
+                    // Text 메시지 창을 켜줌
+                    OnShowText();
+
+                    // Text 메시지 창이 꺼질때까지 대기
+                    yield return new WaitUntil(() => IsShowText() == false);
+
+                    DoTrigerEvent();
+                }
 
                 yield return new WaitForSeconds(0.5f);
-
-                // Panel이 없어질때까지 대기
-                yield return new WaitUntil(() => UIManager._inst.IsTextPanel() == false);
-
-                DoTrigerEvent();
             }
-            yield return null;
         }
 
         public void ExecuteTriggerEvent()
         {
-            if (_talkInfo != null)
+            if (_talkInfo != null && UIManager._inst.Talking == false)
             {
                 StartCoroutine(_OnTrigger());
             }

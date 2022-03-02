@@ -11,6 +11,7 @@ namespace EscapeGame
         float _maxTime = 0.0f;
         Image _img;
         Text _text;
+        public bool _reset = false;
 
         public void Init()
         {
@@ -34,6 +35,11 @@ namespace EscapeGame
             Destroy(gameObject);
         }
 
+        public void ResetTimer()
+        {
+            StartCoroutine(_OnTimer());
+        }
+
         IEnumerator _OnTimer()
         {
             _time = 0.0f;
@@ -41,6 +47,13 @@ namespace EscapeGame
             while(_time < _maxTime)
             {
                 _time += Time.fixedDeltaTime;
+
+                if(_reset == true)
+                {
+                    _reset = false;
+                    ResetTimer();
+                    break;
+                }
 
                 if(_img != null)
                 {

@@ -17,6 +17,10 @@ namespace EscapeGame
         public StatusUI _statusUI;
         #endregion
 
+        bool _talking = false;
+        public bool Talking
+        { get { return _talking; } }
+
         private void Awake()
         {
             _inst = this;
@@ -79,35 +83,76 @@ namespace EscapeGame
             // 강제 숨김
             if(forceHide)
             {
+                if (_talking == true)
+                    _talking = false;
+
                 ShowTextPanel(false);
             }
             else
             {
-                // show = 텍스트 창 표시 상태
-                bool isShow = _textReadPanel.activeSelf;
-
                 if (_textReadPanel != null)
                 {
-                    // UI 텍스트 창 활성화(꺼져있는 경우), 비활성화(켜져있는 경우)
-                    if (isShow == false)
-                        ShowTextPanel(true);
-                    else
-                        ShowTextPanel(false);
+                    // show = 텍스트 창 표시 상태
+                    bool isShow = _textReadPanel.activeSelf;
 
-                    // 활성화 되었으면 텍스트 타이핑 동작
+                    // UI 텍스트 창 활성화(꺼져있는 상태)
                     if (isShow == false)
                     {
+                        _talking = true;
+
+                        ShowTextPanel(true);
+
                         WriteTyping typing = _textReadPanel.GetComponent<WriteTyping>();
                         typing.m_Message = text;
 
                         typing.Init(delegate ()
                         {
                             // 텍스트 메시지 창 닫기
+                            _talking = false;
                             ShowTextPanel(false);
                         });
                     }
                 }
             }
+        }
+
+        public void CooltimeButton(float cooltime, GameObject buttonGo)
+        {
+            // 눌린 버튼 컴포넌트 가져오기
+            Button pressButton = buttonGo.GetComponent<Button>();
+            // 버튼 쿨타임 코루틴 동작
+            StartCoroutine(_CooltimerButton(cooltime, pressButton));
+        }
+
+        IEnumerator _CooltimerButton(float cooltime, Button button)
+        {
+            // 버튼 Disable하기
+            if (button.interactable != false)
+                button.interactable = false;
+
+            float time = 0.0f;
+            // 자식객체의 쿨타임 텍스트 가져오기
+            Text cooltimeTxt = button.GetComponentInChildren<Text>();
+            // 쿨타임 대기하면서 텍스트 수정
+            while(time < cooltime)
+            {
+                time += Time.fixedDeltaTime;
+
+                string text = string.Format("{0}", (int)(cooltime - time + 1));
+                cooltimeTxt.text = text;
+
+                yield return null;
+            }
+
+            // 쿨타임 종료 후
+            if(time >= cooltime)
+            {
+                cooltimeTxt.text = "";
+            }
+
+            // 쿨타임 종료 후 버튼 Disable 해제
+            if (button.interactable == false)
+                button.interactable = true;
         }
     }
 }

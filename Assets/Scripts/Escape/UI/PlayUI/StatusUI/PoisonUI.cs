@@ -17,6 +17,7 @@ namespace EscapeGame
     {
         public List<Poison_Info> _poisonInfo;
         [SerializeField] GameObject _prefab;
+        PoisonImg _poImg;
 
         public void Poisoning(Poison_Type type, float holdingTime)
         {
@@ -24,8 +25,9 @@ namespace EscapeGame
             go.transform.parent = transform;
             go.transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
 
-            PoisonImg poImg = go.GetComponent<PoisonImg>();
-            poImg.Init();
+            _poImg = go.GetComponent<PoisonImg>();
+            if(_poImg != null)
+                _poImg.Init();
 
             foreach(Poison_Info info in _poisonInfo)
             {
@@ -33,10 +35,16 @@ namespace EscapeGame
                 if(type == info.type)
                 {
                     // 이미지값 전달
-                    poImg.SetImage(info.sprite);
-                    poImg.OnTimer(holdingTime);
+                    _poImg.SetImage(info.sprite);
+                    _poImg.OnTimer(holdingTime);
                 }
             }
+        }
+
+        public void PoisoningReset()
+        {
+            if (_poImg != null)
+                _poImg._reset = true;
         }
     }
 }

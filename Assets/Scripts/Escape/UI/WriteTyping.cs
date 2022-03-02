@@ -13,6 +13,15 @@ namespace EscapeGame
         public string m_Message;
         public float m_Speed = 0.2f;
 
+        public void Init(string text)
+        {
+            if(m_TypingText == null)
+                m_TypingText = GetComponentInChildren<Text>();
+
+            m_Message = text;
+            m_TypingText.text = text;
+        }
+
         public void Init(Callback cb)
         {
             _cb = cb;

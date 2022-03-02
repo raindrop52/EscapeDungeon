@@ -6,13 +6,12 @@ namespace EscapeGame
 {
     public class Unit : MonoBehaviour
     {
-        protected virtual void Start()
+        void Start()
         {
 
         }
 
-
-        protected virtual void Update()
+        void Update()
         {
 
         }

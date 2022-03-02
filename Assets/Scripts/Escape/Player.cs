@@ -18,14 +18,11 @@ namespace EscapeGame
         float _hitCoolTime = 1.0f;
 
         [Header("캐릭터 대화 관련")]
-        bool _inTalkArea = false;       // 대화 트리거 존 입장
-        bool _talk = false;             // 대화 버튼 클릭
-        bool _talking = false;          // 대화 동작 중
+        bool _inTalkArea = false;               // 대화 트리거 존 입장
+        [SerializeField] bool _talk = false;     // 대화 상태 진입
         public bool OnTalk
-        {
-            get { return _talk; }
-            set { _talk = value; }
-        }
+        { get { return _talk; } set { _talk = value; } }
+
 
         [Header("중독 관련")]
         //중독 상태 여부
@@ -110,18 +107,22 @@ namespace EscapeGame
             {
                 while (_inTalkArea)
                 {
-                    _talk = TalkCheck();
-                    // 대화하기가 눌린 경우
-                    if (_talk)
-                    {
-                        _talking = true;
+                    IsTalk();
 
+                    // 대화하기가 눌린 경우
+                    if (_talk == true)
+                    {
                         trigger.ExecuteTriggerEvent();
 
-                        _talking = false;
+                        _talk = false;
                     }
 
                     yield return null;
+                }
+
+                if(_talk == true)
+                {
+                    _talk = false;
                 }
 
                 // 대화창 강제 닫기
@@ -129,20 +130,17 @@ namespace EscapeGame
             }
         }
 
-        bool TalkCheck()
+        void IsTalk()
         {
-            if(_talking == true)
+            if (UIManager._inst.Talking == true)
             {
-                return false;
+                return;
             }
 
-            // Space 키 눌리면 _talk = true;
-            if(Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) == true)
             {
-                return true;
+                _talk = true;
             }
-
-            return false;
         }
 
         // 캐릭터 이동 시 위치 변경

@@ -7,10 +7,14 @@ namespace EscapeGame
     public class Talk_Break : Trap_Talk
     {
         public ParticleSystem _psBomb;
+        public BoxCollider2D _col;
 
         protected override void Start()
         {
             base.Start();
+
+            // �浹ü
+            _col = GetComponent<BoxCollider2D>();
 
             Transform bombTrans = transform.Find("Bomb");
             if (bombTrans != null)
@@ -21,6 +25,11 @@ namespace EscapeGame
 
         protected override void DoTrigerEvent()
         {
+            if(_col != null)
+            {
+                _col.enabled = false;
+            }
+
             switch(_talkInfo._order)
             {
                 case 0 :

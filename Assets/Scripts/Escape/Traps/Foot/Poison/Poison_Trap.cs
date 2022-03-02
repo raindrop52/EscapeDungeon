@@ -84,6 +84,15 @@ namespace EscapeGame
                     });
                 }
             }
+            // 중독 상태인 경우
+            else if(player.GetPoisonStatus(_poisonType) == true)
+            {
+                // UI 시간 갱신
+                UIManager._inst._statusUI.OnPoisonUIResetTime();
+                // 중독 시간 갱신
+                if (_poison != null)
+                    _poison.UsingTime = 0.0f;
+            }
         }
     }
 }

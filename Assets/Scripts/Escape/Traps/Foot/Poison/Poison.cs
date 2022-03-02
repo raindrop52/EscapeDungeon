@@ -7,6 +7,9 @@ namespace EscapeGame
 {
     public class Poison : MonoBehaviour
     {
+        float _time = 0.0f;
+        public float UsingTime
+        { get { return _time; } set { _time = value; } }
         public float _poisonTime = 3.0f;
         Callback _cb = null;
 
@@ -30,12 +33,12 @@ namespace EscapeGame
 
         IEnumerator _Poisoning()
         {
-            float time = 0.0f;
+            _time = 0.0f;
 
             // 중독 지속 시간
-            while (time < _poisonTime)
+            while (_time < _poisonTime)
             {
-                time += Time.fixedDeltaTime;
+                _time += Time.fixedDeltaTime;
 
                 yield return null;
             }

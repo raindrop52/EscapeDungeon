@@ -36,5 +36,11 @@ namespace EscapeGame
             if (_poisonUI != null)
                 _poisonUI.Poisoning(type, holdingTime);
         }
+
+        public void OnPoisonUIResetTime()
+        {
+            if (_poisonUI != null)
+                _poisonUI.PoisoningReset();
+        }
     }
 }

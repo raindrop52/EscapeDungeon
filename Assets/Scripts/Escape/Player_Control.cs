@@ -29,6 +29,7 @@ namespace EscapeGame
         [Header("조이스틱")]
         [SerializeField] float _x, _y;          // 조이스틱 값 체크
         [SerializeField] Joystick _joystick;
+        [SerializeField] GameObject _talkButtonGo;
 
         [Header("중독 상태")]
         float _slowSpeed;                     // Slow 이동속도
@@ -40,6 +41,11 @@ namespace EscapeGame
             while (GetAxis())
             {
                 if (GameManager._inst.MapMoving == true)
+                {
+                    break;
+                }
+
+                if(this.enabled == false)
                 {
                     break;
                 }
@@ -89,10 +95,8 @@ namespace EscapeGame
             _canMove = true;
         }
 
-        protected override void Start()
+        void Start()
         {
-            base.Start();
-
             _sprite = GetComponent<SpriteRenderer>();
             _boxCol = GetComponent<BoxCollider2D>();
             _anim = GetComponent<Animator>();
@@ -100,10 +104,8 @@ namespace EscapeGame
             _player = GetComponent<Player>();
         }
 
-        protected override void Update()
+        void FixedUpdate()
         {
-            base.Update();
-
             if (GameManager._inst.MapMoving == false)
             {
                 // 이동 가능 상태
@@ -139,47 +141,15 @@ namespace EscapeGame
             return result;
         }
 
-        bool GetDashButton()
-        {
-            bool result = false;
-
-            if (_joystick != null)
-            {
-                
-            }
-            else
-            {
-                // 스페이스바 눌릴 시 대쉬
-                if (Input.GetKeyDown(KeyCode.Space) == true)
-                {
-                    result = true;
-                }
-            }
-
-            return result;
-        }
-
-        bool GetAttackButton()
-        {
-            bool result = false;
-
-            if (_joystick != null)
-            {
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.X) == true)
-                {
-                    result = true;
-                }
-            }
-
-            return result;
-        }
-
         public void OnTalkButton()
         {
-            _player.OnTalk = true;
+            if (_player.OnTalk == false)
+            {
+                _player.OnTalk = true;
+            }
+
+            if(UIManager._inst.Talking == false)
+                UIManager._inst.CooltimeButton(3.0f, _talkButtonGo);
         }
     }
 }
