@@ -23,7 +23,6 @@ namespace EscapeGame
         public bool OnTalk
         { get { return _talk; } set { _talk = value; } }
 
-
         [Header("중독 관련")]
         //중독 상태 여부
         Dictionary<Poison_Type, bool> _isPoison;
@@ -70,11 +69,6 @@ namespace EscapeGame
                     _inTalkArea = true;
                     StartCoroutine(_TalkCheck(collision.gameObject));
                 }
-            }
-
-            if (collision.tag == "Portal")
-            {
-                GameManager._inst.StartMoveStage();
             }
         }
 
@@ -148,5 +142,6 @@ namespace EscapeGame
         {
             transform.position = pos;
         }
+
     }
 }

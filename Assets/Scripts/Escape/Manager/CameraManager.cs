@@ -11,7 +11,9 @@ namespace EscapeGame
         public GameObject _target;
         public float _speed;
         Vector3 _targetPos;     // 타겟의 현재 위치 값
-
+        bool _moveTarget = false;
+        public bool MoveTarget
+        { get { return _moveTarget; } set { _moveTarget = value; } }
 
         void Awake()
         {
@@ -22,12 +24,7 @@ namespace EscapeGame
         {
             MoveCam();
         }
-
-        /* 스테이지 1 : 카메라는 상하만 캐릭터를 따라다닌다.
-         * 스테이지 2 : 캐릭터는 플레이어를 따라다닌다.
-         * 
-         */
-        
+                
         void Update()
         {
             
@@ -35,20 +32,10 @@ namespace EscapeGame
 
         void MoveCam()
         {
-            StartCoroutine(_MoveCam(GameManager._inst._stageLevel));
+            StartCoroutine(_MoveCam());
         }
 
-        public void ChangeCam()
-        {
-            // 코루틴 종료
-            StopAllCoroutines();
-            // 현재 캐릭터 위치로 카메라 이동
-            transform.position = new Vector3(_target.transform.position.x, _target.transform.position.y, transform.position.z);
-
-            MoveCam();
-        }
-
-        IEnumerator _MoveCam(int level)
+        IEnumerator _MoveCam()
         {
             while(true)
             {
@@ -57,7 +44,10 @@ namespace EscapeGame
 
                 _targetPos.Set(_target.transform.position.x, _target.transform.position.y, transform.position.z);
 
-                transform.position = Vector3.Lerp(transform.position, _targetPos, _speed * Time.deltaTime);
+                if(_moveTarget == true)
+                    transform.position = new Vector3(_target.transform.position.x, _target.transform.position.y, transform.position.z);
+                else
+                    transform.position = Vector3.Lerp(transform.position, _targetPos, _speed * Time.deltaTime);
 
                 yield return null;
             }

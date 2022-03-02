@@ -22,13 +22,13 @@ namespace EscapeGame
 
         [Header("스테이지")]
         public int _stageLevel = 0;         // 현재 스테이지 레벨
-        [SerializeField] ROOM _room;        // 현재 진입한 방
-        public ROOM Room
-        {
-            get { return _room; }
-        }
-        public List<Transform> _stagePosList;   // 스테이지별 플레이어 스폰 위치
-        public Player _player;                  // 플레이어
+        //[SerializeField] ROOM _room;        // 현재 진입한 방
+        //public ROOM Room
+        //{
+        //    get { return _room; }
+        //}
+        Transform _startPos;         // 초기 시작 위치
+        public Player _player;              // 플레이어
 
         [Header("맵 전환 템플릿")]
         [SerializeField] Image _loadingPanel;
@@ -49,10 +49,12 @@ namespace EscapeGame
 
         void Start()
         {
+            _startPos = transform.Find("StartPos").GetComponent<Transform>();
+
             // 플레이어 초기화
             _player.Init();
             // 초기 플레이어 위치 설정 (RestRoom)
-            _player.gameObject.transform.position = _stagePosList[0].position;
+            _player.gameObject.transform.position = _startPos.position;
 
             if (_editorMode == false)
             {
@@ -104,21 +106,13 @@ namespace EscapeGame
 
         IEnumerator MoveStage()
         {
-            if (_room == ROOM.RESTROOM)
-            {
-                _room = ROOM.DUNGEON;
-                _stageLevel++;
-            }
-
-            // 캐릭터 배치
-            Vector3 pos = _stagePosList[(int)_room].transform.position;
-
-            if (_player != null)
-                _player.ChangePlayerPos(pos);
-
-            CameraManager._inst.ChangeCam();
+            if(CameraManager._inst.MoveTarget == false)
+                CameraManager._inst.MoveTarget = true;
 
             yield return new WaitForSeconds(1.0f);
+
+            if (CameraManager._inst.MoveTarget == true)
+                CameraManager._inst.MoveTarget = false;
 
             // 화면 공개
             StartCoroutine(MoveEnd());

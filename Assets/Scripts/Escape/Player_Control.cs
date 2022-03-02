@@ -36,6 +36,8 @@ namespace EscapeGame
         public float SlowSpeed
         { get { return _slowSpeed; } set { _slowSpeed = value; } }
 
+        [SerializeField] bool _joystickMove = false;
+
         IEnumerator _OnMove()
         {
             while (GetAxis())
@@ -124,19 +126,25 @@ namespace EscapeGame
         {
             bool result = false;
 
-            if (_joystick != null)
+            float x, y;
+
+            if (_joystickMove == false)
             {
-                _x = _joystick.Horizontal;
-                _y = _joystick.Vertical;
+                // Å°º¸µå
+                x = Input.GetAxisRaw("Horizontal");
+                y = Input.GetAxisRaw("Vertical");
             }
             else
             {
-                _x = Input.GetAxisRaw("Horizontal");
-                _y = Input.GetAxisRaw("Vertical");
-            }
+                x = _joystick.Horizontal;
+                y = _joystick.Vertical;
+            }     
 
-            if (_x != 0 || _y != 0)
+            if (x != 0 || y != 0)
                 result = true;
+
+            _x = x;
+            _y = y;
 
             return result;
         }

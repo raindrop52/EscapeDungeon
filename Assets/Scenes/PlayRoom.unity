@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 71249546}
   m_Layer: 0
   m_Name: PoisonTrap_2(6block)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55728,7 +55728,7 @@ GameObject:
   - component: {fileID: 335669469}
   m_Layer: 0
   m_Name: Point Light 2D
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55922,7 +55922,7 @@ GameObject:
   - component: {fileID: 469402601}
   m_Layer: 0
   m_Name: ArrowTrap_1(6block)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56363,8 +56363,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 569701103}
-  m_Layer: 0
-  m_Name: SpawnPos(RestRoom)
+  m_Layer: 10
+  m_Name: StartPos
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -56378,10 +56378,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569701102}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.51, y: -50.47, z: 0}
+  m_LocalPosition: {x: -0.14, y: -51.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1257677203}
+  m_Father: {fileID: 1729975418}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &613007014
@@ -56980,7 +56980,7 @@ GameObject:
   - component: {fileID: 669982604}
   m_Layer: 0
   m_Name: PoisonTrap_3(1block)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57230,7 +57230,7 @@ GameObject:
   - component: {fileID: 750831988}
   m_Layer: 0
   m_Name: PoisonTrap_3(1block)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57314,7 +57314,7 @@ GameObject:
   - component: {fileID: 798189687}
   m_Layer: 0
   m_Name: PoisonTrap_3(4block)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57850,8 +57850,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1009116694}
-  m_Layer: 0
-  m_Name: SpawnPos(Stage1)
+  - component: {fileID: 1009116695}
+  m_Layer: 10
+  m_Name: Portal(Stage1Start)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -57871,6 +57872,20 @@ Transform:
   m_Father: {fileID: 1257677203}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1009116695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009116693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d7b23970c34484baf3afd3148042ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveTarget: {fileID: 0}
+  _moveFinshed: 0
 --- !u!1 &1027396641
 GameObject:
   m_ObjectHideFlags: 0
@@ -57930,7 +57945,7 @@ GameObject:
   - component: {fileID: 1036661862}
   m_Layer: 0
   m_Name: PoisonTrap_2(6block)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58015,7 +58030,7 @@ GameObject:
   - component: {fileID: 1036815068}
   m_Layer: 0
   m_Name: PoisonTrap_2(6block)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58238,8 +58253,9 @@ MonoBehaviour:
   _playerPosition: {fileID: 0}
   _x: 0
   _y: 0
-  _joystick: {fileID: 0}
+  _joystick: {fileID: 601627092125368916}
   _talkButtonGo: {fileID: 1988588530}
+  _joystickMove: 0
 --- !u!61 &1039837651
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -58253,7 +58269,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.000056963414, y: -0.059406847}
+  m_Offset: {x: 0.000056963414, y: -0.046512544}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -58264,7 +58280,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.118037395, y: 0.101186305}
+  m_Size: {x: 0.118037395, y: 0.0753977}
   m_EdgeRadius: 0
 --- !u!114 &1039837652
 MonoBehaviour:
@@ -58358,6 +58374,7 @@ MonoBehaviour:
     _text: "\uBCBD\uC5D0 \uC788\uB294 \uBC84\uD2BC\uC744 \uB204\uB974\uC790 \uBCBD\uC774
       \uC0AC\uB77C\uC9C4\uB2E4."
   _psBomb: {fileID: 0}
+  _col: {fileID: 0}
 --- !u!1 &1058642231
 GameObject:
   m_ObjectHideFlags: 0
@@ -58444,7 +58461,7 @@ GameObject:
   - component: {fileID: 1091897766}
   m_Layer: 0
   m_Name: PoisonTrap_1(1block)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58783,9 +58800,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1253006442}
   - component: {fileID: 1253006443}
-  m_Layer: 0
-  m_Name: Portal
-  m_TagString: Portal
+  - component: {fileID: 1253006444}
+  m_Layer: 10
+  m_Name: Portal(RestRoom)
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58797,11 +58815,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1253006441}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -39.05, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.3, y: -39.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2112420243}
+  m_Father: {fileID: 1257677203}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1253006443
@@ -58814,7 +58832,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0031225681, y: 0.5089588}
@@ -58830,6 +58848,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3676333, y: 1.3934288}
   m_EdgeRadius: 0
+--- !u!114 &1253006444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253006441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d7b23970c34484baf3afd3148042ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveTarget: {fileID: 1009116695}
+  _moveFinshed: 0
 --- !u!1 &1257677202
 GameObject:
   m_ObjectHideFlags: 0
@@ -58840,7 +58872,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1257677203}
   m_Layer: 0
-  m_Name: SpawnList
+  m_Name: PortalList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58857,7 +58889,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 569701103}
+  - {fileID: 1253006442}
   - {fileID: 1009116694}
   m_Father: {fileID: 1286041739}
   m_RootOrder: 0
@@ -58963,9 +58995,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1329497988}
   - component: {fileID: 1329497989}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PortalTrigger
-  m_TagString: Portal
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61503,10 +61535,6 @@ MonoBehaviour:
   _arrowParent: {fileID: 718022019}
   _directLight: {fileID: 1058642231}
   _stageLevel: 0
-  _room: 0
-  _stagePosList:
-  - {fileID: 569701103}
-  - {fileID: 1009116694}
   _player: {fileID: 1039837652}
   _loadingPanel: {fileID: 543516525}
   _editorMode: 1
@@ -61520,7 +61548,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 569701103}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -61537,7 +61566,7 @@ GameObject:
   - component: {fileID: 1750040211}
   m_Layer: 0
   m_Name: WallTrap_1(6block)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62552,7 +62581,7 @@ GameObject:
   - component: {fileID: 2041805332}
   m_Layer: 0
   m_Name: HoleTrap_1(6block)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71078,8 +71107,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.3, y: 45.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1253006442}
+  m_Children: []
   m_Father: {fileID: 2000034582}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
