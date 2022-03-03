@@ -28,7 +28,7 @@ namespace EscapeGame
 
         public void Init()
         {
-            _textReadPanel = GetComponentInChildren<WriteTyping>().gameObject;
+            _textReadPanel = GetComponentInChildren<WriteTyping>(true).gameObject;
             if(_textReadPanel.activeSelf)
             {
                 // 초기화 시 활성화 상태인 경우 비활성화 처리

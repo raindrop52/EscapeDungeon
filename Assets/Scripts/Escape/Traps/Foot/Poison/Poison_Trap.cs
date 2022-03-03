@@ -7,7 +7,7 @@ namespace EscapeGame
     public enum Poison_Type
     {
         None = 0,               // 디폴트
-        Bleeding,               // 출혈
+        Blind,                  // 실명
         Paralysis,              // 마비
         Slow,                   // 감속
         Faint,                  // 기절
@@ -33,9 +33,9 @@ namespace EscapeGame
             if (_poison != null)
             {
                 // 출혈
-                if (_poison is Bleeding)
+                if (_poison is Blind)
                 {
-                    type = Poison_Type.Bleeding;
+                    type = Poison_Type.Blind;
                 }
                 else if (_poison is Paralysis)
                 {
