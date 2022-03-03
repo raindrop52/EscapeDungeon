@@ -37,7 +37,9 @@ namespace EscapeGame
 
         [Header("조이스틱 버튼 관련")]
         public bool _btnDo = false;
-        
+
+        Player_StateManager _stateMgr;
+
         public void Init()
         {
             _isPoison = new Dictionary<Poison_Type, bool>();
@@ -46,6 +48,11 @@ namespace EscapeGame
             {
                 _isPoison.Add((Poison_Type)i, false);
             }
+
+            GameObject stateMgrObj = new GameObject("PlayerStateManager");
+            stateMgrObj.transform.parent = transform;
+            _stateMgr = stateMgrObj.AddComponent<Player_StateManager>();
+            _stateMgr.Init(this);
         }
 
         public bool GetPoisonStatus(Poison_Type key)
