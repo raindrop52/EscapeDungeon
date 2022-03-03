@@ -8,8 +8,6 @@ namespace EscapeGame
     {
         protected override void DoTrigerEvent()
         {
-            
-
             base.DoTrigerEvent();
         }
     }

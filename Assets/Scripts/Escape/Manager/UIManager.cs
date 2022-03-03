@@ -15,6 +15,7 @@ namespace EscapeGame
 
         #region UI
         public StatusUI _statusUI;
+        public MessageBox _messageBox;
         #endregion
 
         bool _talking = false;
@@ -33,6 +34,11 @@ namespace EscapeGame
             {
                 // 초기화 시 활성화 상태인 경우 비활성화 처리
                 ShowTextPanel(false);
+            }
+
+            if(_messageBox != null)
+            {
+                _messageBox.OnShow(false);
             }
 
             // UI 초기화

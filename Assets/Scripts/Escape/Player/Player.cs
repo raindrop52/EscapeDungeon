@@ -4,17 +4,25 @@ using UnityEngine;
 
 namespace EscapeGame
 {
+    public enum Player_Status
+    {
+        IDLE = 0,
+        MOVE,
+        TALK,
+        HIT,
+        NOTICE,
+    }
+
     public class Player : MonoBehaviour
     {
+        [Header("캐릭터 상태 체크")]
+        public Player_Status _status = Player_Status.IDLE;
+        public bool _useTutorial = true;                    // 시작 전 튜토리얼 진행을 물어보는 메시지로 체크 ( 기본은 true )
+
         [Header("캐릭터 피격 관련")]
         bool _hit = false;
         public bool HitStatus
-        {
-            get
-            {
-                return _hit;
-            }
-        }
+        { get { return _hit; } }
         float _hitCoolTime = 1.0f;
 
         [Header("캐릭터 대화 관련")]
@@ -26,6 +34,9 @@ namespace EscapeGame
         [Header("중독 관련")]
         //중독 상태 여부
         Dictionary<Poison_Type, bool> _isPoison;
+
+        [Header("조이스틱 버튼 관련")]
+        public bool _btnDo = false;
         
         public void Init()
         {
@@ -58,6 +69,7 @@ namespace EscapeGame
                 if (!_hit)
                 {
                     _hit = true;
+                    _status = Player_Status.HIT;
                     StartCoroutine(_HitEffect());
                 }
             }
@@ -92,6 +104,7 @@ namespace EscapeGame
             yield return new WaitForSeconds(_hitCoolTime);
 
             _hit = false;
+            _status = Player_Status.IDLE;
         }
 
         IEnumerator _TalkCheck(GameObject col)
@@ -109,6 +122,7 @@ namespace EscapeGame
                         trigger.ExecuteTriggerEvent();
 
                         _talk = false;
+                        _status = Player_Status.IDLE;
                     }
 
                     yield return null;
@@ -117,6 +131,7 @@ namespace EscapeGame
                 if(_talk == true)
                 {
                     _talk = false;
+                    _status = Player_Status.IDLE;
                 }
 
                 // 대화창 강제 닫기
@@ -131,9 +146,13 @@ namespace EscapeGame
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) == true)
+            if (Input.GetKeyDown(KeyCode.Space) == true || _btnDo == true)
             {
                 _talk = true;
+                _status = Player_Status.TALK;
+
+                if (_btnDo == true)
+                    _btnDo = false;
             }
         }
 
