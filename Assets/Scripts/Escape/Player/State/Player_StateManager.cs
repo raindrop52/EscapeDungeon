@@ -8,6 +8,7 @@ namespace EscapeGame
     {
         INVALID = -1,
         NORMAL = 0,
+        TALK,
         POISON,
         
         END
@@ -15,11 +16,20 @@ namespace EscapeGame
 
     public class Player_StateManager : MonoBehaviour
     {
+        public static Player_StateManager _inst;
+
         Player _owner;
         public Player Owner
         { get { return _owner; } }
         List<Player_StateBase> _states;
         Player_State _curState = Player_State.INVALID;         // 플레이어의 현재 상태
+        public Player_State CurState
+        { get { return _curState; } }
+
+        private void Awake()
+        {
+            _inst = this;
+        }
 
         public void Init(Player owner)
         {
@@ -41,6 +51,11 @@ namespace EscapeGame
                     case Player_State.POISON:
                         {
                             stateObj = gameObject.AddComponent<Player_State_Poison>();
+                            break;
+                        }
+                    case Player_State.TALK:
+                        {
+                            stateObj = gameObject.AddComponent<Player_State_Talk>();
                             break;
                         }
                 }

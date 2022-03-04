@@ -31,7 +31,6 @@ namespace EscapeGame
                 {
                     // 플레이어 정보 가져옴
                     Player player = collision.GetComponent<Player>();
-                    player._status = Player_Status.NOTICE;
 
                     // 플레이어 컨트롤 가져옴
                     Player_Control pc = player.GetComponent<Player_Control>();
@@ -60,7 +59,6 @@ namespace EscapeGame
                 {
                     // 플레이어 정보 가져옴
                     Player player = collision.GetComponent<Player>();
-                    player._status = Player_Status.IDLE;
 
                     // 플레이어 컨트롤 가져옴
                     Player_Control pc = player.GetComponent<Player_Control>();

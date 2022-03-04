@@ -4,19 +4,9 @@ using UnityEngine;
 
 namespace EscapeGame
 {
-    public enum Player_Status
-    {
-        IDLE = 0,
-        MOVE,
-        TALK,
-        HIT,
-        NOTICE,
-    }
-
     public class Player : MonoBehaviour
     {
         [Header("캐릭터 상태 체크")]
-        public Player_Status _status = Player_Status.IDLE;
         public bool _useTutorial = true;                    // 시작 전 튜토리얼 진행을 물어보는 메시지로 체크 ( 기본은 true )
 
         [Header("캐릭터 피격 관련")]
@@ -76,7 +66,6 @@ namespace EscapeGame
                 if (!_hit)
                 {
                     _hit = true;
-                    _status = Player_Status.HIT;
                     StartCoroutine(_HitEffect());
                 }
             }
@@ -86,6 +75,9 @@ namespace EscapeGame
                 if(!_inTalkArea)
                 {
                     _inTalkArea = true;
+                    // 대화 스테이트로 변경
+                    _stateMgr.ChangeState(Player_State.TALK);
+
                     StartCoroutine(_TalkCheck(collision.gameObject));
                 }
             }
@@ -97,6 +89,9 @@ namespace EscapeGame
             {
                 if (_inTalkArea)
                 {
+                    // 일반 스테이트로 변경
+                    _stateMgr.ChangeState(Player_State.NORMAL);
+
                     _inTalkArea = false;
                 }
             }
@@ -111,7 +106,6 @@ namespace EscapeGame
             yield return new WaitForSeconds(_hitCoolTime);
 
             _hit = false;
-            _status = Player_Status.IDLE;
         }
 
         IEnumerator _TalkCheck(GameObject col)
@@ -129,7 +123,6 @@ namespace EscapeGame
                         trigger.ExecuteTriggerEvent();
 
                         _talk = false;
-                        _status = Player_Status.IDLE;
                     }
 
                     yield return null;
@@ -138,7 +131,6 @@ namespace EscapeGame
                 if(_talk == true)
                 {
                     _talk = false;
-                    _status = Player_Status.IDLE;
                 }
 
                 // 대화창 강제 닫기
@@ -156,7 +148,6 @@ namespace EscapeGame
             if (Input.GetKeyDown(KeyCode.Space) == true || _btnDo == true)
             {
                 _talk = true;
-                _status = Player_Status.TALK;
 
                 if (_btnDo == true)
                     _btnDo = false;

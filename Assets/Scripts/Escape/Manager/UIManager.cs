@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 namespace EscapeGame
 {
@@ -10,11 +9,11 @@ namespace EscapeGame
     {
         public static UIManager _inst;
 
-        public Joystick _joystick;
         GameObject _textReadPanel;
 
         #region UI
         public StatusUI _statusUI;
+        public ControlUI _controlUI;
         public MessageBox _messageBox;
         #endregion
 
@@ -47,30 +46,11 @@ namespace EscapeGame
             // 플레이 UI 초기화
             _statusUI = transform.Find("StatusUI").GetComponentInChildren<StatusUI>();
             _statusUI.Init();
+            _controlUI = transform.Find("ControlUI").GetComponentInChildren<ControlUI>();
+            _controlUI.Init();
 
             // 로비 UI 표시 및 로비를 제외한 나머지 UI는 비활성화
 
-        }
-
-        public void OnPointerDown()
-        {
-            PointerEventData data = new PointerEventData(EventSystem.current);
-            data.position = Input.mousePosition;
-
-            _joystick.OnPointerDown(data);
-        }
-
-        public void OnPointerUp()
-        {
-            _joystick.OnPointerUp(null);
-        }
-
-        public void OnDrag()
-        {
-            PointerEventData data = new PointerEventData(EventSystem.current);
-            data.position = Input.mousePosition;
-
-            _joystick.OnDrag(data);
         }
 
         public bool IsTextPanel()
@@ -120,45 +100,6 @@ namespace EscapeGame
                     }
                 }
             }
-        }
-
-        public void CooltimeButton(float cooltime, GameObject buttonGo)
-        {
-            // 눌린 버튼 컴포넌트 가져오기
-            Button pressButton = buttonGo.GetComponent<Button>();
-            // 버튼 쿨타임 코루틴 동작
-            StartCoroutine(_CooltimerButton(cooltime, pressButton));
-        }
-
-        IEnumerator _CooltimerButton(float cooltime, Button button)
-        {
-            // 버튼 Disable하기
-            if (button.interactable != false)
-                button.interactable = false;
-
-            float time = 0.0f;
-            // 자식객체의 쿨타임 텍스트 가져오기
-            Text cooltimeTxt = button.GetComponentInChildren<Text>();
-            // 쿨타임 대기하면서 텍스트 수정
-            while(time < cooltime)
-            {
-                time += Time.fixedDeltaTime;
-
-                string text = string.Format("{0}", (int)(cooltime - time + 1));
-                cooltimeTxt.text = text;
-
-                yield return null;
-            }
-
-            // 쿨타임 종료 후
-            if(time >= cooltime)
-            {
-                cooltimeTxt.text = "";
-            }
-
-            // 쿨타임 종료 후 버튼 Disable 해제
-            if (button.interactable == false)
-                button.interactable = true;
         }
     }
 }

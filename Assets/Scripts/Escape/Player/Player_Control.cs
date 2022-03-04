@@ -153,19 +153,6 @@ namespace EscapeGame
         {
             if(_player._btnDo == false)
                 _player._btnDo = true;
-
-            // 대화 관련 동작 제외 쿨타임
-            if (UIManager._inst.Talking == false)
-            {
-                // 튜토리얼 모드이며, 텍스트 메시지 박스가 표시된 경우
-                if(GameManager._inst._player._useTutorial == true && UIManager._inst._messageBox.gameObject.activeSelf == true)
-                {
-                    // 동작하지 않고 넘어감
-                    return;
-                }
-
-                UIManager._inst.CooltimeButton(3.0f, _talkButtonGo);
-            }
         }
     }
 }
