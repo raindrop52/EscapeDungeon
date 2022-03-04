@@ -32,6 +32,11 @@ namespace EscapeGame
                     // 플레이어 정보 가져옴
                     Player player = collision.GetComponent<Player>();
 
+                    if(Player_StateManager._inst.CurState == Player_State.NORMAL)
+                    {
+                        Player_StateManager._inst.ChangeState(Player_State.TALK);
+                    }
+
                     // 플레이어 컨트롤 가져옴
                     Player_Control pc = player.GetComponent<Player_Control>();
                     // 플레이어 컨트롤 false ( 동작 불가 )
@@ -59,6 +64,10 @@ namespace EscapeGame
                 {
                     // 플레이어 정보 가져옴
                     Player player = collision.GetComponent<Player>();
+                    if (Player_StateManager._inst.CurState == Player_State.TALK)
+                    {
+                        Player_StateManager._inst.ChangeState(Player_State.NORMAL);
+                    }
 
                     // 플레이어 컨트롤 가져옴
                     Player_Control pc = player.GetComponent<Player_Control>();

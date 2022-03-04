@@ -18,7 +18,7 @@ namespace EscapeGame
                 Player player = stateMgr.Owner;
                 if(player != null)
                 {
-                    _psNotice = player.transform.GetComponentInChildren<ParticleSystem>();
+                    _psNotice = player.transform.Find("TalkFX").GetComponent<ParticleSystem>();
                 }
             }
         }
