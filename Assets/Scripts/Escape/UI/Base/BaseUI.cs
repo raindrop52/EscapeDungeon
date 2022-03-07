@@ -6,13 +6,7 @@ namespace EscapeGame
 {
     public class BaseUI : MonoBehaviour
     {
-        void Start()
-        {
-
-        }
-
-
-        void Update()
+        public virtual void Init()
         {
 
         }
@@ -22,6 +16,15 @@ namespace EscapeGame
             if (gameObject.activeSelf != show)
             {
                 gameObject.SetActive(show);
+            }
+        }
+
+        protected virtual void OnEnable()
+        {
+            // 활성화 시
+            if (Time.timeScale != 0)
+            {
+                Time.timeScale = 0;
             }
         }
     }

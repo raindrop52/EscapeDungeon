@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EscapeGame
 {
-    public class StatusUI : BaseUI
+    public class StatusUI : MonoBehaviour
     {
         // 생명력 아이콘 UI
         LifeUI _lifeUI;

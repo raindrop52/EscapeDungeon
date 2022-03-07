@@ -28,6 +28,9 @@ namespace EscapeGame
             if(_hideRank >= _maxCount)
             {
                 Debug.Log("Error : 맞은 횟수가 최대 라이프보다 많은 상태");
+
+                GameManager._inst.Die = true;
+
                 return;
             }
 

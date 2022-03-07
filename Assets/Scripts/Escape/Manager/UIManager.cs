@@ -5,21 +5,26 @@ using UnityEngine.UI;
 
 namespace EscapeGame
 {
+    public enum UI_ID
+    {
+        INVALID = -1,
+        LOBBY = 0,
+        PLAYROOM,
+        GAMEOVER,
+        OPTION,
+        END
+    }
+
     public class UIManager : MonoBehaviour
     {
         public static UIManager _inst;
 
-        GameObject _textReadPanel;
-
         #region UI
-        public StatusUI _statusUI;
-        public ControlUI _controlUI;
-        public MessageBox _messageBox;
+        UI_ID _nowUI;
+        public UI_ID NowUI
+        { get { return _nowUI; } set { _nowUI = value; } }
+        BaseUI[] _uiList;
         #endregion
-
-        bool _talking = false;
-        public bool Talking
-        { get { return _talking; } }
 
         private void Awake()
         {
@@ -28,78 +33,200 @@ namespace EscapeGame
 
         public void Init()
         {
-            _textReadPanel = GetComponentInChildren<WriteTyping>(true).gameObject;
-            if(_textReadPanel.activeSelf)
+            _uiList = GetComponentsInChildren<BaseUI>(true);
+
+            // 현재 UI를 설정 (초기 Lobby)
+            _nowUI = UI_ID.LOBBY;
+
+            foreach (BaseUI ui in _uiList)
             {
-                // 초기화 시 활성화 상태인 경우 비활성화 처리
-                ShowTextPanel(false);
+                // 초기화
+                ui.Init();
+                // ui 비활성화
+                ui.gameObject.SetActive(false);
             }
-
-            if(_messageBox != null)
-            {
-                _messageBox.OnShow(false);
-            }
-
-            // UI 초기화
-            // 로비 UI 초기화
-
-            // 플레이 UI 초기화
-            _statusUI = transform.Find("StatusUI").GetComponentInChildren<StatusUI>();
-            _statusUI.Init();
-            _controlUI = transform.Find("ControlUI").GetComponentInChildren<ControlUI>();
-            _controlUI.Init();
-
+            
             // 로비 UI 표시 및 로비를 제외한 나머지 UI는 비활성화
-
+            ChangeUI();
         }
 
-        public bool IsTextPanel()
+        public void ChangeUI()
         {
-            return _textReadPanel.activeSelf;
-        }
-
-        void ShowTextPanel(bool show)
-        {
-            _textReadPanel.SetActive(show);
-        }
-
-        // UI에 지정 텍스트 표시
-        public void ShowTextMessage(string text = "", bool forceHide = false)
-        {
-            // 강제 숨김
-            if(forceHide)
+            int showNo = -1;
+            // 현재 UI를 가지고 변경
+            switch (_nowUI)
             {
-                if (_talking == true)
-                    _talking = false;
-
-                ShowTextPanel(false);
-            }
-            else
-            {
-                if (_textReadPanel != null)
-                {
-                    // show = 텍스트 창 표시 상태
-                    bool isShow = _textReadPanel.activeSelf;
-
-                    // UI 텍스트 창 활성화(꺼져있는 상태)
-                    if (isShow == false)
+                case UI_ID.INVALID:
                     {
-                        _talking = true;
+                        Debug.LogError("Error : 잘못된 접근입니다. (UI_ID : Invalid)");
+                        break;
+                    }
 
-                        ShowTextPanel(true);
+                case UI_ID.END:
+                    {
+                        Debug.LogError("Error : 잘못된 접근입니다. (UI_ID : End)");
+                        break;
+                    }
 
-                        WriteTyping typing = _textReadPanel.GetComponent<WriteTyping>();
-                        typing.m_Message = text;
-
-                        typing.Init(delegate ()
+                case UI_ID.LOBBY:
+                    {
+                        for (int i = 0; i < _uiList.Length; i++)
                         {
-                            // 텍스트 메시지 창 닫기
-                            _talking = false;
-                            ShowTextPanel(false);
-                        });
+                            if (_uiList[i] is LobbyUI)
+                            {
+                                showNo = i;
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
+
+                case UI_ID.PLAYROOM:
+                    {
+                        for (int i = 0; i < _uiList.Length; i++)
+                        {
+                            if (_uiList[i] is PlayRoomUI)
+                            {
+                                showNo = i;
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
+
+                case UI_ID.GAMEOVER:
+                    {
+                        for (int i = 0; i < _uiList.Length; i++)
+                        {
+                            if (_uiList[i] is GameOverUI)
+                            {
+                                showNo = i;
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
+
+                case UI_ID.OPTION:
+                    {
+                        for (int i = 0; i < _uiList.Length; i++)
+                        {
+                            if (_uiList[i] is OptionUI)
+                            {
+                                showNo = i;
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
+            }
+
+            if(_nowUI > UI_ID.INVALID && _nowUI < UI_ID.END)
+            {
+                for (int i = (int)UI_ID.INVALID + 1; i < (int)UI_ID.END; i++)
+                {
+                    if (i == showNo)
+                    {
+                        if (_uiList[i].gameObject.activeSelf != true)
+                            _uiList[i].gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        if (_uiList[i].gameObject.activeSelf == true)
+                            _uiList[i].gameObject.SetActive(false);
                     }
                 }
             }
         }
+
+        #region PlayRoom
+        
+        public MessageBox GetMessageBoxInUI()
+        {
+            MessageBox msgBox = null;
+
+            if(_nowUI == UI_ID.PLAYROOM)
+            {
+                PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
+
+                msgBox = playroom.GetMessageBox();
+            }
+
+            return msgBox;
+        }
+
+        public void RefreshHitUI()
+        {
+            if (_nowUI == UI_ID.PLAYROOM)
+            {
+                PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
+
+                playroom.OnHit();
+            }
+        }
+
+        public void ShowTextMessage(string text = "", bool forceHide = false)
+        {
+            if (_nowUI == UI_ID.PLAYROOM)
+            {
+                PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
+
+                playroom.ShowTextMessage(text, forceHide);
+            }
+        }
+
+        public bool CheckTalk()
+        {
+            bool result = false;
+
+            if (_nowUI == UI_ID.PLAYROOM)
+            {
+                PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
+
+                result = playroom.Talking;
+            }
+
+            return result;
+        }
+
+        public void SetPoisonUI(Poison_Type type, float holdingTime)
+        {
+            if (_nowUI == UI_ID.PLAYROOM)
+            {
+                PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
+
+                playroom.OnPoisoning(type, holdingTime);
+            }
+        }
+
+        public void ResetPoisonUI()
+        {
+            if (_nowUI == UI_ID.PLAYROOM)
+            {
+                PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
+
+                playroom.OnPoisoningReset();
+            }
+        }
+
+        public bool IsTextPanel()
+        {
+            bool result = false;
+
+            if (_nowUI == UI_ID.PLAYROOM)
+            {
+                PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
+
+                result = playroom.IsTextPanel();
+            }
+
+            return result;
+        }
+
+        #endregion
     }
 }

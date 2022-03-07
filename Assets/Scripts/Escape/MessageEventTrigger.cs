@@ -42,7 +42,7 @@ namespace EscapeGame
                     // 플레이어 컨트롤 false ( 동작 불가 )
                     pc.enabled = false;
 
-                    MessageBox msgBox = UIManager._inst._messageBox;
+                    MessageBox msgBox = UIManager._inst.GetMessageBoxInUI();
                     // 텍스트 메시지 박스 표시
                     if(msgBox != null)
                     {

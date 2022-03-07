@@ -30,8 +30,12 @@ namespace EscapeGame
 
         Player_StateManager _stateMgr;
 
+        Vector3 _playerScale;
+
         public void Init()
         {
+            _playerScale = transform.localScale;
+
             _isPoison = new Dictionary<Poison_Type, bool>();
 
             for (int i = 1; i < (int)Poison_Type.Count; i++)
@@ -102,7 +106,7 @@ namespace EscapeGame
             Animator anim = GetComponent<Animator>();
 
             anim.SetTrigger("Hit");
-            UIManager._inst._statusUI.OnHitUI();
+            UIManager._inst.RefreshHitUI();
             yield return new WaitForSeconds(_hitCoolTime);
 
             _hit = false;
@@ -140,7 +144,7 @@ namespace EscapeGame
 
         void IsTalk()
         {
-            if (UIManager._inst.Talking == true)
+            if (UIManager._inst.CheckTalk() == true)
             {
                 return;
             }
@@ -158,7 +162,15 @@ namespace EscapeGame
         public void ChangePlayerPos(Vector3 pos)
         {
             transform.position = pos;
+            GameManager._inst.SetSpawnPos(pos);
         }
 
+        public void CheckScale()
+        {
+            if (_playerScale != transform.localScale)
+            {
+                transform.localScale = _playerScale;
+            }
+        }
     }
 }

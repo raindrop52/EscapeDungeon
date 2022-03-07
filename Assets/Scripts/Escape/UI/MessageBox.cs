@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace EscapeGame
 {
-    public class MessageBox : BaseUI
+    public class MessageBox : MonoBehaviour
     {
         Text _messageBox = null;
         GameObject _owner = null;
@@ -47,6 +47,14 @@ namespace EscapeGame
                 {
                     trigger.DisableMessage();
                 }
+            }
+        }
+
+        public void OnShow(bool show)
+        {
+            if (gameObject.activeSelf != show)
+            {
+                gameObject.SetActive(show);
             }
         }
     }

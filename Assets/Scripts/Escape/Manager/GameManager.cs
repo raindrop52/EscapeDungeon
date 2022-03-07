@@ -17,6 +17,7 @@ namespace EscapeGame
     public class GameManager : MonoBehaviour
     {
         public static GameManager _inst;
+
         public Transform _arrowParent;
         public GameObject _directLight;
 
@@ -27,7 +28,7 @@ namespace EscapeGame
         //{
         //    get { return _room; }
         //}
-        Transform _startPos;         // 초기 시작 위치
+        Transform _spawnPos;         // 초기 시작 위치
         public Player _player;              // 플레이어
 
         [Header("맵 전환 템플릿")]
@@ -40,6 +41,10 @@ namespace EscapeGame
             set { _mapMove = value; }
         }
 
+        bool _die = false;
+        public bool Die
+        { get { return _die; } set { _die = value; } }
+
         public bool _editorMode = true;
 
         void Awake()
@@ -49,13 +54,6 @@ namespace EscapeGame
 
         void Start()
         {
-            _startPos = transform.Find("StartPos").GetComponent<Transform>();
-
-            // 플레이어 초기화
-            _player.Init();
-            // 초기 플레이어 위치 설정 (RestRoom)
-            _player.gameObject.transform.position = _startPos.position;
-
             if (_editorMode == false)
             {
                 if (_directLight != null)
@@ -64,12 +62,18 @@ namespace EscapeGame
                 }
             }
 
+            // 최초 위치는 휴식방
+            _spawnPos = transform.Find("SpawnPos").GetComponent<Transform>();
+            SetSpawnPos(_spawnPos.position);
+
+            // 플레이어 초기화
+            _player.Init();
+
             // UI매니저 초기화
             UIManager._inst.Init();
             // AI매니저 초기화
             StageManager._inst.Init();
         }
-
 
         void Update()
         {
@@ -77,6 +81,27 @@ namespace EscapeGame
             {
                 _directLight.SetActive(_editorMode);
             }
+        }
+
+        public void PlayInit()
+        {
+            // 플레이어 크기 설정
+            _player.CheckScale();
+
+            // 플레이어 위치 설정
+            _player.gameObject.transform.position = _spawnPos.position;
+            _die = false;
+            CheckDie();
+        }
+
+        public void SetSpawnPos(Vector3 pos)
+        {
+            _spawnPos.position = pos;
+        }
+
+        public void CheckDie()
+        {
+            StartCoroutine(_CheckDie());
         }
 
         public void StartMoveStage()
@@ -159,6 +184,21 @@ namespace EscapeGame
             {
                 color.a += Time.deltaTime / time;
                 _loadingPanel.color = color;
+                yield return null;
+            }
+        }
+
+        IEnumerator _CheckDie()
+        {
+            while(true)
+            {
+                if(_die == true)
+                {
+                    UIManager._inst.NowUI = UI_ID.GAMEOVER;
+                    UIManager._inst.ChangeUI();
+                    break;
+                }
+
                 yield return null;
             }
         }

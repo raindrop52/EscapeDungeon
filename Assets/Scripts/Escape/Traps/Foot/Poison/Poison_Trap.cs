@@ -74,7 +74,7 @@ namespace EscapeGame
 
                 if(_poison != null)
                 {
-                    UIManager._inst._statusUI.OnPoisoningUI(_poisonType, _poison._poisonTime);
+                    UIManager._inst.SetPoisonUI(_poisonType, _poison._poisonTime);
 
                     // 플레이어 중독
                     _poison.OnPoison(player, delegate ()
@@ -88,7 +88,7 @@ namespace EscapeGame
             else if(player.GetPoisonStatus(_poisonType) == true)
             {
                 // UI 시간 갱신
-                UIManager._inst._statusUI.OnPoisonUIResetTime();
+                UIManager._inst.ResetPoisonUI();
                 // 중독 시간 갱신
                 if (_poison != null)
                     _poison.UsingTime = 0.0f;

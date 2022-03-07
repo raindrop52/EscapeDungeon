@@ -33,8 +33,14 @@ namespace EscapeGame
 
                 playerGo.transform.localScale = Vector3.Lerp(playerGo.transform.localScale, new Vector3(1.0f, 1.0f, 1.0f), time / _fallTime);
 
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.05f);
             }
+
+            Player_Control pc = playerGo.GetComponent<Player_Control>();
+            if (pc != null)
+                pc.enabled = true;
+
+            GameManager._inst.Die = true;
         }
     }
 }

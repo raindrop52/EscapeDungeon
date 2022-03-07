@@ -70,7 +70,7 @@ namespace EscapeGame
 
         public void ExecuteTriggerEvent()
         {
-            if (_talkInfo != null && UIManager._inst.Talking == false)
+            if (_talkInfo != null && UIManager._inst.CheckTalk() == false)
             {
                 StartCoroutine(_OnTrigger());
             }
