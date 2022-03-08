@@ -29,7 +29,7 @@ namespace EscapeGame
 
         public void Init()
         {
-            ShowHiddenTile(false);
+            ShowHiddenTile(true);
 
             // 화살 함정 Init
             _arrowTrapArray = GetComponentsInChildren<Arrow_Trap>();
@@ -42,21 +42,7 @@ namespace EscapeGame
         // 히든 타일 설정
         public void ShowHiddenTile(bool show)
         {
-            Tilemap[] tileHidden = _tileHidden.GetComponentsInChildren<Tilemap>(true);
-            foreach (Tilemap tile in tileHidden)
-            {
-                TilemapCollider2D collider = tile.GetComponent<TilemapCollider2D>();
-
-                // 콜라이더가 있는 벽 
-                if (collider != null)
-                {
-                    tile.gameObject.SetActive(!show);
-                }
-                else
-                {
-                    tile.gameObject.SetActive(show);
-                }
-            }
+            _tileHidden.SetActive(show);
         }
     }
 }
