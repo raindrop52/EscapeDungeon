@@ -22,14 +22,8 @@ namespace EscapeGame
         public GameObject _directLight;
 
         [Header("스테이지")]
-        public int _stageLevel = 0;         // 현재 스테이지 레벨
-        //[SerializeField] ROOM _room;        // 현재 진입한 방
-        //public ROOM Room
-        //{
-        //    get { return _room; }
-        //}
         Transform _spawnPos;         // 초기 시작 위치
-        public Player _player;              // 플레이어
+        public Player _player;       // 플레이어
 
         [Header("맵 전환 템플릿")]
         [SerializeField] Image _loadingPanel;
@@ -62,17 +56,20 @@ namespace EscapeGame
                 }
             }
 
-            // 최초 위치는 휴식방
-            _spawnPos = transform.Find("SpawnPos").GetComponent<Transform>();
-            SetSpawnPos(_spawnPos.position);
-
             // 플레이어 초기화
             _player.Init();
 
             // UI매니저 초기화
             UIManager._inst.Init();
-            // AI매니저 초기화
+            // 스테이지 매니저 초기화
             StageManager._inst.Init();
+            // 스테이지 매니저 초기화
+            StageManager._inst.StageLV = (int)Stage_LV.LV1;
+            StageManager._inst.StageInit();
+
+            // 최초 위치는 휴식방
+            _spawnPos = transform.Find("SpawnPos").GetComponent<Transform>();
+            SetSpawnPos(_spawnPos.position);
         }
 
         void Update()
@@ -92,6 +89,9 @@ namespace EscapeGame
             _player.gameObject.transform.position = _spawnPos.position;
             _die = false;
             CheckDie();
+
+            // 스테이지 초기화
+            StageManager._inst.StageStart();
         }
 
         public void SetSpawnPos(Vector3 pos)

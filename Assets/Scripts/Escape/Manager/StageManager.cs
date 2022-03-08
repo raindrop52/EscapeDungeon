@@ -5,22 +5,21 @@ using UnityEngine.Tilemaps;
 
 namespace EscapeGame
 {
-    public enum STATUS
-    {
-        NONE,
-        WAIT,
-        READY,
-        START,
+    public enum Stage_LV
+    { 
+        INVALID = -1,
+        RESTROOM = 0,
+        LV1,
         END,
     }
 
     public class StageManager : MonoBehaviour
     {
         public static StageManager _inst;
-
-        [Header("스테이지1 함정")]
-        [SerializeField] GameObject _tileHidden;
-        Arrow_Trap[] _arrowTrapArray;
+        Stage_Base[] _stageArray;
+        int _stageLV = -1;
+        public int StageLV
+        { get { return _stageLV; }  set { _stageLV = value; } }
 
         private void Awake()
         {
@@ -29,20 +28,78 @@ namespace EscapeGame
 
         public void Init()
         {
-            ShowHiddenTile(true);
-
-            // 화살 함정 Init
-            _arrowTrapArray = GetComponentsInChildren<Arrow_Trap>();
-            foreach(Arrow_Trap arTrap in _arrowTrapArray)
+            _stageArray = transform.GetComponentsInChildren<Stage_Base>(true);
+            foreach(Stage_Base stage in _stageArray)
             {
-                arTrap.Init();
+                stage.OnShow(false);
+            }
+
+            _stageLV = (int)Stage_LV.RESTROOM;
+        }
+        
+        public void StageInit()
+        {
+            Stage_Base baseStage = _stageArray[_stageLV];
+
+            switch (_stageLV)
+            {
+                case 1:
+                    {
+                        Stage_1 lv1 = baseStage as Stage_1;
+
+                        lv1.Init();
+
+                        break;
+                    }
+                case 2:
+                    {
+                        break;
+                    }
             }
         }
 
-        // 히든 타일 설정
-        public void ShowHiddenTile(bool show)
+        public void StageStart()
         {
-            _tileHidden.SetActive(show);
+            Stage_Base baseStage = _stageArray[_stageLV];
+
+            switch (_stageLV)
+            {
+                case 1:
+                    {
+                        Stage_1 lv1 = baseStage as Stage_1;
+
+                        lv1.StageStart();
+
+                        break;
+                    }
+                case 2:
+                    {
+                        break;
+                    }
+            }
+        }
+
+        public void DoStageEvent(int order)
+        {
+            Stage_Base baseStage = _stageArray[_stageLV];
+
+            switch (_stageLV)
+            {
+                case 1:
+                    {
+                        Stage_1 lv1 = baseStage as Stage_1;
+
+                        // 타일 숨기기
+                        if(order == 0)
+                            lv1.ShowHiddenTile(false);
+
+                        break;
+                    }
+                case 2:
+                    {
+                        break;
+                    }
+            }
         }
     }
 }

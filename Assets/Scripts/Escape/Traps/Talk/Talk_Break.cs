@@ -15,12 +15,6 @@ namespace EscapeGame
 
             // 충돌체
             _col = GetComponent<BoxCollider2D>();
-
-            Transform bombTrans = transform.Find("Bomb");
-            if (bombTrans != null)
-            {
-                _psBomb = bombTrans.GetComponent<ParticleSystem>();
-            }
         }
 
         protected override void DoTrigerEvent()
@@ -30,7 +24,8 @@ namespace EscapeGame
                 _col.enabled = false;
             }
 
-            switch(_talkInfo._order)
+            int order = _talkInfo._order;
+            switch (order)
             {
                 case 0 :
                     {
@@ -41,7 +36,7 @@ namespace EscapeGame
                         }
 
                         // 숨겨진 타일 표시
-                        StageManager._inst.ShowHiddenTile(false);
+                        StageManager._inst.DoStageEvent(order);
 
                         // 2초 후 숨기기
                         Invoke("OnHide", 2.0f);
