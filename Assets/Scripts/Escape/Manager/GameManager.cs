@@ -48,6 +48,9 @@ namespace EscapeGame
 
         void Start()
         {
+            // 스폰 위치 가져옴
+            _spawnPos = transform.Find("SpawnPos").GetComponent<Transform>();
+
             if (_editorMode == false)
             {
                 if (_directLight != null)
@@ -63,10 +66,6 @@ namespace EscapeGame
             StageManager._inst.Init();
             // UI매니저 초기화
             UIManager._inst.Init();
-
-            // 최초 위치는 휴식방
-            _spawnPos = transform.Find("SpawnPos").GetComponent<Transform>();
-            SetSpawnPos(_spawnPos.position);
         }
 
         void Update()
@@ -91,6 +90,7 @@ namespace EscapeGame
         public void SetSpawnPos(Vector3 pos)
         {
             _spawnPos.position = pos;
+            StageManager._inst.SetStagePos(pos);
         }
 
         public void CheckDie()
@@ -114,7 +114,7 @@ namespace EscapeGame
 
                 yield return new WaitForSeconds(0.5f);
 
-                StartCoroutine(MoveStage());
+                StartCoroutine(MoveCamera());
             }
             else
             {
@@ -123,12 +123,17 @@ namespace EscapeGame
             }
         }
 
-        IEnumerator MoveStage()
+        IEnumerator MoveCamera()
         {
             if(CameraManager._inst.MoveTarget == false)
                 CameraManager._inst.MoveTarget = true;
 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
+
+            // 스테이지 정보 갱신
+            StageManager._inst.StageLevelUP();
+
+            yield return new WaitForSeconds(0.5f);
 
             if (CameraManager._inst.MoveTarget == true)
                 CameraManager._inst.MoveTarget = false;

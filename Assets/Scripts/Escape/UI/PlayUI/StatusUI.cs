@@ -25,11 +25,18 @@ namespace EscapeGame
                 _lifeUI.OnDamage();
         }
 
-        public void OnHealUI()
+        public void OnHealUI(bool all = true)
         {
             if (_lifeUI != null)
-                _lifeUI.OnHeal();
+            {
+                // ÀüÃ¼ Èú
+                if (all == true)
+                    _lifeUI.OnMaxHeal();
+                else
+                    _lifeUI.OnHeal();
+            }
         }
+
 
         public void OnPoisoningUI(Poison_Type type, float holdingTime)
         {

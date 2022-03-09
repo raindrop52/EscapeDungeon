@@ -35,14 +35,21 @@ namespace EscapeGame
             {
                 _btnStart.onClick.AddListener(delegate ()
                 {
-                    CautionUI cUi = UIManager._inst.GetUI(UI_ID.CAUTION) as CautionUI;
-                    if (cUi != null)
+                    if (StageManager._inst.StageLV > 0)
                     {
-                        cUi.OnShow(true, delegate ()
+                        CautionUI cUi = UIManager._inst.GetUI(UI_ID.CAUTION) as CautionUI;
+                        if (cUi != null)
                         {
-                            SettingStage(true);
-                        });
-                    }                    
+                            cUi.OnShow(true, delegate ()
+                            {
+                                SettingStage(true);
+                            });
+                        }
+                    }
+                    else
+                    {
+                        SettingStage();
+                    }
                 });
             }
 

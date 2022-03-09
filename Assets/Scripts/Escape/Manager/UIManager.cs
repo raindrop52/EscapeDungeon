@@ -13,6 +13,7 @@ namespace EscapeGame
         GAMEOVER,
         CAUTION,
         OPTION,
+        GOAL,
         END
     }
 
@@ -89,6 +90,10 @@ namespace EscapeGame
                             if (_uiList[i] is PlayRoomUI)
                             {
                                 showNo = i;
+                                // 체력바 초기화
+                                ResetHitUI();
+                                // 중독 초기화
+
                                 break;
                             }
                         }
@@ -159,6 +164,16 @@ namespace EscapeGame
                 PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
 
                 playroom.OnHit();
+            }
+        }
+
+        public void ResetHitUI()
+        {
+            if(_nowUI == UI_ID.PLAYROOM)
+            {
+                PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
+
+                playroom.OnHeal();
             }
         }
 

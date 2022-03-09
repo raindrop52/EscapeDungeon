@@ -74,6 +74,14 @@ namespace EscapeGame
                 }
             }
 
+            if (collision.tag == "Death")
+            {
+                if(GameManager._inst.Die == false)
+                {
+                    GameManager._inst.Die = true;
+                }
+            }
+
             if (collision.tag == "Talk")
             {
                 if(!_inTalkArea)

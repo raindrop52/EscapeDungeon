@@ -23,6 +23,7 @@ namespace EscapeGame
         [Header("스테이지1 함정")]
         [SerializeField] List<GameObject> _tilesGo;
         [SerializeField] Arrow_Trap _arrowTrap;
+        [SerializeField] Trap_Talk _talkBreakWall;
 
         Arrow_Trap[] _arrowTrapArray;
 
@@ -36,6 +37,7 @@ namespace EscapeGame
 
         public override void StageStart()
         {
+            // 타일 활성화 초기화
             for (int i = (int)Stage_1_Tiles.INVALID + 1; i < (int)Stage_1_Tiles.END; i++)
             {
                 if ( i <= (int)Stage_1_Tiles.HIDDEN)
@@ -45,6 +47,15 @@ namespace EscapeGame
                 else
                 {
                     _tilesGo[i].SetActive(false);
+                }
+            }
+            // 함정 초기화
+            if(_talkBreakWall != null)
+            {
+                Talk_Break talkBreak = _talkBreakWall as Talk_Break;
+                if(talkBreak != null)
+                {
+                    talkBreak.OnShow();
                 }
             }
         }

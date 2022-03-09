@@ -112,6 +112,11 @@ namespace EscapeGame
             _statusUI.OnHitUI();
         }
 
+        public void OnHeal()
+        {
+            _statusUI.OnHealUI();
+        }
+
         public void OnPoisoning(Poison_Type type, float holdingTime)
         {
             _statusUI.OnPoisoningUI(type, holdingTime);

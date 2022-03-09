@@ -6,9 +6,9 @@ namespace EscapeGame
 {
     public class Talk_Trap : Trap_Talk
     {
-        protected override void DoTrigerEvent()
+        protected override void DoTriggerEvent()
         {
-            base.DoTrigerEvent();
+            base.DoTriggerEvent();
         }
     }
 }

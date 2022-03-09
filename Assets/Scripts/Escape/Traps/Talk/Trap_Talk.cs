@@ -30,9 +30,14 @@ namespace EscapeGame
             base.OnDrawGizmos();
         }
 
-        protected virtual void DoTrigerEvent()
+        protected virtual void DoTriggerEvent()
         {
             
+        }
+
+        protected virtual void ResetTriggerEvent()
+        {
+
         }
 
         bool IsShowText()
@@ -61,7 +66,7 @@ namespace EscapeGame
                     // Text 메시지 창이 꺼질때까지 대기
                     yield return new WaitUntil(() => IsShowText() == false);
 
-                    DoTrigerEvent();
+                    DoTriggerEvent();
                 }
 
                 yield return new WaitForSeconds(0.5f);

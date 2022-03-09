@@ -4,38 +4,44 @@ using UnityEngine;
 
 namespace EscapeGame
 {
+    public enum Portal_Type
+    {
+        PORTAL_GO,
+        PORTAL_END,
+    }
+
     public class Portal : MonoBehaviour
     {
+        public Portal_Type _type;
         public Portal _moveTarget;
-        public bool _moveFinshed = false;
-
-        void Start()
-        {
-
-        }
-
-        void Update()
-        {
-
-        }
-
-        public void OnWarp()
-        {
-            _moveFinshed = true;
-        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (_moveTarget == null) 
-                return;
-            if (_moveFinshed == true) 
-                return;
+            if (_moveTarget == null)
+            {
+                if (_type == Portal_Type.PORTAL_END)
+                    return;
+            }
 
-            if(collision.CompareTag("Player") && collision.gameObject.layer == LayerMask.NameToLayer("Portal"))
+            if (collision.CompareTag("Player") && collision.gameObject.layer == LayerMask.NameToLayer("Portal"))
             {
                 Debug.Log("플레이어 진입");
 
-                StartCoroutine(_DoWarp(collision));
+                if (_type == Portal_Type.PORTAL_GO)
+                {
+                    if(_moveTarget == null)
+                    {
+                        // TODO : 임시
+                        // 게임 클리어
+                        GoalUI goalUi = UIManager._inst.GetUI(UI_ID.GOAL) as GoalUI;
+                        if(goalUi != null)
+                        {
+                            goalUi.OnShow(true);
+                        }
+                    }
+                    else
+                        StartCoroutine(_DoWarp(collision));
+                }
             }
         }
 
@@ -47,17 +53,6 @@ namespace EscapeGame
 
             Player player = collision.transform.parent.GetComponent<Player>();
             player.ChangePlayerPos(_moveTarget.transform.position);
-
-            // 목적지에 이동 알리기
-            _moveTarget.OnWarp();
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (collision.CompareTag("Player"))
-            {
-                _moveFinshed = false;
-            }
         }
     }
 }

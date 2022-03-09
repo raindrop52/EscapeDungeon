@@ -25,7 +25,7 @@ namespace EscapeGame
 
         public void OnDamage()
         {
-            if(_hideRank >= _maxCount)
+            if(_hideRank >= _maxCount - 1)
             {
                 Debug.Log("Error : 맞은 횟수가 최대 라이프보다 많은 상태");
 
@@ -52,11 +52,22 @@ namespace EscapeGame
             }
 
             int prevRank = _hideRank - 1;
-            // 이전 Life가 비활성화 상태인 경우
-            if (_lifeList[prevRank].gameObject.activeSelf == false)
+            if (prevRank > -1)
             {
-                _lifeList[prevRank].ShowLife(true);
-                _hideRank--;
+                // 이전 Life가 비활성화 상태인 경우
+                if (_lifeList[prevRank].gameObject.activeSelf == false)
+                {
+                    _lifeList[prevRank].ShowLife(true);
+                    _hideRank--;
+                }
+            }
+        }
+
+        public void OnMaxHeal()
+        {
+            for (int i = _hideRank; i > 0; i--)
+            {
+                OnHeal();
             }
         }
     }

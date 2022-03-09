@@ -7,23 +7,14 @@ namespace EscapeGame
     public class Talk_Break : Trap_Talk
     {
         public ParticleSystem _psBomb;
-        public BoxCollider2D _col;
 
         protected override void Start()
         {
             base.Start();
-
-            // 충돌체
-            _col = GetComponent<BoxCollider2D>();
         }
 
-        protected override void DoTrigerEvent()
+        protected override void DoTriggerEvent()
         {
-            if(_col != null)
-            {
-                _col.enabled = false;
-            }
-
             int order = _talkInfo._order;
             switch (order)
             {
@@ -39,7 +30,7 @@ namespace EscapeGame
                         StageManager._inst.DoStageEvent(order);
 
                         // 2초 후 숨기기
-                        Invoke("OnHide", 2.0f);
+                        Invoke("OnHide", 0.5f);
 
                         break;
                     }
@@ -47,7 +38,12 @@ namespace EscapeGame
                     break;
             }
 
-            base.DoTrigerEvent();
+            base.DoTriggerEvent();
+        }
+
+        public void OnShow()
+        {
+            gameObject.SetActive(true);
         }
 
         public void OnHide()
