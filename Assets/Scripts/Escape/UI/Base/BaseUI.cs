@@ -8,7 +8,7 @@ namespace EscapeGame
     {
         public virtual void Init()
         {
-
+            
         }
 
         public void OnShow(bool show)

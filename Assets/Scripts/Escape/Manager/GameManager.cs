@@ -59,13 +59,10 @@ namespace EscapeGame
             // 플레이어 초기화
             _player.Init();
 
-            // UI매니저 초기화
-            UIManager._inst.Init();
             // 스테이지 매니저 초기화
             StageManager._inst.Init();
-            // 스테이지 매니저 초기화
-            StageManager._inst.StageLV = (int)Stage_LV.LV1;
-            StageManager._inst.StageInit();
+            // UI매니저 초기화
+            UIManager._inst.Init();
 
             // 최초 위치는 휴식방
             _spawnPos = transform.Find("SpawnPos").GetComponent<Transform>();
@@ -89,9 +86,6 @@ namespace EscapeGame
             _player.gameObject.transform.position = _spawnPos.position;
             _die = false;
             CheckDie();
-
-            // 스테이지 초기화
-            StageManager._inst.StageStart();
         }
 
         public void SetSpawnPos(Vector3 pos)

@@ -16,6 +16,9 @@ namespace EscapeGame
     public class StageManager : MonoBehaviour
     {
         public static StageManager _inst;
+
+        const string SAVEDATA_KEY_STAGE = "stage_level";
+
         Stage_Base[] _stageArray;
         int _stageLV = -1;
         public int StageLV
@@ -34,15 +37,38 @@ namespace EscapeGame
                 stage.OnShow(false);
             }
 
-            _stageLV = (int)Stage_LV.RESTROOM;
+            // 스테이지 키 정보 체크 ( 초기 정보 없을 시 스테이지 레벨 0으로 설정 및 키 생성 )
+            if (PlayerPrefs.HasKey(SAVEDATA_KEY_STAGE) == false)
+            {
+                SetStageLV(Stage_LV.RESTROOM);
+            }
+            else
+            {
+                // 키가 있는 경우 스테이지 정보를 가져옴
+                _stageLV = PlayerPrefs.GetInt(SAVEDATA_KEY_STAGE);
+            }
         }
         
+        public void SetStageLV(Stage_LV lv)
+        {
+            _stageLV = (int)lv;
+            PlayerPrefs.SetInt(SAVEDATA_KEY_STAGE, _stageLV);
+        }
+
         public void StageInit()
         {
             Stage_Base baseStage = _stageArray[_stageLV];
 
             switch (_stageLV)
             {
+                case 0:
+                    {
+                        RestRoom room = baseStage as RestRoom;
+                        room.Init();
+
+                        break;
+                    }
+
                 case 1:
                     {
                         Stage_1 lv1 = baseStage as Stage_1;
@@ -56,6 +82,8 @@ namespace EscapeGame
                         break;
                     }
             }
+
+            StageStart();
         }
 
         public void StageStart()

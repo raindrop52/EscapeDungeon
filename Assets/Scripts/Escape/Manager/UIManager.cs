@@ -11,6 +11,7 @@ namespace EscapeGame
         LOBBY = 0,
         PLAYROOM,
         GAMEOVER,
+        CAUTION,
         OPTION,
         END
     }
@@ -46,7 +47,6 @@ namespace EscapeGame
                 ui.gameObject.SetActive(false);
             }
             
-            // 로비 UI 표시 및 로비를 제외한 나머지 UI는 비활성화
             ChangeUI();
         }
 
@@ -109,20 +109,6 @@ namespace EscapeGame
 
                         break;
                     }
-
-                case UI_ID.OPTION:
-                    {
-                        for (int i = 0; i < _uiList.Length; i++)
-                        {
-                            if (_uiList[i] is OptionUI)
-                            {
-                                showNo = i;
-                                break;
-                            }
-                        }
-
-                        break;
-                    }
             }
 
             if(_nowUI > UI_ID.INVALID && _nowUI < UI_ID.END)
@@ -141,6 +127,13 @@ namespace EscapeGame
                     }
                 }
             }
+        }
+
+        public BaseUI GetUI(UI_ID id)
+        {
+            int uid = (int)id;
+
+            return _uiList[uid];
         }
 
         #region PlayRoom

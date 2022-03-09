@@ -16,6 +16,9 @@ namespace EscapeGame
 
         IEnumerator _OnHoleTrap()
         {
+            // 트랩 사운드 동작
+            PlaySFX(SFX_List.HOLE);
+
             // 일정 시간 대기 후 트랩 동작
             yield return new WaitForSeconds(_showTime);
 
@@ -26,8 +29,6 @@ namespace EscapeGame
         {
             if (_hiddenTile != null && _hiddenTile.activeSelf == false)
             {
-                PlaySFX(SFX_List.HOLE);
-
                 // 트랩 동작
                 _hiddenTile.SetActive(true);
             }
