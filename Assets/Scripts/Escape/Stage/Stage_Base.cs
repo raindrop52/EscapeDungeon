@@ -6,6 +6,8 @@ namespace EscapeGame
 {
     public class Stage_Base : MonoBehaviour
     {
+        public Transform _savePoint;
+
         public virtual void Init()
         {
             OnShow(true);

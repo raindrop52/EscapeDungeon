@@ -12,6 +12,25 @@ namespace EscapeGame
         Button _btnOption;
         Button _btnQuit;
 
+        protected override void OnEnable()
+        {
+            int lv = StageManager._inst.StageLV;
+
+            if (_btnContinue != null)
+            {
+                if (lv == 0)
+                {
+                    _btnContinue.gameObject.SetActive(false);
+                }
+                else
+                {
+                    _btnContinue.gameObject.SetActive(true);
+                }
+            }
+
+            base.OnEnable();
+        }
+
         public override void Init()
         {
             base.Init();
@@ -23,11 +42,6 @@ namespace EscapeGame
                 {
                     SettingStage();
                 });
-
-                if (StageManager._inst.StageLV == 0)
-                {
-                    _btnContinue.gameObject.SetActive(false);
-                }
             }
 
             _btnStart = transform.Find("Btn_Start").GetComponent<Button>();
@@ -78,27 +92,6 @@ namespace EscapeGame
 #endif
                 });
             }
-        }
-
-        void SettingStage(bool stageClear = false)
-        {
-            if (Time.timeScale != 1)
-            {
-                Time.timeScale = 1;
-            }
-
-            // PlayUI 표시
-            UIManager._inst.NowUI = UI_ID.PLAYROOM;
-            UIManager._inst.ChangeUI();
-
-            // PlayRoomUI 초기화(동작 관련)
-            // 값 입력이 없는 경우 스테이지 저장된 스테이지로 설정
-            if(stageClear == true)
-                StageManager._inst.SetStageLV(Stage_LV.RESTROOM);
-            // 스테이지 초기화
-            StageManager._inst.StageInit();
-
-            GameManager._inst.PlayInit();
         }
     }
 }

@@ -19,20 +19,7 @@ namespace EscapeGame
             {
                 _btnNewGame.onClick.AddListener(delegate ()
                 {
-                    if (Time.timeScale != 1)
-                    {
-                        Time.timeScale = 1;
-                    }
-
-                    // PlayRoomUI 표시
-                    UIManager._inst.NowUI = UI_ID.PLAYROOM;
-                    UIManager._inst.ChangeUI();
-
-                    // 스테이지 초기화
-                    StageManager._inst.StageInit();
-
-                    // PlayRoomUI 초기화(동작 관련)
-                    GameManager._inst.PlayInit();
+                    SettingStage(true);
                 });
             }
 

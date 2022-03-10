@@ -13,7 +13,12 @@ namespace EscapeGame
         void Start()
         {
             _layerMask = 1 << LayerMask.NameToLayer("Player");
-            StartCoroutine(_CheckInPlayer());
+        }
+
+        private void OnEnable()
+        {
+            if(_save == false)
+                StartCoroutine(_CheckInPlayer());
         }
 
         IEnumerator _CheckInPlayer()
