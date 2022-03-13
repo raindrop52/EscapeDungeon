@@ -6,9 +6,9 @@ namespace EscapeGame
 {
     public class Faint : Poison
     {
-        protected override void ExecutePoison(Player player)
+        protected override void ExecutePoison()
         {
-            base.ExecutePoison(player);
+            base.ExecutePoison();
         }
 
         protected override void ClosePoison()

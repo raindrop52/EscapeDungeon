@@ -8,7 +8,7 @@ namespace EscapeGame
     {
         ParticleSystem _ps;
 
-        public void Init()
+        public void Init(bool sticky = false)
         {
             _ps = GetComponent<ParticleSystem>();
         }
@@ -22,6 +22,5 @@ namespace EscapeGame
         {
             _ps.Stop();
         }
-
     }
 }

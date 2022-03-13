@@ -10,10 +10,10 @@ namespace EscapeGame
         [SerializeField] float _blindLight = 1.5f;
         PlayerLight _pLight;
 
-        protected override void ExecutePoison(Player player)
+        protected override void ExecutePoison()
         {
             if (_pLight == null)
-                _pLight = player.GetComponentInChildren<PlayerLight>();
+                _pLight = _target.GetComponentInChildren<PlayerLight>();
 
             // 원래 시야 가져옴 ( 원본 값 저장 변수가 0 이하 일 때만 동작 )
             if (_originLight <= 0.0f)
@@ -21,7 +21,7 @@ namespace EscapeGame
             // 플레이어에 중독 시야 설정
             _pLight.SetLightOuterRadius(_blindLight);
 
-            base.ExecutePoison(player);
+            base.ExecutePoison();
         }
 
         protected override void ClosePoison()

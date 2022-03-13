@@ -35,11 +35,6 @@ namespace EscapeGame
             Destroy(gameObject);
         }
 
-        public void ResetTimer()
-        {
-            StartCoroutine(_OnTimer());
-        }
-
         IEnumerator _OnTimer()
         {
             _time = 0.0f;
@@ -51,8 +46,8 @@ namespace EscapeGame
                 if(_reset == true)
                 {
                     _reset = false;
-                    ResetTimer();
-                    break;
+                    _time = 0.0f;
+                    continue;
                 }
 
                 if(_img != null)

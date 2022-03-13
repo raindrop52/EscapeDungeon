@@ -8,10 +8,10 @@ namespace EscapeGame
     {
         Player_Control _pc = null;
 
-        protected override void ExecutePoison(Player player)
+        protected override void ExecutePoison()
         {
             if (_pc == null)
-                _pc = player.GetComponent<Player_Control>();
+                _pc = _target.GetComponent<Player_Control>();
 
             if (_pc != null)
             {
@@ -19,7 +19,14 @@ namespace EscapeGame
                 _pc.enabled = false;
             }
 
-            base.ExecutePoison(player);
+            // ¿Ã∆Â∆Æ µø¿€
+            if (_fx != null)
+            {
+                _fx.Init();
+                _fx.PlayParticle();
+            }
+
+            base.ExecutePoison();
         }
 
         protected override void ClosePoison()

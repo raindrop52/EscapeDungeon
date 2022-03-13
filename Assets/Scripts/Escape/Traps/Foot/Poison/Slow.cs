@@ -9,10 +9,10 @@ namespace EscapeGame
         [SerializeField] float _slowSpeedPer = 2.0f;
         Player_Control _pc = null;
 
-        protected override void ExecutePoison(Player player)
+        protected override void ExecutePoison()
         {
             if(_pc == null)
-                _pc = player.GetComponent<Player_Control>();
+                _pc = _target.GetComponent<Player_Control>();
 
             if (_pc != null)
             {
@@ -23,8 +23,16 @@ namespace EscapeGame
                 }
             }
 
+            // 이펙트 동작
+            if (_fx != null)
+            {
+                _fx.transform.position = _target.transform.position;
+                _fx.Init();
+                _fx.PlayParticle();
+            }
+
             // 중독 시작
-            base.ExecutePoison(player);
+            base.ExecutePoison();
         }
 
         protected override void ClosePoison()
@@ -37,6 +45,11 @@ namespace EscapeGame
                 {
                     _pc.SlowSpeed = 0.0f;
                 }
+            }
+
+            if(_fx != null)
+            {
+                _fx.StopParticle();
             }
         }
     }

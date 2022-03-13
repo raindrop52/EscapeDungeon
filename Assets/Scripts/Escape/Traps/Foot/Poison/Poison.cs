@@ -11,24 +11,35 @@ namespace EscapeGame
         public float UsingTime
         { get { return _time; } set { _time = value; } }
         public float _poisonTime = 3.0f;
-        Callback _cb = null;
+        public PoisonFx _fx;
+        bool _isPosioning = false;
+        protected Player _target;
+        Callback _cb;
 
         public void OnPoison(Player player, Callback cb)
         {
             _cb = cb;
 
-            ExecutePoison(player);
+            _target = player;
+
+            ExecutePoison();
         }
 
-        protected virtual void ExecutePoison(Player player)
+        protected virtual void ExecutePoison()
         {
-            // 중독 코루틴 시작
-            StartCoroutine(_Poisoning());
+            if (_isPosioning == false)
+            {
+                _isPosioning = true;
+                // 중독 코루틴 시작
+                StartCoroutine(_Poisoning());
+            }
         }
 
         protected virtual void ClosePoison()
         {
             // 중독 상태 해제 후 상태 원상 복구
+            if (_isPosioning == true)
+                _isPosioning = false;
         }
 
         IEnumerator _Poisoning()
@@ -45,7 +56,6 @@ namespace EscapeGame
 
             ClosePoison();
 
-            // 중독 시간 종료 시 콜백 함수 호출
             if (_cb != null)
                 _cb();
         }
