@@ -93,7 +93,7 @@ namespace EscapeGame
                                 // 체력바 초기화
                                 ResetHitUI();
                                 // 중독 초기화
-
+                                ClearPoisonUI();
                                 break;
                             }
                         }
@@ -201,6 +201,7 @@ namespace EscapeGame
             return result;
         }
 
+        // 중독 상태 표시
         public void SetPoisonUI(Poison_Type type, float holdingTime)
         {
             if (_nowUI == UI_ID.PLAYROOM)
@@ -211,13 +212,24 @@ namespace EscapeGame
             }
         }
 
-        public void ResetPoisonUI()
+        // 중독 시간 초기화
+        public void ResetPoisonTimeUI()
         {
             if (_nowUI == UI_ID.PLAYROOM)
             {
                 PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
 
-                playroom.OnPoisoningReset();
+                playroom.OnPoisoningTimeReset();
+            }
+        }
+
+        public void ClearPoisonUI()
+        {
+            if (_nowUI == UI_ID.PLAYROOM)
+            {
+                PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
+
+                playroom.OnClearPoison();
             }
         }
 

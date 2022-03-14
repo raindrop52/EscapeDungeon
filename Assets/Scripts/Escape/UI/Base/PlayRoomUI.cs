@@ -122,9 +122,14 @@ namespace EscapeGame
             _statusUI.OnPoisoningUI(type, holdingTime);
         }
 
-        public void OnPoisoningReset()
+        public void OnPoisoningTimeReset()
         {
             _statusUI.OnPoisonUIResetTime();
+        }
+
+        public void OnClearPoison()
+        {
+            _statusUI.OnClearPoisonUI();
         }
     }
 }

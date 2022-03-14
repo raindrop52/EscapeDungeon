@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EscapeGame
 {
-    public class FaintFx : PoisonFx
+    public class ParalysisFx : PoisonFx
     {
 
     }

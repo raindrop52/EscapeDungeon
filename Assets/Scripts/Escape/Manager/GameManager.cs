@@ -80,6 +80,8 @@ namespace EscapeGame
         {
             // 플레이어 크기 설정
             _player.CheckScale();
+            // 플레이어 중독 이펙트 중지
+            _player.ClearPoisonFx();
 
             // 플레이어 위치 설정
             _player.gameObject.transform.position = _spawnPos.position;

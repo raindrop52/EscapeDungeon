@@ -87,7 +87,7 @@ namespace EscapeGame
                 if (_poison != null)
                     _poison.UsingTime = 0.0f;
                 // UI 시간 갱신
-                UIManager._inst.ResetPoisonUI();
+                UIManager._inst.ResetPoisonTimeUI();
             }
         }
     }

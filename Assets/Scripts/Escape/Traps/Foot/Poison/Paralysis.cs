@@ -8,6 +8,18 @@ namespace EscapeGame
     {
         Player_Control _pc = null;
 
+        public override void OnPoison(Player player, Callback cb)
+        {
+            if (_fx == null)
+            {
+                Transform trans = player.transform.Find("ParalysisFX");
+                if(trans != null)
+                    _fx = trans.GetComponent<PoisonFx>();
+            }
+
+            base.OnPoison(player, cb);
+        }
+
         protected override void ExecutePoison()
         {
             if (_pc == null)
@@ -22,7 +34,6 @@ namespace EscapeGame
             // ¿Ã∆Â∆Æ µø¿€
             if (_fx != null)
             {
-                _fx.Init();
                 _fx.PlayParticle();
             }
 

@@ -45,6 +45,7 @@ namespace EscapeGame
             {
                 StageManager._inst.SetStageLV(Stage_LV.RESTROOM);
             }
+
             // 스테이지 초기화
             StageManager._inst.StageInit();
 

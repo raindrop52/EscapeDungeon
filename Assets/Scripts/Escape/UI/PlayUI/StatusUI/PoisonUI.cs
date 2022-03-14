@@ -44,7 +44,15 @@ namespace EscapeGame
         public void PoisoningReset()
         {
             if (_poImg != null)
-                _poImg._reset = true;
+                _poImg.Reset = true;
+        }
+
+        public void ClearPoison()
+        {
+            if (_poImg != null)
+            {
+                _poImg.Disappear();
+            }
         }
     }
 }

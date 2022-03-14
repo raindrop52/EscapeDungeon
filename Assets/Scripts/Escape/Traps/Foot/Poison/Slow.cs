@@ -9,6 +9,16 @@ namespace EscapeGame
         [SerializeField] float _slowSpeedPer = 2.0f;
         Player_Control _pc = null;
 
+        public override void OnPoison(Player player, Callback cb)
+        {
+            if(_fx == null)
+            {
+                _fx = player.transform.Find("SlowFX").GetComponent<PoisonFx>();
+            }
+
+            base.OnPoison(player, cb);
+        }
+
         protected override void ExecutePoison()
         {
             if(_pc == null)

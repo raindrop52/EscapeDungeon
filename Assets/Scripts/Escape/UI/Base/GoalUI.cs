@@ -28,6 +28,8 @@ namespace EscapeGame
             {
                 _btnExit.onClick.AddListener(delegate ()
                 {
+                    // 저장 기록 초기화 (생각해봄)
+
                     // PlayUI 표시
                     UIManager._inst.NowUI = UI_ID.LOBBY;
                     UIManager._inst.ChangeUI();

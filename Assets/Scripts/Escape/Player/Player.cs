@@ -24,6 +24,7 @@ namespace EscapeGame
         [Header("중독 관련")]
         //중독 상태 여부
         Dictionary<Poison_Type, bool> _isPoison;
+        PoisonFx[] _poisonFxs;
 
         [Header("조이스틱 버튼 관련")]
         public bool _btnDo = false;
@@ -43,6 +44,8 @@ namespace EscapeGame
                 _isPoison.Add((Poison_Type)i, false);
             }
 
+            _poisonFxs = GetComponentsInChildren<PoisonFx>();
+
             GameObject stateMgrObj = new GameObject("PlayerStateManager");
             stateMgrObj.transform.parent = transform;
             _stateMgr = stateMgrObj.AddComponent<Player_StateManager>();
@@ -61,6 +64,18 @@ namespace EscapeGame
         public void SetPoisonStatus(Poison_Type key, bool status)
         {
             _isPoison[key] = status;
+        }
+
+        public void ClearPoisonFx()
+        {
+            if(_poisonFxs.Length > 0)
+            {
+                foreach(PoisonFx fx in _poisonFxs)
+                {
+                    fx.Init();
+                    fx.StopParticle();
+                }
+            }                
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

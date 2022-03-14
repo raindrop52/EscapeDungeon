@@ -16,7 +16,7 @@ namespace EscapeGame
         protected Player _target;
         Callback _cb;
 
-        public void OnPoison(Player player, Callback cb)
+        public virtual void OnPoison(Player player, Callback cb)
         {
             _cb = cb;
 
@@ -49,6 +49,9 @@ namespace EscapeGame
             // 중독 지속 시간
             while (_time < _poisonTime)
             {
+                if (GameManager._inst.Die == true)
+                    break;
+
                 _time += Time.fixedDeltaTime;
 
                 yield return null;

@@ -8,19 +8,28 @@ namespace EscapeGame
     {
         ParticleSystem _ps;
 
-        public void Init(bool sticky = false)
+        public void Init()
         {
             _ps = GetComponent<ParticleSystem>();
+            _ps.gameObject.SetActive(false);
         }
 
         public void PlayParticle()
         {
-            _ps.Play();
+            if(_ps != null)
+            {
+                _ps.gameObject.SetActive(true);
+                _ps.Play();
+            }
         }
 
         public void StopParticle()
         {
-            _ps.Stop();
+            if (_ps != null)
+            {
+                _ps.Stop();
+                _ps.gameObject.SetActive(false);
+            }
         }
     }
 }
