@@ -8,9 +8,11 @@ namespace EscapeGame
     {
         int _layerMask;
         float _movePlayerValue = 0.85f;
+        ParticleSystem _ps;
 
         void Start()
         {
+            _ps = GetComponentInChildren<ParticleSystem>();
             _layerMask = 1 << LayerMask.NameToLayer("Player");
         }
 
@@ -32,6 +34,7 @@ namespace EscapeGame
                 // 좌우 레이 충돌 체크
                 if (hitR || hitL)
                 {
+                    _ps.Play();
                     // 게임매니저의 플레이어 위치 현재 위치로 설정
                     Vector3 playerPos = new Vector3(transform.position.x + _movePlayerValue, transform.position.y, transform.position.z);
                     GameManager._inst.SetSpawnPos(playerPos);

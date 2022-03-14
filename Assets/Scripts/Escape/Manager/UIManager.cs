@@ -143,20 +143,6 @@ namespace EscapeGame
 
         #region PlayRoom
         
-        public MessageBox GetMessageBoxInUI()
-        {
-            MessageBox msgBox = null;
-
-            if(_nowUI == UI_ID.PLAYROOM)
-            {
-                PlayRoomUI playroom = _uiList[(int)_nowUI] as PlayRoomUI;
-
-                msgBox = playroom.GetMessageBox();
-            }
-
-            return msgBox;
-        }
-
         public void RefreshHitUI()
         {
             if (_nowUI == UI_ID.PLAYROOM)

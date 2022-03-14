@@ -11,7 +11,7 @@ namespace EscapeGame
 
         StatusUI _statusUI;
         ControlUI _controlUI;
-        MessageBox _messageBox;
+        NoticeUI _noticeUI;
 
         bool _talking = false;
         public bool Talking
@@ -33,16 +33,12 @@ namespace EscapeGame
                 ShowTextPanel(false);
             }
 
-            _messageBox = GetComponentInChildren<MessageBox>(true);
-            if (_messageBox != null)
-            {
-                _messageBox.OnShow(false);
-            }
-
             _statusUI = transform.Find("StatusUI").GetComponentInChildren<StatusUI>();
             _statusUI.Init();
             _controlUI = transform.Find("ControlUI").GetComponentInChildren<ControlUI>();
             _controlUI.Init();
+            _noticeUI = transform.Find("NoticeUI").GetComponentInChildren<NoticeUI>();
+            _noticeUI.Init();
         }
 
         public void StageInit()
@@ -100,11 +96,6 @@ namespace EscapeGame
                     }
                 }
             }
-        }
-
-        public MessageBox GetMessageBox()
-        {
-            return _messageBox;
         }
 
         public void OnHit()
