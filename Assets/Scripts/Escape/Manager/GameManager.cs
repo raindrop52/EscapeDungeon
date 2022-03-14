@@ -62,6 +62,8 @@ namespace EscapeGame
             // 플레이어 초기화
             _player.Init();
 
+            // 사운드 매니저 초기화
+            SoundManager._inst.Init();
             // 스테이지 매니저 초기화
             StageManager._inst.Init();
             // UI매니저 초기화

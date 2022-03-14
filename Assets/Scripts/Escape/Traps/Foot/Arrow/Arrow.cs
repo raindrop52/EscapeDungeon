@@ -6,16 +6,19 @@ namespace EscapeGame
 {
     public class Arrow : MonoBehaviour
     {
-        public float _speed = 1.0f;
+        float _speed = 1.0f;
         float _time = 3.0f;
+        AudioSource _sfx;
 
-        void Start()
+        public void Init(float speed)
         {
-
+            _speed = speed;
+            _sfx = GetComponentInChildren<AudioSource>();
+            if (_sfx != null)
+                _sfx.Play();
         }
 
-        
-        void Update()
+        void FixedUpdate()
         {
             transform.Translate(Vector3.down * Time.deltaTime * _speed);
 

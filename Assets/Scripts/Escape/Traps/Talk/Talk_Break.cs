@@ -23,6 +23,7 @@ namespace EscapeGame
                         // Æø¹ß ÀÌÆåÆ® Ç¥½Ã
                         if(_psBomb != null)
                         {
+                            PlaySFX(SFX_List.BOMB);
                             _psBomb.Play();
                         }
 

@@ -29,6 +29,8 @@ namespace EscapeGame
         [Header("조이스틱 버튼 관련")]
         public bool _btnDo = false;
 
+        AudioSource _footstep;
+
         Player_StateManager _stateMgr;
 
         Vector3 _playerScale;
@@ -45,11 +47,24 @@ namespace EscapeGame
             }
 
             _poisonFxs = GetComponentsInChildren<PoisonFx>();
+            _footstep = GetComponentInChildren<AudioSource>();
 
             GameObject stateMgrObj = new GameObject("PlayerStateManager");
             stateMgrObj.transform.parent = transform;
             _stateMgr = stateMgrObj.AddComponent<Player_StateManager>();
             _stateMgr.Init(this);
+        }
+
+        public void OnFootStep()
+        {
+            if (_footstep != null)
+                _footstep.Play();
+        }
+
+        public void StopFootStep()
+        {
+            if (_footstep != null)
+                _footstep.Stop();
         }
 
         public bool GetPoisonStatus(Poison_Type key)

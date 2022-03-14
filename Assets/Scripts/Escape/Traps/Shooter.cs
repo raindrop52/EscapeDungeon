@@ -45,7 +45,7 @@ namespace EscapeGame
             }
 
             Arrow arrow = arrowObj.GetComponent<Arrow>();
-            arrow._speed = _shotSpeed;
+            arrow.Init(_shotSpeed);
         }
     }
 }

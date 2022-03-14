@@ -10,7 +10,6 @@ namespace EscapeGame
         public LayerMask _layerMask;    // 통과 불가 오브젝트 설정
         SpriteRenderer _sprite;
         Animator _anim;
-        Player _player;
 
         Vector3 vector;
 
@@ -103,7 +102,6 @@ namespace EscapeGame
             _boxCol = GetComponent<BoxCollider2D>();
             _anim = GetComponent<Animator>();
             _light = GetComponentInChildren<PlayerLight>();
-            _player = GetComponent<Player>();
         }
 
         void FixedUpdate()
@@ -151,8 +149,9 @@ namespace EscapeGame
 
         public void OnTalkButton()
         {
-            if(_player._btnDo == false)
-                _player._btnDo = true;
+            Player player = GameManager._inst._player;
+            if(player._btnDo == false)
+                player._btnDo = true;
         }
     }
 }

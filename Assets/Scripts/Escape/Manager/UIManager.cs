@@ -76,6 +76,7 @@ namespace EscapeGame
                             if (_uiList[i] is LobbyUI)
                             {
                                 showNo = i;
+                                SoundManager._inst.OnPlayBgm(BGM_List.LOBBY);
                                 break;
                             }
                         }
@@ -94,6 +95,7 @@ namespace EscapeGame
                                 ResetHitUI();
                                 // 중독 초기화
                                 ClearPoisonUI();
+                                SoundManager._inst.OnPlayBgm(BGM_List.PLAYROOM);
                                 break;
                             }
                         }
@@ -108,6 +110,7 @@ namespace EscapeGame
                             if (_uiList[i] is GameOverUI)
                             {
                                 showNo = i;
+                                SoundManager._inst.OnPlayBgm(BGM_List.GAMEOVER);
                                 break;
                             }
                         }

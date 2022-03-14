@@ -36,6 +36,7 @@ namespace EscapeGame
                         GoalUI goalUi = UIManager._inst.GetUI(UI_ID.GOAL) as GoalUI;
                         if(goalUi != null)
                         {
+                            SoundManager._inst.OnPlayBgm(BGM_List.GOAL);
                             goalUi.OnShow(true);
                         }
                     }

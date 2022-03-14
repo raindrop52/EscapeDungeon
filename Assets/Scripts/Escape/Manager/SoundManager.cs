@@ -8,37 +8,76 @@ namespace EscapeGame
     public enum SFX_List
     {
         HOLE,
-        
+        BOMB,
+    }
 
+    public enum BGM_List
+    {
+        LOBBY,
+        PLAYROOM,
+        GAMEOVER,
+        GOAL,
     }
 
     public class SoundManager : MonoBehaviour
     {
         public static SoundManager _inst;
         
-        [SerializeField] List<AudioSource> _sfxList;
+        [SerializeField] AudioSource[] _sfxList;
+        [SerializeField] AudioSource[] _bgmList;
+        int _prevNo = -1;
 
         private void Awake()
         {
             _inst = this;
         }
 
-        void Start()
+        public void Init()
         {
-            AudioSource[] soundList = GetComponentsInChildren<AudioSource>();
-            _sfxList = soundList.ToList();
-        }
-
-        
-        void Update()
-        {
-
+            Transform trans = transform.Find("Sfx");
+            _sfxList = trans.GetComponentsInChildren<AudioSource>();
+            trans = transform.Find("Bgm");
+            _bgmList = trans.GetComponentsInChildren<AudioSource>();
         }
 
         public void OnPlaySfx(SFX_List sfxNo)
         {
             int no = (int)sfxNo;
-            _sfxList[no].Play();
+            if (_sfxList.Length > 0 && no < _sfxList.Length)
+            {
+                _sfxList[no].Play();
+            }
+        }
+
+        public void OnStopSfx(SFX_List sfxNo)
+        {
+            int no = (int)sfxNo;
+            if (_sfxList.Length > 0 && no < _sfxList.Length)
+            {
+                _sfxList[no].Stop();
+            }
+        }
+
+        public void OnPlayBgm(BGM_List bgmNo)
+        {
+            int no = (int)bgmNo;
+
+            if(_prevNo >= 0)
+            {
+                OnStopBgm();
+            }
+
+            _prevNo = no;
+
+            if(no < _bgmList.Length)
+                _bgmList[no].Play();
+        }
+
+        public void OnStopBgm()
+        {
+            int no = _prevNo;
+            if (no < _bgmList.Length)
+                _bgmList[no].Stop();
         }
     }
 }
