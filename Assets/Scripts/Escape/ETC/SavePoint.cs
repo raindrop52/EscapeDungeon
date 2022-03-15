@@ -38,6 +38,8 @@ namespace EscapeGame
                     // 게임매니저의 플레이어 위치 현재 위치로 설정
                     Vector3 playerPos = new Vector3(transform.position.x + _movePlayerValue, transform.position.y, transform.position.z);
                     GameManager._inst.SetSpawnPos(playerPos);
+
+                    yield return new WaitForSeconds(5.0f);
                 }
 
                 yield return null;
