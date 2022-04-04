@@ -40,6 +40,7 @@ namespace EscapeGame
         { get { return _die; } set { _die = value; } }
 
         public bool _editorMode = true;
+        public bool _mobileMode = false;
 
         void Awake()
         {

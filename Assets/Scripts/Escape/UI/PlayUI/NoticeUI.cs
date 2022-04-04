@@ -13,7 +13,7 @@ namespace EscapeGame
             if(_keyTrans != null)
             {
                 Tutorial_Key[] keys = GetComponentsInChildren<Tutorial_Key>();
-                foreach(Tutorial_Key key in keys)
+                foreach (Tutorial_Key key in keys)
                 {
                     key.Init();
                 }

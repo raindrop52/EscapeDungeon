@@ -21,7 +21,12 @@ namespace EscapeGame
         {
             if (collision.gameObject.tag.Equals("Player"))
             {
-                foreach(Tutorial_Key key in _keys)
+                if(GameManager._inst._mobileMode == true)
+                {
+                    return;
+                }
+
+                foreach (Tutorial_Key key in _keys)
                 {
                     key.OnShow(true);
                     StartCoroutine(_OnPush());
@@ -31,6 +36,11 @@ namespace EscapeGame
 
         private void OnTriggerStay2D(Collider2D collision)
         {
+            if (GameManager._inst._mobileMode == true)
+            {
+                return;
+            }
+
             if (collision.gameObject.tag.Equals("Player"))
             {
                 _inArea = true;
@@ -41,6 +51,11 @@ namespace EscapeGame
         {
             if (collision.gameObject.tag.Equals("Player"))
             {
+                if (GameManager._inst._mobileMode == true)
+                {
+                    return;
+                }
+
                 _inArea = false;
 
                 foreach (Tutorial_Key key in _keys)

@@ -19478,7 +19478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &749270859
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20492,7 +20492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &969303508
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21099,7 +21099,6 @@ MonoBehaviour:
   _y: 0
   _joystick: {fileID: 601627092125368916}
   _talkButtonGo: {fileID: 1988588530}
-  _joystickMove: 0
 --- !u!61 &1039837651
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -30502,6 +30501,7 @@ MonoBehaviour:
   _player: {fileID: 1039837652}
   _loadingPanel: {fileID: 543516525}
   _editorMode: 0
+  _mobileMode: 1
 --- !u!4 &1729975418
 Transform:
   m_ObjectHideFlags: 0
