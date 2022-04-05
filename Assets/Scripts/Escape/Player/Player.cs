@@ -53,6 +53,15 @@ namespace EscapeGame
             stateMgrObj.transform.parent = transform;
             _stateMgr = stateMgrObj.AddComponent<Player_StateManager>();
             _stateMgr.Init(this);
+
+            Player_Control pcCtrl = GetComponent<Player_Control>();
+            if(pcCtrl != null)
+            {
+                pcCtrl.Init();
+
+                if(GameManager._inst._mobileMode == true)
+                    pcCtrl.OnSwitchMove(false);
+            }
         }
 
         public void OnFootStep()

@@ -94,7 +94,7 @@ namespace EscapeGame
             _canMove = true;
         }
 
-        void Start()
+        public void Init()
         {
             _sprite = GetComponent<SpriteRenderer>();
             _boxCol = GetComponent<BoxCollider2D>();
@@ -102,7 +102,12 @@ namespace EscapeGame
             _light = GetComponentInChildren<PlayerLight>();
         }
 
-        void FixedUpdate()
+        public void OnSwitchMove(bool move)
+        {
+            enabled = move;
+        }
+
+        void Update()
         {
             if (GameManager._inst.MapMoving == false)
             {

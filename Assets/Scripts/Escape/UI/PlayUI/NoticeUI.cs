@@ -7,6 +7,7 @@ namespace EscapeGame
     public class NoticeUI : MonoBehaviour
     {
         [SerializeField] Transform _keyTrans;
+        public Notice_Tutorial _notice_Tutorial;
 
         public void Init()
         {
@@ -17,6 +18,12 @@ namespace EscapeGame
                 {
                     key.Init();
                 }
+            }
+
+            _notice_Tutorial = transform.Find("Tutorial_Mobile").GetComponent<Notice_Tutorial>();
+            if(_notice_Tutorial != null)
+            {
+                _notice_Tutorial.Init();
             }
         }
     }

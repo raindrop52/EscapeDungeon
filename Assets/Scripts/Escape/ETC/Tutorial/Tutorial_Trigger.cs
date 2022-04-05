@@ -23,7 +23,11 @@ namespace EscapeGame
             {
                 if(GameManager._inst._mobileMode == true)
                 {
-                    return;
+                    PlayRoomUI uiRoom = UIManager._inst.GetUI(UI_ID.PLAYROOM) as PlayRoomUI;
+                    if(uiRoom != null)
+                    {
+                        uiRoom._noticeUI._notice_Tutorial.OnShow(true);
+                    }
                 }
 
                 foreach (Tutorial_Key key in _keys)

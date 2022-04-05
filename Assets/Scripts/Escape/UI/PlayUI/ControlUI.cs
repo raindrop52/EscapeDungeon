@@ -9,18 +9,19 @@ namespace EscapeGame
     public class ControlUI : MonoBehaviour
     {
         [SerializeField] Joystick _joystick;
-        [SerializeField] Button _button;
-
-        void Start()
-        {
-
-        }
 
         public void Init()
         {
             // 초기 조이스틱 False로 설정
             if (_joystick != null)
                 _joystick.gameObject.SetActive(false);
+
+            OnShow(false);
+        }
+
+        public void OnShow(bool show)
+        {
+            gameObject.SetActive(show);
         }
 
         public void OnPointerDown()

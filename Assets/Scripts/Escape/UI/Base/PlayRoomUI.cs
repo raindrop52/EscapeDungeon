@@ -9,9 +9,9 @@ namespace EscapeGame
     {
         GameObject _textReadPanel;
 
-        StatusUI _statusUI;
-        ControlUI _controlUI;
-        NoticeUI _noticeUI;
+        public StatusUI _statusUI;
+        public ControlUI _controlUI;
+        public NoticeUI _noticeUI;
 
         bool _talking = false;
         public bool Talking

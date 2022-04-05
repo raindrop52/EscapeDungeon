@@ -99,6 +99,7 @@ namespace EscapeGame
                 case 0:
                     {
                         RestRoom room = baseStage as RestRoom;
+                        
                         room.Init();
 
                         break;

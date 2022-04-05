@@ -17,6 +17,13 @@ namespace EscapeGame
             _lifeUI.Init();
 
             _poisonUI = GetComponentInChildren<PoisonUI>();
+
+            OnShow(false);
+        }
+
+        public void OnShow(bool show)
+        {
+            gameObject.SetActive(show);
         }
 
         public void OnHitUI()
@@ -36,7 +43,6 @@ namespace EscapeGame
                     _lifeUI.OnHeal();
             }
         }
-
 
         public void OnPoisoningUI(Poison_Type type, float holdingTime)
         {
