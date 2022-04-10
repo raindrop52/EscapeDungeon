@@ -117,6 +117,20 @@ namespace EscapeGame
 
                         break;
                     }
+
+                case UI_ID.OPTION:
+                    {
+                        for (int i = 0; i < _uiList.Length; i++)
+                        {
+                            if (_uiList[i] is OptionUI)
+                            {
+                                showNo = i;
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
             }
 
             if(_nowUI > UI_ID.INVALID && _nowUI < UI_ID.END)

@@ -73,8 +73,8 @@ namespace EscapeGame
                 _btnOption.onClick.AddListener(delegate ()
                 {
                     // TODO : OptionUI Ç¥½Ã
-                    //UIManager._inst.NowUI = UI_ID.OPTION;
-                    //UIManager._inst.ChangeUI();
+                    UIManager._inst.NowUI = UI_ID.OPTION;
+                    UIManager._inst.ChangeUI();
                 });
             }
 
